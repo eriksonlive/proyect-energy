@@ -1,0 +1,1 @@
+export { PrediccionEnergiaSolarPage } from './PrediccionEnegiaSolarPage';

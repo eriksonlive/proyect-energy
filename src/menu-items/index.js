@@ -1,7 +1,11 @@
-import { dashboard } from "./dashboard";
-import { pages } from "./pages";
-import { utilities } from "./utilities";
+import { dashboard } from './dashboard';
+import { pages } from './pages';
+// import { utilities } from './utilities';
+import { monitoreo } from './monitoreo';
+import { prediccion } from './prediccion';
+import { energia } from './electrica';
+import { comunidad } from './comunidad';
 
 export const menuItems = {
-    items: [dashboard, pages, utilities]
+  items: [dashboard, monitoreo, prediccion, energia, comunidad, pages],
 };

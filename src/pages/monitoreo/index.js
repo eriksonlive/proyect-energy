@@ -1,0 +1,1 @@
+export { EnergiaSolarPage } from './EnegiaSolarPage';

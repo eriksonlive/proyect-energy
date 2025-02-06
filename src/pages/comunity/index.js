@@ -1,0 +1,1 @@
+export { ComunidadPage } from './ComunidadPage';
