@@ -1,0 +1,14 @@
+.chart-container {
+  width: 100%;
+  height: 30vh; /* Ajustar según necesites */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.charts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}

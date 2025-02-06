@@ -1,0 +1,5 @@
+{
+    "invoices": "./data/invoices.json",
+    "customers": "./data/customers.json",
+    "products": "./data/products.json"
+}

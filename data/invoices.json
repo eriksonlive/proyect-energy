@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "customerId": 1,
+    "items": [
+      { "productId": 1, "quantity": 2 },
+      { "productId": 2, "quantity": 1 }
+    ],
+    "total": 400,
+    "status": "paid"
+  },
+  {
+    "id": 2,
+    "customerId": 2,
+    "items": [
+      { "productId": 2, "quantity": 3 }
+    ],
+    "total": 600,
+    "status": "pending"
+  }
+]
