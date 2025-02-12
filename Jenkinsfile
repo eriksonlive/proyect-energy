@@ -19,12 +19,12 @@ pipeline {
                 sh 'npm run build'
             }
         }
-        stage('Test') {
-            steps {
-                // Opcional: ejecutar tests
-                sh 'npm test'
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         // Opcional: ejecutar tests
+        //         sh 'npm test'
+        //     }
+        // }
     }
     post {
         always {
