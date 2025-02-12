@@ -19,12 +19,11 @@ pipeline {
                 sh 'npm run build'
             }
         }
-        // stage('Test') {
-        //     steps {
-        //         // Opcional: ejecutar tests
-        //         sh 'npm test'
-        //     }
-        // }
+        stage('Serve') {
+            steps {
+                sh 'npx serve -s build -l 8082'
+            }
+        }
     }
     post {
         always {
