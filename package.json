@@ -18,7 +18,7 @@
     "@mui/icons-material": "^6.3.0",
     "@mui/material": "^6.3.0",
     "@mui/x-date-pickers": "^7.23.3",
-    "@reduxjs/toolkit": "^2.5.0",
+    "@reduxjs/toolkit": "^2.5.1",
     "apexcharts": "^4.3.0",
     "axios": "^1.7.9",
     "formik": "^2.4.6",

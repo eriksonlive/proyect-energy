@@ -15,11 +15,26 @@ import { Customization } from 'layout/custom';
 import { AnimateButton } from 'ui-component';
 import { Field, Form, Formik } from 'formik';
 import { useNavigate } from 'react-router';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useState } from 'react';
 
 export const AuthLogin = ({ ...others }) => {
   const theme = useTheme();
-  const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
+  const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
+
+  const { loginWithPopup, user, isAuthenticated, getAccessTokenSilently } =
+    useAuth0();
+
+  const handleLogin = async () => {
+    try {
+      await loginWithPopup();
+      const token = await getAccessTokenSilently();
+      console.log('Token:', token);
+    } catch (error) {
+      console.error('Error al iniciar sesión', error);
+    }
+  };
 
   return (
     <Grid container direction="column" justifyContent="center" spacing={2}>
@@ -28,11 +43,11 @@ export const AuthLogin = ({ ...others }) => {
           <Button
             disableElevation
             fullWidth
-            onClick={() => {}}
+            onClick={handleLogin}
             size="large"
             variant="outlined"
             sx={{
-              color: "grey.700",
+              color: 'grey.700',
               backgroundColor: theme.palette.grey[50],
               borderColor: theme.palette.grey[100],
             }}
@@ -51,11 +66,11 @@ export const AuthLogin = ({ ...others }) => {
         </AnimateButton>
       </Grid>
 
-      <Grid size={12}>
+      {/* <Grid size={12}>
         <Box
           sx={{
-            alignItems: "center",
-            display: "flex",
+            alignItems: 'center',
+            display: 'flex',
           }}
         >
           <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
@@ -63,7 +78,7 @@ export const AuthLogin = ({ ...others }) => {
           <Button
             variant="outlined"
             sx={{
-              cursor: "unset",
+              cursor: 'unset',
               m: 2,
               py: 0.5,
               px: 7,
@@ -89,26 +104,29 @@ export const AuthLogin = ({ ...others }) => {
 
       <Formik
         initialValues={{
-          user: "",
-          password: "",
+          email: '',
+          password: '',
           checked: false,
         }}
         validate={(values) => {
           let errors = {};
 
-          !values.user
-            ? (errors.user = "Ingresa un correo valido")
-            : !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(values.user) &&
-              (errors.user ="El correo solo puede contener letras, numeros, puntos, guiones y guiones bajos");
+          !values.email
+            ? (errors.email = 'Ingresa un correo valido')
+            : !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
+                values.email
+              ) &&
+              (errors.email =
+                'El correo solo puede contener letras, numeros, puntos, guiones y guiones bajos');
 
-          !values.password && (errors.password = "Ingresa una contraseña");
+          !values.password && (errors.password = 'Ingresa una contraseña');
 
           return errors;
         }}
         onSubmit={(values, { resetForm }) => {
           resetForm();
-          // console.log(values);
-          navigate('/');
+          handleLogin();
+          // navigate('/');
         }}
       >
         {({
@@ -123,9 +141,9 @@ export const AuthLogin = ({ ...others }) => {
             <CustomField
               type="auth"
               textfield={{
-                type: "email",
-                label: "Correo",
-                name: "user",
+                type: 'email',
+                label: 'Correo',
+                name: 'email',
                 value: values.user,
                 onChange: handleChange,
                 onBlur: handleBlur,
@@ -136,9 +154,9 @@ export const AuthLogin = ({ ...others }) => {
             <CustomField
               type="auth"
               textfield={{
-                label: "Contraseña",
-                type: "password",
-                name: "password",
+                label: 'Contraseña',
+                type: 'password',
+                name: 'password',
                 value: values.password,
                 onChange: handleChange,
                 onBlur: handleBlur,
@@ -169,7 +187,7 @@ export const AuthLogin = ({ ...others }) => {
               <Typography
                 variant="subtitle1"
                 color="secondary"
-                sx={{ textDecoration: "none", cursor: "pointer" }}
+                sx={{ textDecoration: 'none', cursor: 'pointer' }}
               >
                 Olvidaste la contraseña?
               </Typography>
@@ -192,7 +210,7 @@ export const AuthLogin = ({ ...others }) => {
             </Box>
           </Form>
         )}
-      </Formik>
+      </Formik> */}
     </Grid>
   );
 };
