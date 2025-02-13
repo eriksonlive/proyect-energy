@@ -23,18 +23,18 @@ export const AuthLogin = ({ ...others }) => {
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
 
-  const { loginWithPopup, user, isAuthenticated, getAccessTokenSilently } =
-    useAuth0();
+  // const { loginWithPopup, user, isAuthenticated, getAccessTokenSilently } =
+  //   useAuth0();
 
-  const handleLogin = async () => {
-    try {
-      await loginWithPopup();
-      const token = await getAccessTokenSilently();
-      console.log('Token:', token);
-    } catch (error) {
-      console.error('Error al iniciar sesión', error);
-    }
-  };
+  // const handleLogin = async () => {
+  //   try {
+  //     await loginWithPopup();
+  //     const token = await getAccessTokenSilently();
+  //     console.log('Token:', token);
+  //   } catch (error) {
+  //     console.error('Error al iniciar sesión', error);
+  //   }
+  // };
 
   return (
     <Grid container direction="column" justifyContent="center" spacing={2}>
@@ -43,7 +43,8 @@ export const AuthLogin = ({ ...others }) => {
           <Button
             disableElevation
             fullWidth
-            onClick={handleLogin}
+            // onClick={handleLogin}
+            onClick={() => {}}
             size="large"
             variant="outlined"
             sx={{
@@ -66,7 +67,7 @@ export const AuthLogin = ({ ...others }) => {
         </AnimateButton>
       </Grid>
 
-      {/* <Grid size={12}>
+      <Grid size={12}>
         <Box
           sx={{
             alignItems: 'center',
@@ -210,7 +211,7 @@ export const AuthLogin = ({ ...others }) => {
             </Box>
           </Form>
         )}
-      </Formik> */}
+      </Formik>
     </Grid>
   );
 };
