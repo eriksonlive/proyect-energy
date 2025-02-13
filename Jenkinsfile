@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Serve') {
             steps {
-                sh 'npx serve -s build -l 8082'
+                sh 'npx serve -s build -l 808'
             }
         }
     }
