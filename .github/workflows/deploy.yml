@@ -42,6 +42,10 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}   # Usualmente "ubuntu" en EC2 con Ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}         # Clave privada en un secreto
           script: |
-            cd /home/ubuntu/deploy    # Directorio donde se encuentra el docker-compose.yml
-            docker-compose pull front-react
-            docker-compose up -d --no-deps front-react
+            cd /home/ubuntu/deploy    # Directorio donde se espera el docker-compose.yml
+            if [ -f docker-compose.yml ]; then
+              docker-compose pull front-react
+              docker-compose up -d --no-deps front-react
+            else
+              echo "No se encontró docker-compose.yml, omitiendo despliegue."
+            fi
