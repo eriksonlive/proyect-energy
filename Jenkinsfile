@@ -19,11 +19,11 @@ pipeline {
                 sh 'npm run build'
             }
         }
-        stage('Serve') {
-            steps {
-                sh 'npx serve -s build -l 808'
-            }
-        }
+        // stage('Serve') {
+        //     steps {
+        //         sh 'npx serve -s build -l 8080'
+        //     }
+        // }
     }
     post {
         always {
