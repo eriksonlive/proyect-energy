@@ -29,9 +29,7 @@ export const DatosRedElectricaPage = () => {
       <Grid container spacing={2}>
         <Grid size={12}>
           <Stack direction="row" spacing={2}>
-            <Typography variant="p">
-              A partir de aqui se empiesa a programar
-            </Typography>
+            <Typography variant="p">Hola mundo example</Typography>
           </Stack>
         </Grid>
       </Grid>
