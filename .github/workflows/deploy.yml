@@ -40,6 +40,7 @@ jobs:
           host: ${{ secrets.HOSTINGER_HOST }}       # IP o dominio de tu VPS de Hostinger
           username: ${{ secrets.HOSTINGER_USER }}     # Usuario de tu VPS (ej. "root" o el que tengas configurado)
           key: ${{ secrets.HOSTINGER_PASS }}           # Clave privada para acceder a tu VPS (en vez de HOSTINGER_PASS, suele ser una llave SSH)
+          port: 22
           script: |
             cd /var/www/energytalento.tech    # Directorio donde se encuentra tu docker-compose.yml
             if [ -f docker-compose.yml ]; then
