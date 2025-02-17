@@ -38,11 +38,11 @@ jobs:
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.6
         with:
-          host: ${{ secrets.EC2_HOST }}         # IP o dominio de la EC2
-          username: ${{ secrets.EC2_USERNAME }}   # Usualmente "ubuntu" en EC2 con Ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}         # Clave privada en un secreto
+          host: ${{ secrets.HOSTINGER }}         # IP o dominio de la EC2
+          username: ${{ secrets.HOSTINGER_USER }}   # Usualmente "ubuntu" en EC2 con Ubuntu
+          key: ${{ secrets.HOSTINGER_PASS }}         # Clave privada en un secreto
           script: |
-            cd /home/ubuntu/deploy    # Directorio donde se espera el docker-compose.yml
+            cd /var/www/energytalento.tech    # Directorio donde se espera el docker-compose.yml
             if [ -f docker-compose.yml ]; then
               docker-compose pull front-react
               docker-compose up -d --no-deps front-react
