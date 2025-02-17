@@ -34,18 +34,33 @@ jobs:
           push: true
           tags: eriksonlives/front-react:latest
 
-      # 5. Conectarse a la instancia EC2 para desplegar la nueva imagen
-      - name: Deploy to EC2
+      - name: Deploy to Hostinger VPS
         uses: appleboy/ssh-action@v0.1.6
         with:
-          host: ${{ secrets.HOSTINGER }}         # IP o dominio de la EC2
-          username: ${{ secrets.HOSTINGER_USER }}   # Usualmente "ubuntu" en EC2 con Ubuntu
-          key: ${{ secrets.HOSTINGER_PASS }}         # Clave privada en un secreto
+          host: ${{ secrets.HOSTINGER_HOST }}       # IP o dominio de tu VPS de Hostinger
+          username: ${{ secrets.HOSTINGER_USER }}     # Usuario de tu VPS (ej. "root" o el que tengas configurado)
+          key: ${{ secrets.HOSTINGER_PASS }}           # Clave privada para acceder a tu VPS (en vez de HOSTINGER_PASS, suele ser una llave SSH)
           script: |
-            cd /var/www/energytalento.tech    # Directorio donde se espera el docker-compose.yml
+            cd /var/www/energytalento.tech    # Directorio donde se encuentra tu docker-compose.yml
             if [ -f docker-compose.yml ]; then
               docker-compose pull front-react
               docker-compose up -d --no-deps front-react
             else
               echo "No se encontró docker-compose.yml, omitiendo despliegue."
             fi
+
+      # 5. Conectarse a la instancia EC2 para desplegar la nueva imagen
+      # - name: Deploy to EC2
+      #   uses: appleboy/ssh-action@v0.1.6
+      #   with:
+      #     host: ${{ secrets.HOSTINGER }}         # IP o dominio de la EC2
+      #     username: ${{ secrets.HOSTINGER_USER }}   # Usualmente "ubuntu" en EC2 con Ubuntu
+      #     key: ${{ secrets.HOSTINGER_PASS }}         # Clave privada en un secreto
+      #     script: |
+      #       cd /var/www/energytalento.tech    # Directorio donde se espera el docker-compose.yml
+      #       if [ -f docker-compose.yml ]; then
+      #         docker-compose pull front-react
+      #         docker-compose up -d --no-deps front-react
+      #       else
+      #         echo "No se encontró docker-compose.yml, omitiendo despliegue."
+      #       fi
