@@ -30,7 +30,7 @@ export const PrediccionEnergiaSolarPage = () => {
         <Grid size={12}>
           <Stack direction="row" spacing={2}>
             <Typography variant="p">
-              A partir de aqui se empiesa a programar
+              A partir de aqui se empiesa a programar para hacer pruebas
             </Typography>
           </Stack>
         </Grid>
