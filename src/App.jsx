@@ -30,7 +30,7 @@ export const App = ({ children }) => {
       > */}
       <ThemeProvider theme={theme(customization)}>
         <LocalizationProvider dateAdapter={AdapterMoment}>
-        <APIProvider apiKey=""> 
+        <APIProvider apiKey={apimaps}> 
           <CssBaseline />
           {children}
           </APIProvider>
