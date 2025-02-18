@@ -1,9 +1,7 @@
+import { ControlPosition, Map, MapControl } from '@vis.gl/react-google-maps';
 
-import {ControlPosition, Map, MapControl} from '@vis.gl/react-google-maps';
-
-import {UndoRedoControl} from './undo-redo-control';
-import {useDrawingManager} from './use-drawing-manager';
-
+import { UndoRedoControl } from './undo-redo-control';
+import { useDrawingManager } from './use-drawing-manager';
 
 export const DrawingExample = () => {
   const drawingManager = useDrawingManager();
@@ -12,12 +10,10 @@ export const DrawingExample = () => {
     <>
       <Map
         defaultZoom={3}
-        defaultCenter={{lat: 22.54992, lng: 0}}
+        defaultCenter={{ lat: 22.54992, lng: 0 }}
         gestureHandling={'greedy'}
         disableDefaultUI={true}
       />
-
-
 
       <MapControl position={ControlPosition.TOP_CENTER}>
         <UndoRedoControl drawingManager={drawingManager} />
@@ -25,4 +21,3 @@ export const DrawingExample = () => {
     </>
   );
 };
-

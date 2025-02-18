@@ -1,18 +1,18 @@
-import {useReducer, useRef} from 'react';
-import {useMap} from '@vis.gl/react-google-maps';
+import { useReducer, useRef } from 'react';
+import { useMap } from '@vis.gl/react-google-maps';
 
 import reducer, {
   useDrawingManagerEvents,
   useOverlaySnapshots
 } from './undo-redo';
 
-import {DrawingActionKind} from './types';
+import { DrawingActionKind } from './types';
 
 interface Props {
   drawingManager: google.maps.drawing.DrawingManager | null;
 }
 
-export const UndoRedoControl = ({drawingManager}: Props) => {
+export const UndoRedoControl = ({ drawingManager }: Props) => {
   const map = useMap();
 
   const [state, dispatch] = useReducer(reducer, {
@@ -34,7 +34,7 @@ export const UndoRedoControl = ({drawingManager}: Props) => {
   return (
     <div className="drawing-history">
       <button
-        onClick={() => dispatch({type: DrawingActionKind.UNDO})}
+        onClick={() => dispatch({ type: DrawingActionKind.UNDO })}
         disabled={!state.past.length}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@ export const UndoRedoControl = ({drawingManager}: Props) => {
         </svg>
       </button>
       <button
-        onClick={() => dispatch({type: DrawingActionKind.REDO})}
+        onClick={() => dispatch({ type: DrawingActionKind.REDO })}
         disabled={!state.future.length}>
         <svg
           xmlns="http://www.w3.org/2000/svg"

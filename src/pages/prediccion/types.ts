@@ -1,5 +1,5 @@
 export type OverlayGeometry =
-  | google.maps.Marker
+  | google.maps.marker.AdvancedMarkerElement
   | google.maps.Polygon
   | google.maps.Polyline
   | google.maps.Rectangle
@@ -56,8 +56,8 @@ export function isCircle(
 
 export function isMarker(
   overlay: OverlayGeometry
-): overlay is google.maps.Marker {
-  return (overlay as google.maps.Marker).getPosition !== undefined;
+): overlay is google.maps.marker.AdvancedMarkerElement {
+  return (overlay as google.maps.marker.AdvancedMarkerElement).position !== undefined;
 }
 
 export function isPolygon(

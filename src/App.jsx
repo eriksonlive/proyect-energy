@@ -6,15 +6,17 @@ import {
 import { useSelector } from 'react-redux';
 import { theme } from 'theme';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { APIProvider, Map, ControlPosition,MapControl} from '@vis.gl/react-google-maps';
+import { APIProvider } from '@vis.gl/react-google-maps';
 import 'assets/scss/style.scss';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 
 // import { Auth0Provider } from '@auth0/auth0-react';
 
-const apimaps = 'AIzaSyAui1rfWcrUzcOdriaVvdwFfJuokvsvtIo'
+const apimaps = import.meta.env.VITE_API_MAP_KEY;
 // const domain = 'dev-3hlihodxgyn2r8zl.us.auth0.com';
 // const clientId = 'JT6yEUdNHx4aAnvXeLGsFocK7HYqdqI8';
+// const domain = import.meta.env.VITE_AUTH_DOMAIN;
+// const clientId = import.meta.env.VITE_AUTH_KEY;
 
 export const App = ({ children }) => {
   const customization = useSelector((state) => state.customization);
@@ -30,9 +32,9 @@ export const App = ({ children }) => {
       > */}
       <ThemeProvider theme={theme(customization)}>
         <LocalizationProvider dateAdapter={AdapterMoment}>
-        <APIProvider apiKey={apimaps}> 
-          <CssBaseline />
-          {children}
+          <APIProvider apiKey={apimaps}>
+            <CssBaseline />
+            {children}
           </APIProvider>
         </LocalizationProvider>
       </ThemeProvider>
