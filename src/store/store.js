@@ -2,13 +2,15 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { themeSlice } from './slices/theme/themeSlice';
 import { customSlice } from './slices/custom/customReducer';
-import { pokemonApi } from 'apis';
+import { pokemonApi, pvWatts } from 'apis';
 
 export const store = configureStore({
   reducer: {
     themeMode: themeSlice.reducer,
     custom: customSlice.reducer,
     [pokemonApi.reducerPath]: pokemonApi.reducer,
+    [pvWatts.reducerPath]: pvWatts.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(pokemonApi.middleware),
-})
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(pokemonApi.middleware, pvWatts.middleware),
+});

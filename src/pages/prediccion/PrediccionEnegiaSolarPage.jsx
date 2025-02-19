@@ -4,11 +4,17 @@ import { MainCard } from 'ui-component';
 import { useDrawingManager } from './use-drawing-manager';
 import { Map, ControlPosition, MapControl } from '@vis.gl/react-google-maps';
 import { CustomDatatable } from 'components';
+import { usePostByAreaQuery } from 'apis';
 
 export const PrediccionEnergiaSolarPage = () => {
   const drawingManager = useDrawingManager();
   const [polygons, setPolygons] = useState([]);
+  const [dataWatts, setDataWatts] = useState({});
   const [polygonOverlays, setPolygonOverlays] = useState([]);
+
+  const { data, error, isLoading } = usePostByAreaQuery(dataWatts);
+
+  
 
   // Configuración de las columnas de la tabla
   const columns = [
@@ -51,8 +57,20 @@ export const PrediccionEnergiaSolarPage = () => {
           area: area.toFixed(2),
           coordinates: path,
           overlay: polygon,
+          // kw: area.toFixed(2) * 0.2
         },
       ]);
+
+      setDataWatts({
+        system_capacity: area.toFixed(2) * 0.2,
+        module_type: '0',
+        losses: '10',
+        array_type: '1',
+        tilt: '9',
+        azimuth: '21',
+        lat: '6.1824',
+        lon: '-75.5681',
+      });
     }
   };
 
@@ -81,6 +99,8 @@ export const PrediccionEnergiaSolarPage = () => {
       return () => google.maps.event.removeListener(listener);
     }
   }, [drawingManager]);
+
+  console.log(data);
 
   return (
     <MainCard>
