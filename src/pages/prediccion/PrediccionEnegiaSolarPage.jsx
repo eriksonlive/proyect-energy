@@ -1,11 +1,8 @@
 import { Box, Button, Grid2 as Grid, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { MainCard } from 'ui-component';
-import { UndoRedoControl } from './undo-redo-control'; // Controles del mapa
 import { useDrawingManager } from './use-drawing-manager'; // Hook del Drawing Manager
 import { Map, ControlPosition, MapControl } from '@vis.gl/react-google-maps'; // React Google Maps API
-import { color } from 'framer-motion';
-import { red } from '@mui/material/colors';
 
 export const PrediccionEnergiaSolarPage = () => {
   const drawingManager = useDrawingManager();
@@ -103,9 +100,7 @@ export const PrediccionEnergiaSolarPage = () => {
             />
 
             {/* Controles del mapa */}
-            <MapControl position={ControlPosition.TOP_CENTER}>
-              {/* <UndoRedoControl drawingManager={drawingManager} /> */}
-            </MapControl>
+            <MapControl position={ControlPosition.TOP_CENTER} />
           </Stack>
         </Grid>
 
