@@ -1,51 +1,72 @@
 import { Box, Button, Grid2 as Grid, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { MainCard } from 'ui-component';
-import { useDrawingManager } from './use-drawing-manager'; // Hook del Drawing Manager
-import { Map, ControlPosition, MapControl } from '@vis.gl/react-google-maps'; // React Google Maps API
+import { useDrawingManager } from './use-drawing-manager';
+import { Map, ControlPosition, MapControl } from '@vis.gl/react-google-maps';
+import { CustomDatatable } from 'components';
 
 export const PrediccionEnergiaSolarPage = () => {
   const drawingManager = useDrawingManager();
-  const [polygons, setPolygons] = useState([]); // Estado de polígonos
-  const [polygonOverlays, setPolygonOverlays] = useState([]); // Estado de referencias en el mapa
+  const [polygons, setPolygons] = useState([]);
+  const [polygonOverlays, setPolygonOverlays] = useState([]);
 
-  // ✅ Captura el evento de dibujo cuando se completa un polígono
+  // Configuración de las columnas de la tabla
+  const columns = [
+    { field: 'id', headerName: 'ID', width: 100 },
+    { field: 'area', headerName: 'Área (m²)', width: 150 },
+    {
+      field: 'coordinates',
+      headerName: 'Coordenadas',
+      width: 600,
+      renderCell: (params) => (
+        <Typography variant="body2" sx={{ marginTop: '15px' }}>
+          {params.value
+            .map(
+              (coord) => `(${coord.lat.toFixed(4)}, ${coord.lng.toFixed(4)})`
+            )
+            .join(' | ')}
+        </Typography>
+      ),
+    },
+    { field: 'actions', headerName: 'Acciones', width: 150 },
+  ];
+
+  // Captura el evento cuando se crea un polígono
   const handleOverlayComplete = (event) => {
     if (event.type === google.maps.drawing.OverlayType.POLYGON) {
-      const polygon = event.overlay; // Obtiene el polígono dibujado
-      const pathArray = polygon.getPath().getArray(); // Obtiene coordenadas
-
-      // Calcula el área del polígono
+      const polygon = event.overlay;
+      const pathArray = polygon.getPath().getArray();
       const area = google.maps.geometry.spherical.computeArea(pathArray);
 
-      // Guarda las coordenadas
       const path = pathArray.map((latLng) => ({
         lat: latLng.lat(),
         lng: latLng.lng(),
       }));
 
-      // Agregar el polígono a la lista de overlays y al estado
       setPolygonOverlays((prev) => [...prev, polygon]);
       setPolygons((prev) => [
         ...prev,
-        { id: Date.now(), area, path, overlay: polygon },
+        {
+          id: Date.now(),
+          area: area.toFixed(2),
+          coordinates: path,
+          overlay: polygon,
+        },
       ]);
     }
   };
 
-  // ✅ Elimina un polígono del estado y del mapa
+  // Elimina un polígono de la lista y del mapa
   const removePolygon = (polygonId) => {
-    // Eliminar del estado de polígonos
     setPolygons((prev) => prev.filter((p) => p.id !== polygonId));
 
-    // Eliminar del mapa y del estado de overlays
     setPolygonOverlays((prev) =>
       prev.filter((polygon) => {
         const match = polygons.find((p) => p.id === polygonId);
-        if (match && match.overlay) {
-          match.overlay.setMap(null); // Eliminar del mapa correctamente
+        if (match?.overlay) {
+          match.overlay.setMap(null);
         }
-        return polygon !== match?.overlay; // Filtrar correctamente
+        return polygon !== match?.overlay;
       })
     );
   };
@@ -57,13 +78,9 @@ export const PrediccionEnergiaSolarPage = () => {
         'overlaycomplete',
         handleOverlayComplete
       );
-      return () => {
-        google.maps.event.removeListener(listener);
-      };
+      return () => google.maps.event.removeListener(listener);
     }
   }, [drawingManager]);
-
-  // console.log(polygons);
 
   return (
     <MainCard>
@@ -73,7 +90,7 @@ export const PrediccionEnergiaSolarPage = () => {
             <Typography variant="h1">
               Sistema de Cálculo de Energía Solar
             </Typography>
-            <Typography variant="p">
+            <Typography variant="body1">
               Dibuje un polígono en el mapa para calcular la producción de
               energía solar en ese área.
             </Typography>
@@ -82,7 +99,6 @@ export const PrediccionEnergiaSolarPage = () => {
 
         <Grid size={12}>
           <Stack direction="row" spacing={3}>
-            {/* Mapa */}
             <Map
               style={{ width: '100vw', height: '100vh' }}
               defaultCenter={{ lat: 6.254933, lng: -75.605875 }}
@@ -98,25 +114,17 @@ export const PrediccionEnergiaSolarPage = () => {
                 }
               }}
             />
-
-            {/* Controles del mapa */}
             <MapControl position={ControlPosition.TOP_CENTER} />
           </Stack>
         </Grid>
 
-        {/* Lista de polígonos creados */}
         <Grid size={12}>
           <Typography variant="h2">Polígonos creados</Typography>
-          {polygons.map((polygon) => (
-            <Box component="div" key={polygon.id}>
-              <Typography variant="p">
-                Área: {polygon.area.toFixed(2)} m²
-              </Typography>
-              <Button color="error" onClick={() => removePolygon(polygon.id)}>
-                Eliminar
-              </Button>
-            </Box>
-          ))}
+          <CustomDatatable
+            rows={polygons}
+            columns={columns}
+            onDelete={removePolygon}
+          />
         </Grid>
       </Grid>
     </MainCard>

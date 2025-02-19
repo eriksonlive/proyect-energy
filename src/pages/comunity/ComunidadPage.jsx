@@ -30,7 +30,7 @@ export const ComunidadPage = () => {
         <Grid size={12}>
           <Stack direction="row" spacing={2}>
             <Typography variant="p">
-              A partir de aqui se empiesa a programar
+              A partir de aqui se empieza a programar
             </Typography>
           </Stack>
         </Grid>

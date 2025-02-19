@@ -1,106 +1,108 @@
-import { createTheme, ThemeProvider } from '@mui/material';
-// import MUIDataTables, { TableHead } from 'mui-datatables';
+import { Button, createTheme, Paper, ThemeProvider } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
+import { useCallback, useState } from 'react';
 
-// const columns = [
-//   {
-//     name: "codigo",
-//     label: "Codigo",
-//   },
-//   {
-//     name: "producto",
-//     label: "Producto",
-//   },
-//   {
-//     name: "precio_unidad",
-//     label: "Precio Unidad",
-//   },
-//   {
-//     name: "cantidad",
-//     label: "Cantidad",
-//   },
-//   {
-//     name: "precio_cantidad",
-//     label: "Precio Cantidad",
-//   },
-// ];
+const columns = [
+  { field: 'codigo', headerName: 'Código', flex: 1 },
+  { field: 'producto', headerName: 'Producto', flex: 1 },
+  { field: 'precio_unidad', headerName: 'Precio Unidad', flex: 1 },
+  { field: 'cantidad', headerName: 'Cantidad', flex: 1 },
+  { field: 'precio_cantidad', headerName: 'Precio Cantidad', flex: 1 },
+];
 
-// const data = [
-//   { codigo: "1000001", producto: "Disco duro WD", precio_unidad: "100.000", cantidad: "1", precio_cantidad: '100.000' },
-//   { codigo: "1000002", producto: "cargador HP", precio_unidad: "50.000", cantidad: "2", precio_cantidad: '100.000' },
-//   { codigo: "1000003", producto: "Mouse Genius", precio_unidad: "40.000", cantidad: "1", precio_cantidad: '40.000' },
-//   { codigo: "1000004", producto: "Computador Levono", precio_unidad: "1.200.000", cantidad: "1", precio_cantidad: '1.200.000' },
-// ];
-
-// const options = {
-//   filter: false,           // Desactiva los filtros
-//   search: false,           // Desactiva la búsqueda
-//   print: false,            // Desactiva la opción de imprimir
-//   download: false,         // Desactiva la opción de descargar
-//   viewColumns: false,      // Desactiva la opción de mostrar/ocultar columnas
-//   selectableRows: "none",  // Desactiva la selección de filas
-//   pagination: false,       // Desactiva la paginación
-//   responsive: "standard",  // Configura la tabla a un estilo estándar
-//   rowsPerPage: 5,          // Cantidad de filas por página
-//   rowsPerPageOptions: [],  // Elimina la opción de cambiar el número de filas por página
-//   toolbar: false,          // Desactiva la barra de herramientas
-//   filterType: "textField",  // Tipo de filtro (no será visible si `filter` es `false`)
-//   textLabels: {
-//     body: {
-//       noMatch: "Lo siento, no se encontraron registros coincidentes",
-//       toolTip: "Ordenar",
-//       columnHeaderTooltip: (column) => `Ordenar por ${column.label}`,
-//     },
-//     pagination: {
-//       next: "Siguiente Página",
-//       previous: "Página Anterior",
-//       rowsPerPage: "Filas por página:",
-//       displayRows: "de",
-//     },
-//     toolbar: {
-//       search: "Buscar",
-//       downloadCsv: "Descargar CSV",
-//       print: "Imprimir",
-//       viewColumns: "Ver Columnas",
-//       filterTable: "Filtrar Tabla",
-//     },
-//     filter: {
-//       all: "Todos",
-//       title: "FILTROS",
-//       reset: "REINICIAR",
-//     },
-//     viewColumns: {
-//       title: "Mostrar Columnas",
-//       titleAria: "Mostrar/Ocultar Columnas",
-//     },
-//     selectedRows: {
-//       text: "fila(s) seleccionada(s)",
-//       delete: "Eliminar",
-//       deleteAria: "Eliminar Filas Seleccionadas",
-//     },
-//   },
-// };
+const rows = [
+  {
+    id: 1,
+    codigo: '1000001',
+    producto: 'Disco duro WD',
+    precio_unidad: '100.000',
+    cantidad: '1',
+    precio_cantidad: '100.000',
+  },
+  {
+    id: 2,
+    codigo: '1000002',
+    producto: 'Cargador HP',
+    precio_unidad: '50.000',
+    cantidad: '2',
+    precio_cantidad: '100.000',
+  },
+  {
+    id: 3,
+    codigo: '1000003',
+    producto: 'Mouse Genius',
+    precio_unidad: '40.000',
+    cantidad: '1',
+    precio_cantidad: '40.000',
+  },
+  {
+    id: 4,
+    codigo: '1000004',
+    producto: 'Computador Lenovo',
+    precio_unidad: '1.200.000',
+    cantidad: '1',
+    precio_cantidad: '1.200.000',
+  },
+];
 
 const theme = createTheme({
   components: {
     MuiTableCell: {
-      styleOverrides:{
+      styleOverrides: {
         root: {
           padding: '0.5em 1em',
-          // textAlign: 'center',
-          // alignContent: 'center',
-          // alignItems: 'center',
-          // justifyContent: 'center',
-          // justifyItems: 'center'
-        }
-      }
+        },
+      },
     },
-  }
+  },
 });
 
-export const CustomDatatable = () => {
+export const CustomDatatable = ({ rows, columns, onDelete }, props = {}) => {
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 2, // Establece el número de filas visibles
+    page: 0, // Página inicial
+  });
+
+  const getRowSpacing = useCallback((params) => {
+    return {
+      top: params.isFirstVisible ? 0 : 0,
+      bottom: params.isLastVisible ? 0 : 0,
+    };
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
-      
+      <Paper sx={{ height: 400, width: '100%' }}>
+        <DataGrid
+          getRowSpacing={getRowSpacing}
+          rows={rows} // Ahora está correctamente definido
+          // loading
+          columns={columns.map((col) =>
+            col.field === 'actions'
+              ? {
+                  ...col,
+                  renderCell: (params) => (
+                    <Button
+                      color="error"
+                      onClick={() => onDelete(params.row.id)}
+                    >
+                      Eliminar
+                    </Button>
+                  ),
+                }
+              : col
+          )}
+          pageSizeOptions={[2, 5, 10, 25, 50, 100]}
+          initialState={{
+            pagination: {
+              paginationModel,
+            },
+          }}
+          checkboxSelection
+          sx={{ border: 0 }}
+          {...props}
+        />
+      </Paper>
     </ThemeProvider>
   );
 };
