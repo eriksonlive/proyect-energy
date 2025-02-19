@@ -1,0 +1,67 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - erikson
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout del código
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Configurar Buildx para construir imágenes Docker (opcional pero recomendado)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # 3. Iniciar sesión en Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # 4. Construir y subir la imagen Docker
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: Dockerfile  # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
+          push: true
+          tags: eriksonlives/front-react:latest
+
+      - name: Deploy to Hostinger VPS
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}       # IP o dominio de tu VPS de Hostinger
+          username: ${{ secrets.HOSTINGER_USER }}     # Usuario de tu VPS (ej. "root" o el que tengas configurado)
+          key: ${{ secrets.HOSTINGER_PASS }}           # Clave privada para acceder a tu VPS (en vez de HOSTINGER_PASS, suele ser una llave SSH)
+          port: 22
+          script: |
+            cd /var/www/energytalento.tech    # Directorio donde se encuentra tu docker-compose.yml
+            if [ -f docker-compose.yml ]; then
+              docker-compose pull front-react
+              docker-compose up -d --no-deps front-react
+            else
+              echo "No se encontró docker-compose.yml, omitiendo despliegue."
+            fi
+
+      # 5. Conectarse a la instancia EC2 para desplegar la nueva imagen
+      # - name: Deploy to EC2
+      #   uses: appleboy/ssh-action@v0.1.6
+      #   with:
+      #     host: ${{ secrets.HOSTINGER }}         # IP o dominio de la EC2
+      #     username: ${{ secrets.HOSTINGER_USER }}   # Usualmente "ubuntu" en EC2 con Ubuntu
+      #     key: ${{ secrets.HOSTINGER_PASS }}         # Clave privada en un secreto
+      #     script: |
+      #       cd /var/www/energytalento.tech    # Directorio donde se espera el docker-compose.yml
+      #       if [ -f docker-compose.yml ]; then
+      #         docker-compose pull front-react
+      #         docker-compose up -d --no-deps front-react
+      #       else
+      #         echo "No se encontró docker-compose.yml, omitiendo despliegue."
+      #       fi

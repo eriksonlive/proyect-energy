@@ -14,8 +14,6 @@ export const PrediccionEnergiaSolarPage = () => {
 
   const { data, error, isLoading } = usePostByAreaQuery(dataWatts);
 
-  
-
   // Configuración de las columnas de la tabla
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },

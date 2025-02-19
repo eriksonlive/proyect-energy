@@ -1,67 +1,73 @@
-name: Deploy Frontend
+name: Continuous Deployment
 
 on:
   push:
     branches:
-      - erikson
+      - main # O la rama que utilices para el despliegue
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout del código
-      - name: Checkout repository
+      # 1. Checkout del repositorio central (contiene docker-compose.yml, react, etc.)
+      - name: Checkout central repository
         uses: actions/checkout@v3
 
-      # 2. Configurar Buildx para construir imágenes Docker (opcional pero recomendado)
+      # 2. Checkout del repositorio de auth-service (por ejemplo, spring-boot-proyect)
+      - name: Checkout auth-service repository
+        uses: actions/checkout@v3
+        with:
+          repository: eriksonlive/spring-boot-proyect
+          path: auth-service
+
+      # 3. Checkout del repositorio del gateway (client-gateway)
+      - name: Checkout client-gateway repository
+        uses: actions/checkout@v3
+        with:
+          repository: eriksonlive/gateway-nest
+          path: micro/client-gateway
+
+      # 4. Checkout del repositorio de orders-ms
+      - name: Checkout orders-ms repository
+        uses: actions/checkout@v3
+        with:
+          repository: eriksonlive/orders-ms-nest
+          path: micro/orders-ms
+
+      # 5. Checkout del repositorio de products-ms
+      - name: Checkout products-ms repository
+        uses: actions/checkout@v3
+        with:
+          repository: eriksonlive/products-ms-nest
+          path: micro/products-ms
+
+      # 6. (Opcional) Configurar Buildx para Docker
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # 3. Iniciar sesión en Docker Hub
+      # 7. Iniciar sesión en Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 4. Construir y subir la imagen Docker
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: Dockerfile  # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
-          push: true
-          tags: eriksonlives/front-react:latest
+      # 8. Construir y subir las imágenes a partir del docker-compose
+      - name: Build and push Docker images
+        run: |
+          docker-compose build
+          docker-compose push
 
+      # 9. Despliegue en el VPS (o en el servidor de Hostinger)
       - name: Deploy to Hostinger VPS
         uses: appleboy/ssh-action@v0.1.6
         with:
-          host: ${{ secrets.HOSTINGER_HOST }}       # IP o dominio de tu VPS de Hostinger
-          username: ${{ secrets.HOSTINGER_USER }}     # Usuario de tu VPS (ej. "root" o el que tengas configurado)
-          key: ${{ secrets.HOSTINGER_PASS }}           # Clave privada para acceder a tu VPS (en vez de HOSTINGER_PASS, suele ser una llave SSH)
+          host: ${{ secrets.HOSTINGER_HOST }} # IP o dominio de tu VPS
+          username: ${{ secrets.HOSTINGER_USER }} # Usuario en el VPS
+          key: ${{ secrets.HOSTINGER_PASS }} # Clave privada (asegúrate de que sea la adecuada)
           port: 22
           script: |
-            cd /var/www/energytalento.tech    # Directorio donde se encuentra tu docker-compose.yml
-            if [ -f docker-compose.yml ]; then
-              docker-compose pull front-react
-              docker-compose up -d --no-deps front-react
-            else
-              echo "No se encontró docker-compose.yml, omitiendo despliegue."
-            fi
-
-      # 5. Conectarse a la instancia EC2 para desplegar la nueva imagen
-      # - name: Deploy to EC2
-      #   uses: appleboy/ssh-action@v0.1.6
-      #   with:
-      #     host: ${{ secrets.HOSTINGER }}         # IP o dominio de la EC2
-      #     username: ${{ secrets.HOSTINGER_USER }}   # Usualmente "ubuntu" en EC2 con Ubuntu
-      #     key: ${{ secrets.HOSTINGER_PASS }}         # Clave privada en un secreto
-      #     script: |
-      #       cd /var/www/energytalento.tech    # Directorio donde se espera el docker-compose.yml
-      #       if [ -f docker-compose.yml ]; then
-      #         docker-compose pull front-react
-      #         docker-compose up -d --no-deps front-react
-      #       else
-      #         echo "No se encontró docker-compose.yml, omitiendo despliegue."
-      #       fi
+            cd /var/www/energytalento.tech    # Directorio en el VPS donde está el docker-compose.yml
+            docker-compose pull
+            docker-compose up -d --remove-orphans
