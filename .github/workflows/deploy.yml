@@ -10,104 +10,108 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout del repositorio central (contiene docker-compose.yml, react, etc.)
+      # 1. Checkout del repositorio central (opcional, si lo necesitas para docker-compose)
       - name: Checkout central repository
         uses: actions/checkout@v3
 
-      # 2. Checkout del repositorio de auth-service (por ejemplo, spring-boot-proyect)
+      # 2. Checkout de cada repositorio (cada uno se clona en su propia carpeta raíz)
       - name: Checkout auth-service repository
         uses: actions/checkout@v3
         with:
           repository: eriksonlive/spring-boot-proyect
           path: auth-service
 
-      # 3. Checkout del repositorio del gateway (client-gateway)
       - name: Checkout client-gateway repository
         uses: actions/checkout@v3
         with:
           repository: eriksonlive/gateway-nest
-          path: micro/client-gateway
+          path: client-gateway
 
-      # 4. Checkout del repositorio de orders-ms
       - name: Checkout orders-ms repository
         uses: actions/checkout@v3
         with:
           repository: eriksonlive/orders-ms-nest
-          path: micro/orders-ms
+          path: orders-ms
 
-      # 5. Checkout del repositorio de products-ms
       - name: Checkout products-ms repository
         uses: actions/checkout@v3
         with:
           repository: eriksonlive/products-ms-nest
-          path: micro/products-ms
+          path: products-ms
 
-      # 6. (Opcional) Configurar Buildx para Docker
+      - name: Checkout front-react repository
+        uses: actions/checkout@v3
+        with:
+          repository: eriksonlive/proyect-energy
+          path: front-react
+
+      # 3. Configurar Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # 7. Iniciar sesión en Docker Hub
+      # 4. Iniciar sesión en Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 8. Construir y subir las imágenes a partir del docker-compose
-      - name: Build and push Docker image Spring
+      # 5. Build y Push de cada imagen usando su propio contexto y Dockerfile
+
+      - name: Build and push Docker image Auth Service
         uses: docker/build-push-action@v4
         with:
-          context: .
-          file: Dockerfile # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
+          context: ./auth-service
+          file: ./auth-service/Dockerfile
           push: true
           tags: eriksonlives/auth-service:latest
           no-cache: true
 
-      - name: Build and push Docker image Gateway
+      - name: Build and push Docker image Client Gateway
         uses: docker/build-push-action@v4
         with:
-          context: .
-          file: Dockerfile # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
+          context: ./client-gateway
+          file: ./client-gateway/Dockerfile
           push: true
           tags: eriksonlives/client-gateway:latest
           no-cache: true
 
-      - name: Build and push Docker image Orders
+      - name: Build and push Docker image Orders MS
         uses: docker/build-push-action@v4
         with:
-          context: .
-          file: Dockerfile # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
+          context: ./orders-ms
+          file: ./orders-ms/Dockerfile
           push: true
           tags: eriksonlives/orders-ms:latest
           no-cache: true
 
-      - name: Build and push Docker image Products
+      - name: Build and push Docker image Products MS
         uses: docker/build-push-action@v4
         with:
-          context: .
-          file: Dockerfile # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
+          context: ./products-ms
+          file: ./products-ms/Dockerfile
           push: true
           tags: eriksonlives/products-ms:latest
           no-cache: true
 
-      - name: Build and push Docker image React
+      - name: Build and push Docker image Front React
         uses: docker/build-push-action@v4
         with:
-          context: .
-          file: Dockerfile # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
+          context: ./front-react
+          file: ./front-react/Dockerfile
           push: true
           tags: eriksonlives/front-react:latest
           no-cache: true
 
-      # 9. Despliegue en el VPS (o en el servidor de Hostinger)
+      # 6. Despliegue en el VPS (o servidor de Hostinger) usando docker-compose
       - name: Deploy to Hostinger VPS
         uses: appleboy/ssh-action@v0.1.6
         with:
-          host: ${{ secrets.HOSTINGER_HOST }} # IP o dominio de tu VPS
-          username: ${{ secrets.HOSTINGER_USER }} # Usuario en el VPS
-          key: ${{ secrets.HOSTINGER_PASS }} # Clave privada (asegúrate de que sea la adecuada)
+          host: ${{ secrets.HOSTINGER_HOST }} # IP o dominio del VPS
+          username: ${{ secrets.HOSTINGER_USER }} # Usuario del VPS
+          key: ${{ secrets.HOSTINGER_PASS }} # Clave privada
           port: 22
           script: |
-            cd /var/www/energytalento.tech    # Directorio en el VPS donde está el docker-compose.yml
+            cd /var/www/energytalento.tech  # Directorio en el VPS donde se encuentra el docker-compose.yml
             docker compose pull
             docker compose up -d --remove-orphans
