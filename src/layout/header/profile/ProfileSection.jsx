@@ -31,6 +31,7 @@ import { LuSettings2 } from 'react-icons/lu';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useSelector } from 'react-redux';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export const ProfileSection = () => {
   const theme = useTheme();
@@ -45,6 +46,8 @@ export const ProfileSection = () => {
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   const anchorRef = useRef(null);
+
+  const { logout } = useAuth0();
 
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
@@ -314,8 +317,14 @@ export const ProfileSection = () => {
                             borderRadius: `${customization.borderRadius}px`,
                           }}
                           selected={selectedIndex === 0}
-                          onClick={(event) =>
-                            handleListItemClick(event, 0, '/login')
+                          onClick={
+                            () =>
+                              logout({
+                                logoutParams: {
+                                  returnTo: window.location.origin,
+                                },
+                              })
+                            // handleListItemClick(event, 0, '/login')
                           }
                         >
                           <ListItemIcon>

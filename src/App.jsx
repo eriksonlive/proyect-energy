@@ -10,36 +10,53 @@ import { APIProvider } from '@vis.gl/react-google-maps';
 import 'assets/scss/style.scss';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 
-// import { Auth0Provider } from '@auth0/auth0-react';
+import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
+import { useEffect } from 'react';
 
-// const apimaps = import.meta.env.VITE_API_MAP_KEY;
-const apimaps = 'AIzaSyAui1rfWcrUzcOdriaVvdwFfJuokvsvtIo';
-// const domain = 'dev-3hlihodxgyn2r8zl.us.auth0.com';
-// const clientId = 'JT6yEUdNHx4aAnvXeLGsFocK7HYqdqI8';
-// const domain = import.meta.env.VITE_AUTH_DOMAIN;
-// const clientId = import.meta.env.VITE_AUTH_KEY;
+// Usa variables de entorno (no hardcodees claves)
+const apimaps = import.meta.env.VITE_API_MAP_KEY;
+const domain = import.meta.env.VITE_AUTH_DOMAIN;
+const clientId = import.meta.env.VITE_AUTH_KEY;
+
+console.log(clientId);
+
+// Redirige a login si el usuario no está autenticado
+const AuthRedirect = () => {
+  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      loginWithRedirect();
+    }
+  }, [isAuthenticated, isLoading, loginWithRedirect]);
+
+  return null;
+};
 
 export const App = ({ children }) => {
   const customization = useSelector((state) => state.customization);
 
   return (
     <StyledEngineProvider injectFirst>
-      {/* <Auth0Provider
+      <Auth0Provider
         domain={domain}
         clientId={clientId}
         authorizationParams={{
-          redirect_uri: 'https://8e18-190-217-57-66.ngrok-free.app',
+          redirect_uri: window.location.origin,
         }}
-      > */}
-      <ThemeProvider theme={theme(customization)}>
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <APIProvider apiKey={apimaps}>
-            <CssBaseline />
-            {children}
-          </APIProvider>
-        </LocalizationProvider>
-      </ThemeProvider>
-      {/* </Auth0Provider> */}
+      >
+        {/* Se ejecuta solo para redirigir, no debe envolver los hijos */}
+        <AuthRedirect />
+
+        <ThemeProvider theme={theme(customization)}>
+          <LocalizationProvider dateAdapter={AdapterMoment}>
+            <APIProvider apiKey={apimaps}>
+              <CssBaseline />
+              {children}
+            </APIProvider>
+          </LocalizationProvider>
+        </ThemeProvider>
+      </Auth0Provider>
     </StyledEngineProvider>
   );
 };
