@@ -61,6 +61,7 @@ jobs:
           file: Dockerfile # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
           push: true
           tags: eriksonlives/auth-service:latest
+          no-cache: true
 
       - name: Build and push Docker image Gateway
         uses: docker/build-push-action@v4
@@ -69,6 +70,7 @@ jobs:
           file: Dockerfile # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
           push: true
           tags: eriksonlives/client-gateway:latest
+          no-cache: true
 
       - name: Build and push Docker image Orders
         uses: docker/build-push-action@v4
@@ -77,6 +79,7 @@ jobs:
           file: Dockerfile # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
           push: true
           tags: eriksonlives/orders-ms:latest
+          no-cache: true
 
       - name: Build and push Docker image Products
         uses: docker/build-push-action@v4
@@ -85,6 +88,7 @@ jobs:
           file: Dockerfile # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
           push: true
           tags: eriksonlives/products-ms:latest
+          no-cache: true
 
       - name: Build and push Docker image React
         uses: docker/build-push-action@v4
@@ -93,6 +97,7 @@ jobs:
           file: Dockerfile # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
           push: true
           tags: eriksonlives/front-react:latest
+          no-cache: true
 
       # 9. Despliegue en el VPS (o en el servidor de Hostinger)
       - name: Deploy to Hostinger VPS
