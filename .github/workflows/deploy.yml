@@ -3,7 +3,7 @@ name: Continuous Deployment
 on:
   push:
     branches:
-      - main # O la rama que utilices para el despliegue
+      - erikson # O la rama que utilices para el despliegue
 
 jobs:
   deploy:
