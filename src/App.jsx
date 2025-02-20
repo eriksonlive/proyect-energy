@@ -12,7 +12,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 
 // import { Auth0Provider } from '@auth0/auth0-react';
 
-const apimaps = import.meta.env.VITE_API_MAP_KEY;
+// const apimaps = import.meta.env.VITE_API_MAP_KEY;
+const apimaps = 'AIzaSyAui1rfWcrUzcOdriaVvdwFfJuokvsvtIo';
 // const domain = 'dev-3hlihodxgyn2r8zl.us.auth0.com';
 // const clientId = 'JT6yEUdNHx4aAnvXeLGsFocK7HYqdqI8';
 // const domain = import.meta.env.VITE_AUTH_DOMAIN;
