@@ -54,10 +54,45 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       # 8. Construir y subir las imágenes a partir del docker-compose
-      - name: Build and push Docker images
-        run: |
-          docker compose build
-          docker compose push
+      - name: Build and push Docker image Spring
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: Dockerfile # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
+          push: true
+          tags: eriksonlives/auth-service:latest
+
+      - name: Build and push Docker image Gateway
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: Dockerfile # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
+          push: true
+          tags: eriksonlives/client-gateway:latest
+
+      - name: Build and push Docker image Orders
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: Dockerfile # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
+          push: true
+          tags: eriksonlives/orders-ms:latest
+
+      - name: Build and push Docker image Products
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: Dockerfile # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
+          push: true
+          tags: eriksonlives/products-ms:latest
+
+      - name: Build and push Docker image React
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: Dockerfile # Asegúrate de que el Dockerfile esté en la raíz o ajusta la ruta
+          push: true
+          tags: eriksonlives/front-react:latest
 
       # 9. Despliegue en el VPS (o en el servidor de Hostinger)
       - name: Deploy to Hostinger VPS
