@@ -56,8 +56,8 @@ jobs:
       # 8. Construir y subir las imágenes a partir del docker-compose
       - name: Build and push Docker images
         run: |
-          docker-compose build
-          docker-compose push
+          docker compose build
+          docker compose push
 
       # 9. Despliegue en el VPS (o en el servidor de Hostinger)
       - name: Deploy to Hostinger VPS
@@ -69,5 +69,5 @@ jobs:
           port: 22
           script: |
             cd /var/www/energytalento.tech    # Directorio en el VPS donde está el docker-compose.yml
-            docker-compose pull
-            docker-compose up -d --remove-orphans
+            docker compose pull
+            docker compose up -d --remove-orphans
