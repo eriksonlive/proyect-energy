@@ -5,6 +5,7 @@ import { useDrawingManager } from './use-drawing-manager';
 import { Map, ControlPosition, MapControl } from '@vis.gl/react-google-maps';
 import { CustomDatatable } from 'components';
 import { usePostByAreaQuery } from 'apis';
+import { RoofOrientation } from './direction';
 
 export const PrediccionEnergiaSolarPage = () => {
   const drawingManager = useDrawingManager();
@@ -26,7 +27,7 @@ export const PrediccionEnergiaSolarPage = () => {
         <Typography variant="body2" sx={{ marginTop: '15px' }}>
           {params.value
             .map(
-              (coord) => `(${coord.lat.toFixed(4)}, ${coord.lng.toFixed(4)})`
+              (coord) => `(${coord.lat.toFixed(8)}, ${coord.lng.toFixed(8)})`
             )
             .join(' | ')}
         </Typography>
@@ -47,6 +48,8 @@ export const PrediccionEnergiaSolarPage = () => {
         lng: latLng.lng(),
       }));
 
+      const coordinates = RoofOrientation(path); //Calculo las coordenadas a partir del Path del Polygono
+
       setPolygonOverlays((prev) => [...prev, polygon]);
       setPolygons((prev) => [
         ...prev,
@@ -55,9 +58,12 @@ export const PrediccionEnergiaSolarPage = () => {
           area: area.toFixed(2),
           coordinates: path,
           overlay: polygon,
+          orientation: coordinates.azimuth,
           // kw: area.toFixed(2) * 0.2
         },
       ]);
+
+      console.log(coordinates.azimuth)
 
       setDataWatts({
         system_capacity: area.toFixed(2) * 0.2,
