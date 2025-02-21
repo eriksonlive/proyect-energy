@@ -4,7 +4,7 @@ import axiosBaseQuery from 'apis/axiosBaseQuery';
 export const energiaSolar = createApi({
   reducerPath: 'energiaSolar',
   baseQuery: axiosBaseQuery({
-    baseUrl: '/api/',
+    baseUrl: 'https://www.simem.co/backend-files/api/',
   }),
   endpoints: (builder) => ({
     getQueryByDate: builder.query({
