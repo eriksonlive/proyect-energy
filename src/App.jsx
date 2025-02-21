@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react';
 import logo from 'assets/img/logo.webp';
 
 // Usa variables de entorno (no hardcodees claves)
-const apimaps = import.meta.env.VITE_API_MAP_KEY;
+const apimaps = 'AIzaSyAui1rfWcrUzcOdriaVvdwFfJuokvsvtIo';
 const domain = 'dev-3hlihodxgyn2r8zl.us.auth0.com';
 const clientId = '1lANarpveanHFhy8snJPuolHbMl7p5A8';
 
