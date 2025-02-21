@@ -3,18 +3,18 @@ name: Continuous Deployment
 on:
   push:
     branches:
-      - erikson # O la rama que utilices para el despliegue
+      - erikson # O la rama que usas para el despliegue
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout del repositorio central (opcional, si lo necesitas para docker-compose)
+      # 1. Checkout del repositorio central
       - name: Checkout central repository
         uses: actions/checkout@v3
 
-      # 2. Checkout de cada repositorio (cada uno se clona en su propia carpeta raíz)
+      # 2. Clonar cada repositorio en su propia carpeta
       - name: Checkout auth-service repository
         uses: actions/checkout@v3
         with:
@@ -45,20 +45,46 @@ jobs:
           repository: eriksonlive/proyect-energy
           path: front-react
 
-      # 3. Configurar Docker Buildx
+      # 3. Detectar qué carpetas han cambiado
+      - name: Detect changes
+        id: changes
+        run: |
+          git fetch origin main --depth=1
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+
+          echo "Detectando cambios en archivos modificados:"
+          echo "$CHANGED_FILES"
+
+          if echo "$CHANGED_FILES" | grep -q "^auth-service/"; then
+            echo "AUTH_CHANGED=true" >> $GITHUB_ENV
+          fi
+          if echo "$CHANGED_FILES" | grep -q "^client-gateway/"; then
+            echo "GATEWAY_CHANGED=true" >> $GITHUB_ENV
+          fi
+          if echo "$CHANGED_FILES" | grep -q "^orders-ms/"; then
+            echo "ORDERS_CHANGED=true" >> $GITHUB_ENV
+          fi
+          if echo "$CHANGED_FILES" | grep -q "^products-ms/"; then
+            echo "PRODUCTS_CHANGED=true" >> $GITHUB_ENV
+          fi
+          if echo "$CHANGED_FILES" | grep -q "^front-react/"; then
+            echo "FRONT_CHANGED=true" >> $GITHUB_ENV
+          fi
+
+      # 4. Configurar Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # 4. Iniciar sesión en Docker Hub
+      # 5. Iniciar sesión en Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 5. Build y Push de cada imagen usando su propio contexto y Dockerfile
-
+      # 6. Construir y subir solo los contenedores modificados
       - name: Build and push Docker image Auth Service
+        if: env.AUTH_CHANGED == 'true'
         uses: docker/build-push-action@v4
         with:
           context: ./auth-service
@@ -68,6 +94,7 @@ jobs:
           no-cache: true
 
       - name: Build and push Docker image Client Gateway
+        if: env.GATEWAY_CHANGED == 'true'
         uses: docker/build-push-action@v4
         with:
           context: ./client-gateway
@@ -77,6 +104,7 @@ jobs:
           no-cache: true
 
       - name: Build and push Docker image Orders MS
+        if: env.ORDERS_CHANGED == 'true'
         uses: docker/build-push-action@v4
         with:
           context: ./orders-ms
@@ -86,6 +114,7 @@ jobs:
           no-cache: true
 
       - name: Build and push Docker image Products MS
+        if: env.PRODUCTS_CHANGED == 'true'
         uses: docker/build-push-action@v4
         with:
           context: ./products-ms
@@ -95,6 +124,7 @@ jobs:
           no-cache: true
 
       - name: Build and push Docker image Front React
+        if: env.FRONT_CHANGED == 'true'
         uses: docker/build-push-action@v4
         with:
           context: ./front-react
@@ -103,15 +133,39 @@ jobs:
           tags: eriksonlives/front-react:latest
           no-cache: true
 
-      # 6. Despliegue en el VPS (o servidor de Hostinger) usando docker-compose
-      - name: Deploy to Hostinger VPS
+      # 7. Desplegar solo los servicios que cambiaron
+      - name: Deploy to VPS
         uses: appleboy/ssh-action@v0.1.6
         with:
-          host: ${{ secrets.HOSTINGER_HOST }} # IP o dominio del VPS
-          username: ${{ secrets.HOSTINGER_USER }} # Usuario del VPS
-          key: ${{ secrets.HOSTINGER_PASS }} # Clave privada
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USER }}
+          key: ${{ secrets.HOSTINGER_PASS }}
           port: 22
           script: |
-            cd /var/www/energytalento.tech  # Directorio en el VPS donde se encuentra el docker-compose.yml
-            docker compose pull
-            docker compose up -d --remove-orphans
+            cd /var/www/energytalento.tech
+
+            # Actualizar solo los servicios que cambiaron
+            if [ "${{ env.AUTH_CHANGED }}" == "true" ]; then
+              docker compose pull auth-service
+              docker compose up -d auth-service
+            fi
+
+            if [ "${{ env.GATEWAY_CHANGED }}" == "true" ]; then
+              docker compose pull client-gateway
+              docker compose up -d client-gateway
+            fi
+
+            if [ "${{ env.ORDERS_CHANGED }}" == "true" ]; then
+              docker compose pull orders-ms
+              docker compose up -d orders-ms
+            fi
+
+            if [ "${{ env.PRODUCTS_CHANGED }}" == "true" ]; then
+              docker compose pull products-ms
+              docker compose up -d products-ms
+            fi
+
+            if [ "${{ env.FRONT_CHANGED }}" == "true" ]; then
+              docker compose pull front-react
+              docker compose up -d front-react
+            fi
