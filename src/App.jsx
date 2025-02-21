@@ -15,10 +15,9 @@ import { useEffect } from 'react';
 
 // Usa variables de entorno (no hardcodees claves)
 const apimaps = import.meta.env.VITE_API_MAP_KEY;
-const domain = import.meta.env.VITE_AUTH_DOMAIN;
-const clientId = import.meta.env.VITE_AUTH_KEY;
+const domain = 'dev-3hlihodxgyn2r8zl.us.auth0.com';
+const clientId = '1lANarpveanHFhy8snJPuolHbMl7p5A8';
 
-console.log(clientId);
 
 // Redirige a login si el usuario no está autenticado
 const AuthRedirect = () => {
