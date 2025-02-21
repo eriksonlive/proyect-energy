@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import { useEffect, useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -9,97 +9,123 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 // third-party
-import ApexCharts from 'apexcharts';
 import Chart from 'react-apexcharts';
 
 // project imports
 import SkeletonTotalGrowthBarChart from 'ui-component/cards/Skeleton/TotalGrowthBarChart';
 import MainCard from 'ui-component/cards/MainCard';
-// import { gridSpacing } from 'store/constant';
 
-// chart data
-import chartData from './chart-data/total-growth-bar-chart';
+// API Hook
+import { useGetQueryByDateQuery } from 'apis';
 
 const status = [
-  {
-    value: 'today',
-    label: 'Today',
-  },
-  {
-    value: 'month',
-    label: 'This Month',
-  },
-  {
-    value: 'year',
-    label: 'This Year',
-  },
+  { value: 'today', label: 'Today' },
+  { value: 'month', label: 'This Month' },
+  { value: 'year', label: 'This Year' },
 ];
 
-// ==============================|| DASHBOARD DEFAULT - TOTAL GROWTH BAR CHART ||============================== //
-
 const TotalGrowthBarChart = ({ isLoading }) => {
-  const [value, setValue] = React.useState('today');
+  const [value, setValue] = useState('today');
   const theme = useTheme();
 
-  const { primary } = theme.palette.text;
-  const divider = theme.palette.divider;
-  const grey500 = theme.palette.grey[500];
-
-  const primary200 = theme.palette.primary[200];
-  const primaryDark = theme.palette.primary.dark;
-  const secondaryMain = theme.palette.secondary.main;
-  const secondaryLight = theme.palette.secondary.light;
-
-  React.useEffect(() => {
-    const newChartData = {
-      ...chartData.options,
-      colors: [primary200, primaryDark, secondaryMain, secondaryLight],
+  // Estado inicial del gráfico
+  const [chartData, setChartData] = useState({
+    height: 480,
+    type: 'bar',
+    options: {
+      chart: {
+        id: 'bar-chart',
+        stacked: true,
+        toolbar: {
+          show: true,
+        },
+        zoom: {
+          enabled: true,
+        },
+      },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: 'bottom',
+              offsetX: -10,
+              offsetY: 0,
+            },
+          },
+        },
+      ],
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: '50%',
+        },
+      },
       xaxis: {
+        type: 'category',
+        categories: [],
+      },
+      legend: {
+        show: true,
+        fontFamily: `'Roboto', sans-serif`,
+        position: 'bottom',
+        offsetX: 20,
         labels: {
-          style: {
-            colors: [
-              primary,
-              primary,
-              primary,
-              primary,
-              primary,
-              primary,
-              primary,
-              primary,
-              primary,
-              primary,
-              primary,
-              primary,
-            ],
-          },
+          useSeriesColors: false,
+        },
+        markers: {
+          width: 16,
+          height: 16,
+          radius: 5,
+        },
+        itemMargin: {
+          horizontal: 15,
+          vertical: 8,
         },
       },
-      yaxis: {
-        labels: {
-          style: {
-            colors: [primary],
-          },
-        },
+      fill: {
+        type: 'solid',
       },
-      grid: { borderColor: divider },
-      tooltip: { theme: 'light' },
-      legend: { labels: { colors: grey500 } },
-    };
+      dataLabels: {
+        enabled: false,
+      },
+      grid: {
+        show: true,
+      },
+    },
+    series: [],
+  });
 
-    // do not load chart when loading
-    if (!isLoading) {
-      ApexCharts.exec(`bar-chart`, 'updateOptions', newChartData);
+  const { data } = useGetQueryByDateQuery();
+
+  // 🔹 Transformar datos de la API y actualizar el gráfico
+  useEffect(() => {
+    if (data && data.success) {
+      console.log('Datos recibidos:', data); // Para verificar si data tiene contenido
+
+      // Definir el límite de datos a mostrar
+      const LIMIT = 20;
+
+      // Obtener los últimos 'LIMIT' registros
+      const records = data.result.records.slice(-LIMIT);
+
+      const categories = records.map((item) => item.CodigoUnidadGeneracion);
+      const irradiacion = records.map((item) => item.IrradiacionPanel);
+      const temperatura = records.map((item) => item.TemperaturaPanel);
+
+      setChartData((prev) => ({
+        ...prev,
+        series: [
+          { name: 'Irradiación Panel', data: irradiacion },
+          { name: 'Temperatura Panel', data: temperatura },
+        ],
+        options: {
+          ...prev.options,
+          xaxis: { categories },
+        },
+      }));
     }
-  }, [
-    primary200,
-    primaryDark,
-    secondaryMain,
-    secondaryLight,
-    primary,
-    divider,
-    isLoading,
-    grey500,
-  ]);
+  }, [data]);
 
   return (
     <>
@@ -115,18 +141,11 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                 justifyContent="space-between"
               >
                 <Grid>
-                  <Grid container direction="column" spacing={1}>
-                    <Grid>
-                      <Typography variant="subtitle2">Total Growth</Typography>
-                    </Grid>
-                    <Grid>
-                      <Typography variant="h3">$2,324.00</Typography>
-                    </Grid>
-                  </Grid>
+                  <Typography variant="subtitle2">Total Growth</Typography>
+                  <Typography variant="h3">$2,324.00</Typography>
                 </Grid>
                 <Grid>
                   <TextField
-                    id="standard-select-currency"
                     select
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
@@ -140,14 +159,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid
-              size={12}
-              sx={{
-                '& .apexcharts-menu.apexcharts-menu-open': {
-                  bgcolor: 'background.paper',
-                },
-              }}
-            >
+            <Grid size={12}>
               <Chart {...chartData} />
             </Grid>
           </Grid>

@@ -5,15 +5,19 @@ import Inspect from 'vite-plugin-inspect';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    jsconfigPaths(),
-    Inspect(),
-  ],
+  plugins: [react(), jsconfigPaths(), Inspect()],
   server: {
     port: 3000, // Asegúrate de que este puerto esté libre y sea el correcto
-    open: true,  // Esto abrirá automáticamente el navegador
+    open: true, // Esto abrirá automáticamente el navegador
     strictPort: true, // Si el puerto 3000 está en uso, evitará que Vite inicie en otro puerto
+    proxy: {
+      '/api': {
+        target: 'https://www.simem.co/backend-files/api',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
   css: {
     preprocessorOptions: {
