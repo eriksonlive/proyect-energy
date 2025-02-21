@@ -49,8 +49,8 @@ jobs:
       - name: Detect changes
         id: changes
         run: |
-          git fetch origin erikson --depth=1
-          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          git fetch --unshallow  # Convierte el clon en uno con historial completo
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD || echo "")
 
           echo "Detectando cambios en archivos modificados:"
           echo "$CHANGED_FILES"
