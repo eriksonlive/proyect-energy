@@ -4,6 +4,16 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+
+# Definir argumentos para variables de entorno
+ARG VITE_API_MAP_KEY
+ARG VITE_AUTH_DOMAIN
+ARG VITE_AUTH_KEY
+
+# Crear variables de entorno con los valores de los argumentos
+ENV VITE_API_MAP_KEY=$VITE_API_MAP_KEY
+ENV VITE_AUTH_DOMAIN=$VITE_AUTH_DOMAIN
+ENV VITE_AUTH_KEY=$VITE_AUTH_KEY
 RUN npm run build
 
 # Etapa final: Nginx para servir los archivos estáticos
