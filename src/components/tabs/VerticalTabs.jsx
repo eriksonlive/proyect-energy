@@ -63,7 +63,7 @@ export const VerticalTabs = ({
             {...a11yProps(index)}
             sx={{
               border:
-                value === index ? '0.5px solid red' : '1px solid transparent',
+                value === index ? '0.5px solid #b39ddb' : '0.5px solid transparent',
               transition: 'border 0.3s ease',
             }}
           />

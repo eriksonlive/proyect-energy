@@ -12,35 +12,44 @@ const example = [
 
 export const CreateCustomerForm = () => {
   return (
-    <Formik
-      initialValues={{
-        name: '',
-        lastName: '',
-        sexo: 0,
-      }}
-    >
-      {({ handleChange }) => (
-        <Form>
-          <VerticalTabs dataTabs={example} sx={{ border: 'solid red 1px' }}>
+  
+          <VerticalTabs dataTabs={example} sx={{ border: 'solid blue 1px' }}>
             <Grid container spacing={2}>
-              <img
-                src="https://www.minenergia.gov.co/media/media/energia-solar.svg"
-                alt="Energía solar"
-                width={100}
-              />
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid size={3}>
+              <Grid size={12} sx={{textAlign:"center"}}>
+              <Typography variant='h2' sx={{color: "#b39ddb"}}>Energía solar</Typography>
+              </Grid>
+              
+              <Grid size={4}>
                 <img
-                  src="https://www.minenergia.gov.co/media/media/hidrogeno-01.svg"
+                  src="https://www.minenergia.gov.co/media/media/energia-solar.svg"
                   alt="hidrogeno-01"
-                  style={{ maxWidth: '100%' }}
+                  style={{ maxWidth: '80%' }}
                 />
               </Grid>
 
               {/* Texto */}
-              <Grid size={9} sx={{ bgcolor: 'red' }}>
-                <Typography sx={{ bgcolor: '#c4c4c4', p: 2, borderRadius: 2 }}>
+              <Grid size={8}>
+                <Typography sx={{ color: '#050404', p: 2, borderRadius: 2, fontSize: 20 }}>
+                Energía obtenida a partir de aquella fuente no convencional de energía renovable que consiste en la radiación electromagnética proveniente del sol.
+                </Typography>
+              </Grid>
+            </Grid>
+
+            <Grid container spacing={2}>
+            <Grid size={12} sx={{textAlign:"center"}}>
+              <Typography variant='h2' sx={{color: "#b39ddb"}}>Hidrógeno</Typography>
+              </Grid>
+              <Grid size={4}>
+                <img
+                  src="https://www.minenergia.gov.co/media/media/hidrogeno-01.svg"
+                  alt="hidrogeno-01"
+                  style={{ maxWidth: '80%' }}
+                />
+              </Grid>
+
+              {/* Texto */}
+              <Grid size={8}>
+                <Typography sx={{ color: '#050404', p: 2, borderRadius: 2, fontSize: 20 }}>
                   El hidrógeno es un elemento ligero y limpio que se usa como
                   combustible y para almacenar energía, sin generar emisiones de
                   gases contaminantes. Existen tres tipos: <br />
@@ -54,30 +63,70 @@ export const CreateCustomerForm = () => {
               </Grid>
             </Grid>
             <Grid container spacing={2}>
-              <img
-                src="https://www.minenergia.gov.co/media/media/energia_eolica.svg"
-                alt="hidrogeno-01"
-                width={100}
-              />
+            <Grid size={12} sx={{textAlign:"center"}}>
+              <Typography variant='h2' sx={{color: "#b39ddb"}}>Energía eólica</Typography>
+              </Grid>
+              <Grid size={4}>
+                <img
+                  src="https://www.minenergia.gov.co/media/media/energia_eolica.svg"
+                  alt="hidrogeno-01"
+                  style={{ maxWidth: '80%' }}
+                />
+              </Grid>
+
+              {/* Texto */}
+              <Grid size={8}>
+                <Typography sx={{ color: '#050404', p: 2, borderRadius: 2, fontSize: 20 }}>
+                Energía obtenida a partir de aquella fuente no convencional de energía renovable que consiste en el movimiento de las masas de aire. También es FNCER la energía eólica costa afuera
+                </Typography>
+              </Grid>
             </Grid>
+
             <Grid container spacing={2}>
-              <img
-                src="https://www.minenergia.gov.co/media/media/energia_mares.svg"
-                alt="hidrogeno-01"
-                width={100}
-              />
+            <Grid size={12} sx={{textAlign:"center"}}>
+              <Typography variant='h2' sx={{color: "#b39ddb"}}>Energía de los mares</Typography>
+              </Grid>
+              <Grid size={4}>
+                <img
+                  src="https://www.minenergia.gov.co/media/media/energia_mares.svg"
+                  alt="hidrogeno-01"
+                  style={{ maxWidth: '80%' }}
+                />
+              </Grid>
+
+              {/* Texto */}
+              <Grid size={8}>
+                <Typography sx={{ color: '#050404', p: 2, borderRadius: 2, fontSize: 20 }}>
+                Energía obtenida a partir de aquella fuente no convencional de energía renovable que consiste en la radiación electromagnética proveniente del sol.
+                </Typography>
+              </Grid>
             </Grid>
+
             <Grid container spacing={2}>
-              <img
-                src="https://www.minenergia.gov.co/media/media/energia_residuos-01.svg"
-                alt="hidrogeno-01"
-                width={100}
-              />
-              <Box component="div"></Box>
-            </Grid>
+            <Grid size={12} sx={{textAlign:"center"}}>
+              <Typography variant='h2' sx={{color: "#b39ddb"}}>Energía a partir de los residuos</Typography>
+              </Grid>
+              <Grid size={4}>
+                <img
+                  src="https://www.minenergia.gov.co/media/media/energia_residuos-01.svg"
+                  alt="hidrogeno-01"
+                  style={{ maxWidth: '80%' }}
+                />
+              </Grid>
+
+              {/* Texto */}
+              <Grid size={8}>
+                <Typography sx={{ color: '#050404', p: 2, borderRadius: 2, fontSize: 20 }}>
+                Energía obtenida a partir de aquella fuente no convencional de energía renovable que consiste en la radiación electromagnética proveniente del sol.
+                </Typography>
+              </Grid>
+            </Grid> 
+
+
+            
           </VerticalTabs>
-        </Form>
-      )}
-    </Formik>
+        
+
+   
   );
 };
