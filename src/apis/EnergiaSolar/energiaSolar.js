@@ -7,7 +7,21 @@ export const energiaSolar = createApi({
     baseUrl: '/api/',
   }),
   endpoints: (builder) => ({
-    getQueryByDate: builder.query({
+    getByDate: builder.query({
+      query: (params) => ({
+        url: `PublicData?startDate=2025-02-19&endDate=2025-02-21&datasetId=7e704d&columnDestinyName=null&values=null`,
+        method: 'GET',
+        // headers: 'X-Api-Key nmagJbURbhEg9MaZclDNv4gGomCURGt98KeM2u0G',
+      }),
+      transformResponse: (response) => response,
+      transformErrorResponse: (error) => {
+        if (error?.originalStatus === 404) {
+          return { message: '' };
+        }
+        return error;
+      },
+    }),
+    getEnergyData: builder.query({
       query: (params) => ({
         url: `PublicData?startDate=2025-02-19&endDate=2025-02-21&datasetId=7e704d&columnDestinyName=null&values=null`,
         method: 'GET',
@@ -24,4 +38,4 @@ export const energiaSolar = createApi({
   }),
 });
 
-export const { useGetQueryByDateQuery } = energiaSolar;
+export const { useGetByDateQuery, useGetEnergyDataQuery } = energiaSolar;

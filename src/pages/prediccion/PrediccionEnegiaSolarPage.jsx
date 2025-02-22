@@ -4,7 +4,7 @@ import { MainCard } from 'ui-component';
 import { useDrawingManager } from './use-drawing-manager';
 import { Map, ControlPosition, MapControl } from '@vis.gl/react-google-maps';
 import { CustomDatatable } from 'components';
-import { usePostByAreaQuery } from 'apis';
+import { useGetEnergyDataQuery, usePostByAreaQuery } from 'apis';
 
 export const PrediccionEnergiaSolarPage = () => {
   const drawingManager = useDrawingManager();

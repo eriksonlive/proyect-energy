@@ -16,7 +16,7 @@ import SkeletonTotalGrowthBarChart from 'ui-component/cards/Skeleton/TotalGrowth
 import MainCard from 'ui-component/cards/MainCard';
 
 // API Hook
-import { useGetQueryByDateQuery } from 'apis';
+import { useGetByDateQuery } from 'apis';
 
 const status = [
   { value: 'today', label: 'Today' },
@@ -96,7 +96,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
     series: [],
   });
 
-  const { data } = useGetQueryByDateQuery();
+  const { data } = useGetByDateQuery();
 
   // 🔹 Transformar datos de la API y actualizar el gráfico
   useEffect(() => {
