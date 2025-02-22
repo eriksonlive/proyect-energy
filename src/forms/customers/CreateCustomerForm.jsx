@@ -21,7 +21,7 @@ export const CreateCustomerForm = () => {
     >
       {({ handleChange }) => (
         <Form>
-          <VerticalTabs dataTabs={example}>
+          <VerticalTabs dataTabs={example} sx={{ border: 'solid red 1px' }}>
             <Grid container spacing={2}>
               <img
                 src="https://www.minenergia.gov.co/media/media/energia-solar.svg"
@@ -30,23 +30,28 @@ export const CreateCustomerForm = () => {
               />
             </Grid>
             <Grid container spacing={2}>
-              
-              <img
-                src="https://www.minenergia.gov.co/media/media/hidrogeno-01.svg"
-                alt="hidrogeno-01"
-                width={100}
-              />
-              <Typography
-                sx={{ bgcolor: '#c4c4c4', width: '100%', display: 'block' }}
-              >
-                El hidrógeno es un elemento ligero y limpio que se usa como
-                combustible y para almacenar energía, sin generar emisiones de
-                gases contaminantes. Existen tres tipos: Hidrógeno gris: Se
-                produce a partir de combustibles fósiles sin capturar el
-                carbono. Hidrógeno azul: Similar al gris, pero con captura y
-                almacenamiento de carbono. Hidrógeno verde: Se produce a partir
-                de energías renovables, siendo el más limpio.
-              </Typography>
+              <Grid size={3}>
+                <img
+                  src="https://www.minenergia.gov.co/media/media/hidrogeno-01.svg"
+                  alt="hidrogeno-01"
+                  style={{ maxWidth: '100%' }}
+                />
+              </Grid>
+
+              {/* Texto */}
+              <Grid size={9} sx={{ bgcolor: 'red' }}>
+                <Typography sx={{ bgcolor: '#c4c4c4', p: 2, borderRadius: 2 }}>
+                  El hidrógeno es un elemento ligero y limpio que se usa como
+                  combustible y para almacenar energía, sin generar emisiones de
+                  gases contaminantes. Existen tres tipos: <br />
+                  <strong>Hidrógeno gris:</strong> Se produce a partir de
+                  combustibles fósiles sin capturar el carbono. <br />
+                  <strong>Hidrógeno azul:</strong> Similar al gris, pero con
+                  captura y almacenamiento de carbono. <br />
+                  <strong>Hidrógeno verde:</strong> Se produce a partir de
+                  energías renovables, siendo el más limpio.
+                </Typography>
+              </Grid>
             </Grid>
             <Grid container spacing={2}>
               <img
