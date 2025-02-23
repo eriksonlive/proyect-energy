@@ -27,7 +27,7 @@ const AuthWrapper = ({ children }) => {
 
   useEffect(() => {
     if (!isLoading) {
-      if (!isAuthenticated) {
+      if (isAuthenticated) {
         loginWithRedirect();
       } else {
         setCheckingAuth(false); // Solo cuando el usuario está autenticado, permitimos renderizar

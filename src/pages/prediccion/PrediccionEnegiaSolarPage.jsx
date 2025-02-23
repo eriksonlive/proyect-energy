@@ -6,12 +6,15 @@ import { Map, ControlPosition, MapControl } from '@vis.gl/react-google-maps';
 import { CustomDatatable } from 'components';
 import { usePostByAreaQuery } from 'apis';
 import { RoofOrientation } from './direction';
+import ChartSolar from './charts/ChartSolar'
+
 
 export const PrediccionEnergiaSolarPage = () => {
   const drawingManager = useDrawingManager();
   const [polygons, setPolygons] = useState([]);
   const [dataWatts, setDataWatts] = useState({});
   const [polygonOverlays, setPolygonOverlays] = useState([]);
+  const [chartData, setChartData] = useState([]);
 
   const { data, error, isLoading } = usePostByAreaQuery(dataWatts);
 
@@ -19,6 +22,26 @@ export const PrediccionEnergiaSolarPage = () => {
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
     { field: 'area', headerName: 'Área (m²)', width: 150 },
+    {
+      field: 'coordinates',
+      headerName: 'Coordenadas',
+      width: 600,
+      renderCell: (params) => (
+        <Typography variant="body2" sx={{ marginTop: '15px' }}>
+          {params.value
+            .map(
+              (coord) => `(${coord.lat.toFixed(4)}, ${coord.lng.toFixed(4)})`
+            )
+            .join(' | ')}
+        </Typography>
+      ),
+    },
+    { field: 'actions', headerName: 'Acciones', width: 150 },
+  ];
+/*
+  const columns2 = [
+    { field: 'id', headerName: 'ID', width: 100 },
+    { field: 'Generación', headerName: 'Área (m²)', width: 150 },
     {
       field: 'coordinates',
       headerName: 'Coordenadas',
@@ -35,7 +58,7 @@ export const PrediccionEnergiaSolarPage = () => {
     },
     { field: 'actions', headerName: 'Acciones', width: 150 },
   ];
-
+*/
   // Captura el evento cuando se crea un polígono
   const handleOverlayComplete = (event) => {
     if (event.type === google.maps.drawing.OverlayType.POLYGON) {
@@ -63,7 +86,7 @@ export const PrediccionEnergiaSolarPage = () => {
         },
       ]);
 
-      console.log(coordinates.azimuth)
+      //console.log(coordinates.azimuth)
 
       setDataWatts({
         system_capacity: area.toFixed(2) * 0.2,
@@ -71,9 +94,9 @@ export const PrediccionEnergiaSolarPage = () => {
         losses: '10',
         array_type: '1',
         tilt: '9',
-        azimuth: '21',
-        lat: '6.1824',
-        lon: '-75.5681',
+        azimuth: coordinates.azimuth,
+        lat: coordinates.lat,
+        lon: coordinates.lon,
       });
     }
   };
@@ -93,6 +116,8 @@ export const PrediccionEnergiaSolarPage = () => {
     );
   };
 
+  // Actualiza la gráfica dependiendo del elemento seleccionado
+
   useEffect(() => {
     if (drawingManager) {
       const listener = google.maps.event.addListener(
@@ -104,8 +129,25 @@ export const PrediccionEnergiaSolarPage = () => {
     }
   }, [drawingManager]);
 
-  console.log(data);
+  useEffect(()=>{
+    if (data){   
+      const monthNames = [
+        'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+      ];
+      const extractedData = data?.outputs?.ac_monthly.map((value,index) => ({
+        month: monthNames[index],
+        production: value    
+      }));    
+     setChartData(extractedData);
+     //console.log("logData") //Verifico que se haya creado la tabla
+     //console.log(extractedData); //Verifico los datos
+  }
+  }, [data]); 
 
+  
+  console.log(data);
+  
   return (
     <MainCard>
       <Grid container spacing={2}>
@@ -126,7 +168,7 @@ export const PrediccionEnergiaSolarPage = () => {
             <Map
               style={{ width: '100vw', height: '100vh' }}
               defaultCenter={{ lat: 6.254933, lng: -75.605875 }}
-              defaultZoom={12}
+              defaultZoom={16}
               onLoad={(map) => {
                 if (drawingManager) {
                   drawingManager.setMap(map);
@@ -149,6 +191,9 @@ export const PrediccionEnergiaSolarPage = () => {
             columns={columns}
             onDelete={removePolygon}
           />
+          <ChartSolar solarData={chartData}/>
+          <Typography variant="h2">Fin del Comunicado</Typography>    
+
         </Grid>
       </Grid>
     </MainCard>
