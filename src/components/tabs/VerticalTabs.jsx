@@ -47,6 +47,7 @@ export const VerticalTabs = ({
         orientation="vertical"
         variant="scrollable"
         value={value}
+        indicatorColor='secondary'
         onChange={handleChange}
         aria-label="Vertical tabs example"
         sx={{ borderRight: 1, borderColor: 'divider', width: '15vw' }}
@@ -63,7 +64,9 @@ export const VerticalTabs = ({
             {...a11yProps(index)}
             sx={{
               border:
-                value === index ? '0.5px solid #b39ddb' : '0.5px solid transparent',
+                value === index
+                  ? '0.5px solid #b39ddb'
+                  : '0.5px solid transparent',
               transition: 'border 0.3s ease',
             }}
           />

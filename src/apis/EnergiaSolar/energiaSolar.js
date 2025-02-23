@@ -21,9 +21,9 @@ export const energiaSolar = createApi({
         return error;
       },
     }),
-    getEnergyData: builder.query({
+    getEnergyPriceHour: builder.query({
       query: (params) => ({
-        url: `PublicData?startDate=2025-02-19&endDate=2025-02-21&datasetId=7e704d&columnDestinyName=null&values=null`,
+        url: `PublicData?startDate=2025-02-01&endDate=2025-02-22&datasetId=EC6945&columnDestinyName=null&values=null`,
         method: 'GET',
         // headers: 'X-Api-Key nmagJbURbhEg9MaZclDNv4gGomCURGt98KeM2u0G',
       }),
@@ -38,4 +38,4 @@ export const energiaSolar = createApi({
   }),
 });
 
-export const { useGetByDateQuery, useGetEnergyDataQuery } = energiaSolar;
+export const { useGetByDateQuery, useGetEnergyPriceHourQuery } = energiaSolar;
