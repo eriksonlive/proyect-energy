@@ -25,6 +25,8 @@ const AuthWrapper = ({ children }) => {
   const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
   const [checkingAuth, setCheckingAuth] = useState(true);
 
+  
+
   useEffect(() => {
     if (!isLoading) {
       if (!isAuthenticated) {

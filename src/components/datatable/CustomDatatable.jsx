@@ -59,7 +59,7 @@ const theme = createTheme({
 
 export const CustomDatatable = ({ rows, columns, onDelete }, props = {}) => {
   const [paginationModel, setPaginationModel] = useState({
-    pageSize: 2, // Establece el número de filas visibles
+    pageSize: 10, // Establece el número de filas visibles
     page: 0, // Página inicial
   });
 

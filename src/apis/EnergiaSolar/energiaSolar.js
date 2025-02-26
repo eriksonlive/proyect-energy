@@ -35,7 +35,40 @@ export const energiaSolar = createApi({
         return error;
       },
     }),
+    getPriceEnergyData: builder.query({
+      query: (params) => ({
+        url: `PublicData?startDate=2025-01-31&endDate=2025-01-31&datasetId=b1189f&columnDestinyName=null&values=null`,
+        method: 'GET',
+        // headers: 'X-Api-Key nmagJbURbhEg9MaZclDNv4gGomCURGt98KeM2u0G',
+      }),
+      transformResponse: (response) => response,
+      transformErrorResponse: (error) => {
+        if (error?.originalStatus === 404) {
+          return { message: '' };
+        }
+        return error;
+      },
+    }),
+    getEnergyDataName: builder.query({
+      query: (params) => ({
+        url: `PublicData?startDate=2025-02-21&endDate=2025-02-21&datasetId=0bfc9d&columnDestinyName=null&values=null`,
+        method: 'GET',
+        // headers: 'X-Api-Key nmagJbURbhEg9MaZclDNv4gGomCURGt98KeM2u0G',
+      }),
+      transformResponse: (response) => response,
+      transformErrorResponse: (error) => {
+        if (error?.originalStatus === 404) {
+          return { message: '' };
+        }
+        return error;
+      },
+    }),
   }),
 });
 
-export const { useGetByDateQuery, useGetEnergyPriceHourQuery } = energiaSolar;
+export const {
+  useGetByDateQuery,
+  useGetEnergyPriceHourQuery,
+  useGetPriceEnergyDataQuery,
+  useGetEnergyDataNameQuery,
+} = energiaSolar;
