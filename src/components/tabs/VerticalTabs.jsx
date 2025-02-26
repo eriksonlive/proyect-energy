@@ -18,11 +18,16 @@ const TabPanel = ({ children, value, index, ...props }) => {
 const a11yProps = (index) => {
   return {
     id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`,
   };
 };
 
-export const VerticalTabs = ({ children, uniqueKey, dataTabs = [], ...props }) => {
+export const VerticalTabs = ({
+  children,
+  uniqueKey,
+  dataTabs = [],
+  ...props
+}) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -33,20 +38,21 @@ export const VerticalTabs = ({ children, uniqueKey, dataTabs = [], ...props }) =
     <Box
       sx={{
         flexGrow: 1,
-        bgcolor: "background.paper",
-        display: "flex",
-        height: "auto",
+        bgcolor: 'background.paper',
+        display: 'flex',
+        height: 'auto',
       }}
     >
       <Tabs
         orientation="vertical"
         variant="scrollable"
         value={value}
+        indicatorColor='secondary'
         onChange={handleChange}
         aria-label="Vertical tabs example"
-        sx={{ borderRight: 1, borderColor: "divider", width: "15vw" }}
+        sx={{ borderRight: 1, borderColor: 'divider', width: '15vw' }}
       >
-        {dataTabs.map((tabs) => (
+        {dataTabs.map((tabs, index) => (
           <Tab
             key={tabs?.id}
             label={
@@ -55,21 +61,30 @@ export const VerticalTabs = ({ children, uniqueKey, dataTabs = [], ...props }) =
                 <Typography variant="subtitle2">{tabs?.subTitle}</Typography>
               </Box>
             }
-            {...a11yProps(tabs?.id)}
+            {...a11yProps(index)}
+            sx={{
+              border:
+                value === index
+                  ? '0.5px solid #b39ddb'
+                  : '0.5px solid transparent',
+              transition: 'border 0.3s ease',
+            }}
           />
         ))}
       </Tabs>
       <Box
         sx={{
           flexGrow: 1, // Esto asegura que el TabPanel se ajuste al resto del espacio
-          height: "100%", // Hace que el TabPanel ocupe la altura completa
-          overflowY: "auto", // Agrega desplazamiento si el contenido del TabPanel es mayor al contenedor
-          width: '20vw'
+          height: '100%', // Hace que el TabPanel ocupe la altura completa
+          overflowY: 'auto', // Agrega desplazamiento si el contenido del TabPanel es mayor al contenedor
+          width: '20vw',
         }}
       >
         {React.Children.map(children, (child, index) => (
           <TabPanel key={index} value={value} index={index} {...props}>
-            {React.cloneElement(child, { id: dataTabs.length > 0 ? dataTabs[index].id: index})}
+            {React.cloneElement(child, {
+              id: dataTabs.length > 0 ? dataTabs[index].id : index,
+            })}
           </TabPanel>
         ))}
       </Box>
