@@ -1,5 +1,6 @@
 // material-ui
 import { useTheme } from '@mui/material/styles';
+import logo from 'assets/img/logo1.webp';
 
 /**
  * if you want to use image instead of <svg> uncomment following.
@@ -15,11 +16,7 @@ const Logo = () => {
   const theme = useTheme();
 
   return (
-    <img
-      src="https://www.pngall.com/wp-content/uploads/5/Google-Logo-PNG-Picture.png"
-      alt="Berry"
-      width="100"
-    />
+    <img src={logo} alt="Berry" width="170" />
 
     // <svg width="92" height="32" viewBox="0 0 92 32" fill="none" xmlns="http://www.w3.org/2000/svg">
     //   <path
