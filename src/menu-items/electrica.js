@@ -1,5 +1,6 @@
 import { FaRegMoneyBillAlt, FaUsers } from 'react-icons/fa';
 import { SlEnergy } from 'react-icons/sl';
+import { MdAutorenew } from 'react-icons/md';
 import {
   PiCashRegisterFill,
   PiSunHorizonThin,
@@ -14,31 +15,32 @@ const icons = {
   PiSunHorizonThin,
   PiProjectorScreenChartDuotone,
   SlEnergy,
+  MdAutorenew,
 };
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
 
 export const energia = {
-  id: 'energia',
-  title: 'Energia',
+  id: 'wiki-energia',
+  title: 'Wiki Energía',
   type: 'group',
   children: [
     {
-      id: 'red-electrica',
-      title: 'Red Electrica',
+      id: 'energias-renovables',
+      title: 'Energías renovables',
       type: 'item',
       url: '/red-electrica',
-      icon: icons.SlEnergy,
-      breadcrumbs: true,
+      icon: icons.MdAutorenew,
+      breadcrumbs: false,
     },
-    // {
-    //   id: 'simple-invoice',
-    //   title: 'Facturacion simple',
-    //   type: 'item',
-    //   url: '/simple-invoice',
-    //   icon: icons.FaRegMoneyBillAlt,
-    //   breadcrumbs: false,
-    // },
+    {
+      id: 'simple-invoice',
+      title: 'Facturacion simple',
+      type: 'item',
+      url: '/simple-invoice',
+      icon: icons.FaRegMoneyBillAlt,
+      breadcrumbs: false,
+    },
     // {
     //   id: 'util-shadow',
     //   title: 'Clientes',
