@@ -13,8 +13,11 @@ export const PrediccionEnergiaSolarPage = () => {
   const drawingManager = useDrawingManager();
   const [polygons, setPolygons] = useState([]);
   const [dataWatts, setDataWatts] = useState({});
+  const [selectedPolygonId, setSelectedPolygonId] = useState(null);
   const [polygonOverlays, setPolygonOverlays] = useState([]);
   const [chartData, setChartData] = useState([]);
+  const [polygonApiData, setPolygonApiData] = useState({}); // Store API results by polygon ID
+  const [polygonData, setPolygonData] = useState({});
 
   const { data, error, isLoading } = usePostByAreaQuery(dataWatts);
 
@@ -81,7 +84,7 @@ export const PrediccionEnergiaSolarPage = () => {
           area: area.toFixed(2),
           coordinates: path,
           overlay: polygon,
-          orientation: coordinates.azimuth,
+          //orientation: coordinates.azimuth,
           // kw: area.toFixed(2) * 0.2
         },
       ]);
@@ -98,6 +101,7 @@ export const PrediccionEnergiaSolarPage = () => {
         lat: coordinates.lat,
         lon: coordinates.lon,
       });
+
     }
   };
 
@@ -114,6 +118,14 @@ export const PrediccionEnergiaSolarPage = () => {
         return polygon !== match?.overlay;
       })
     );
+
+    // Remove from polygon API data
+    setPolygonApiData(prev => {
+    const newData = {...prev};
+    delete newData[polygonId];
+    return newData;
+    });
+
   };
 
   // Actualiza la gráfica dependiendo del elemento seleccionado
@@ -129,24 +141,62 @@ export const PrediccionEnergiaSolarPage = () => {
     }
   }, [drawingManager]);
 
+
+
   useEffect(()=>{
     if (data){   
+      const polygonId = polygons[polygons.length-1].id;
+
+        const monthNames = [
+          'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+          'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ];
+
+        const extractedData = data?.outputs?.ac_monthly.map((value,index) => ({
+          month: monthNames[index],
+          production: value    
+        }));    
+
+        setPolygonApiData(prev => ({
+          ...prev,
+          [polygonId]: extractedData
+        }));
+
+      console.log(polygonApiData);
+      if (polygons.length === 1 && !selectedPolygonId) {
+      setChartData(extractedData);
+      }
+     //console.log("logData") //Verifico que se haya creado la tabla
+     //console.log(extractedData); //Verifico los datos
+      
+    }
+  }, [data, polygons, polygons.length, selectedPolygonId]); 
+
+  const handleSelectionChange = (selectionModel) => {
+    
+    // Assuming selectionModel contains the ids of selected rows
+    const selectedId = selectionModel.length > 0 ? selectionModel[0] : null;
+ 
+    setSelectedPolygonId(selectedId);
+    console.log(polygonApiData);
+    console.log(selectedId);
+    console.log(polygonApiData[selectedId]);
+    // Update the chart with the stored data if we have it
+    if (selectedId && polygonApiData[selectedId]) {
       const monthNames = [
         'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
         'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
       ];
-      const extractedData = data?.outputs?.ac_monthly.map((value,index) => ({
-        month: monthNames[index],
-        production: value    
-      }));    
-     setChartData(extractedData);
-     //console.log("logData") //Verifico que se haya creado la tabla
-     //console.log(extractedData); //Verifico los datos
-  }
-  }, [data]); 
 
-  
-  console.log(data);
+      const extractedData = polygonApiData[selectedId];
+      console.log("Aca Toy");
+      console.log(extractedData);
+      setChartData(extractedData || []);
+    } else {
+      setChartData([]); // Clear chart if no selection or no data
+    }
+  }
+  //console.log(data);
   
   return (
     <MainCard>
@@ -190,6 +240,8 @@ export const PrediccionEnergiaSolarPage = () => {
             rows={polygons}
             columns={columns}
             onDelete={removePolygon}
+            onSelectionModelChange={handleSelectionChange}
+            selectionModel={selectedPolygonId ? [selectedPolygonId] : []}
           />
           <ChartSolar solarData={chartData}/>
           <Typography variant="h2">Fin del Comunicado</Typography>    
