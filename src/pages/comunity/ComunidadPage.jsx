@@ -1,5 +1,5 @@
 import {
-  Button,
+  Box,
   Divider,
   Grid2 as Grid,
   Stack,
@@ -7,8 +7,10 @@ import {
   useTheme,
 } from '@mui/material';
 import { useGetEnergyDataNameQuery, useGetPriceEnergyDataQuery } from 'apis';
-import { CustomDatatable, CustomModal, VerticalTabs } from 'components';
+import { CustomDatatable } from 'components';
 import { CreateCustomerForm } from 'forms';
+import { IoMdSunny, IoMdWater } from 'react-icons/io';
+import { FaFire } from 'react-icons/fa';
 
 import { useEffect, useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
@@ -25,7 +27,39 @@ export const ComunidadPage = () => {
   const columns = [
     { field: 'fecha', headerName: 'Fecha', width: 100 },
     { field: 'empresa', headerName: 'Empresa', width: 200 },
-    { field: 'energia', headerName: 'Tipo energía', width: 100 },
+    {
+      field: 'energia',
+      headerName: 'Tipo energía',
+      width: 150,
+      renderCell: (params) => {
+        if (params.row.energia === 'Solar') {
+          return (
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ mr: 1 }}>{params.row.energia}</Box>
+              <IoMdSunny color={'#febc3b'} size={24} />
+            </Box>
+          );
+        }
+
+        if (params.row.energia === 'Hidraulica') {
+          return (
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ mr: 1 }}>{params.row.energia}</Box>
+              <IoMdWater color={theme.palette.primary.main} size={24} />
+            </Box>
+          );
+        }
+
+        if (params.row.energia === 'Termica') {
+          return (
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ mr: 1 }}>{params.row.energia}</Box>
+              <FaFire color={'#ff6178'} size={24} />
+            </Box>
+          );
+        }
+      },
+    },
     { field: 'codigoPlanta', headerName: 'Código planta', width: 100 },
     { field: 'clasificacion', headerName: 'Clasificación', width: 150 },
     { field: 'capacidad', headerName: 'Capacidad efectiva neta', width: 150 },

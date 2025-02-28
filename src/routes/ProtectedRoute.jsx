@@ -1,28 +1,24 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, CircularProgress } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import logo from 'assets/img/logo1.webp';
+import { useSelector } from 'react-redux';
+import { isAuthenticated, selectToken } from 'store/slices/auth/authSlice';
 
 export const ProtectedRoute = ({ children }) => {
-  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
   const location = useLocation();
-  const [checkingAuth, setCheckingAuth] = useState(true);
+  const navigate = useNavigate();
+
+  const token = useSelector(selectToken);
+  const isAutenticated = useSelector(isAuthenticated);
 
   useEffect(() => {
-    if (!isLoading) {
-      if (!isAuthenticated) {
-        // Capturamos la ruta actual y la pasamos en appState
-        loginWithRedirect({
-          appState: { targetUrl: location.pathname },
-        });
-      } else {
-        setCheckingAuth(false);
-      }
+    if (!isAutenticated && !token) {
+      navigate('/login', { state: { from: location.pathname } });
     }
-  }, [isAuthenticated, isLoading, loginWithRedirect, location.pathname]);
+  }, [token, location, navigate, isAutenticated]);
 
-  if (isLoading || checkingAuth) {
+  if (!token && !isAutenticated) {
     return (
       <Box
         sx={{
