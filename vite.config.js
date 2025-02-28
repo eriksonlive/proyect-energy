@@ -7,7 +7,7 @@ import Inspect from 'vite-plugin-inspect';
 export default defineConfig({
   plugins: [react(), jsconfigPaths(), Inspect()],
   server: {
-    port: 3000, // Asegúrate de que este puerto esté libre y sea el correcto
+    port: 4000, // Asegúrate de que este puerto esté libre y sea el correcto
     open: true, // Esto abrirá automáticamente el navegador
     strictPort: true, // Si el puerto 3000 está en uso, evitará que Vite inicie en otro puerto
     proxy: {

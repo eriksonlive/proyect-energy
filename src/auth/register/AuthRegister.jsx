@@ -10,6 +10,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { useRegisterMutation } from 'apis';
 import { CustomField } from 'components';
 import { Formik, Form, Field } from 'formik';
 import { useState } from 'react';
@@ -19,7 +20,7 @@ import { strengthColor, strengthIndicator } from 'utils/password-strength';
 
 export const AuthRegister = ({ ...others }) => {
   const theme = useTheme();
-  const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
+  const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   const [strength, setStrength] = useState(0);
   const [lavel, setLavel] = useState();
   const navigate = useNavigate();
@@ -28,6 +29,21 @@ export const AuthRegister = ({ ...others }) => {
     const temp = strengthIndicator(value);
     setStrength(temp);
     setLavel(strengthColor(temp));
+  };
+
+  const [register] = useRegisterMutation();
+
+  const handleRegister = async (values, reset) => {
+    try {
+      const res = await register(values).unwrap();
+
+      if (res) {
+        reset();
+        navigate('/login');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -41,7 +57,7 @@ export const AuthRegister = ({ ...others }) => {
               onClick={() => {}}
               size="large"
               sx={{
-                color: "grey.700",
+                color: 'grey.700',
                 backgroundColor: theme.palette.grey[50],
                 borderColor: theme.palette.grey[100],
               }}
@@ -61,12 +77,12 @@ export const AuthRegister = ({ ...others }) => {
         </Grid>
 
         <Grid size={12}>
-          <Box sx={{ alignItems: "center", display: "flex" }}>
+          <Box sx={{ alignItems: 'center', display: 'flex' }}>
             <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
             <Button
               variant="outlined"
               sx={{
-                cursor: "unset",
+                cursor: 'unset',
                 m: 2,
                 py: 0.5,
                 px: 7,
@@ -95,48 +111,61 @@ export const AuthRegister = ({ ...others }) => {
 
       <Formik
         initialValues={{
-          name: "",
-          lastName: "",
-          email: "",
-          password: "",
+          name: '',
+          lastName: '',
+          email: '',
+          password: '',
           checked: false,
         }}
         validate={(values) => {
           let errors = {};
           !values.name
-            ? (errors.name = "Ingresa tu Nombre")
+            ? (errors.name = 'Ingresa tu Nombre')
             : !/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name) &&
-              (errors.name = "El nombre solo puede contener letras y espacios");
+              (errors.name = 'El nombre solo puede contener letras y espacios');
 
           !values.lastName
-            ? (errors.lastName = "Ingresa tu Apellido")
+            ? (errors.lastName = 'Ingresa tu Apellido')
             : !/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.lastName) &&
-              (errors.lastName = "El apellido solo puede contener letras y espacios");
+              (errors.lastName =
+                'El apellido solo puede contener letras y espacios');
 
           !values.email
-            ? (errors.email = "Ingresa un correo valido")
-            : !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(values.email) &&
-              (errors.email = "El correo solo puede contener letras, numeros, puntos, guiones y guiones bajos");
+            ? (errors.email = 'Ingresa un correo valido')
+            : !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
+                values.email
+              ) &&
+              (errors.email =
+                'El correo solo puede contener letras, numeros, puntos, guiones y guiones bajos');
 
-          !values.password && (errors.password = "Ingresa una contraseña");
+          !values.password && (errors.password = 'Ingresa una contraseña');
 
           return errors;
         }}
-        onSubmit={(values, {resetForm}) => {
-          resetForm();
+        onSubmit={(values, { resetForm }) => {
+          handleRegister(values, resetForm);
+
+          // resetForm();
           // console.log(values);
-          navigate('/login');
+          // navigate('/login');
         }}
       >
-        {({ errors, values, handleChange, handleBlur, isSubmitting, touched }) => (
+        {({
+          errors,
+          values,
+          handleChange,
+          handleBlur,
+          isSubmitting,
+          touched,
+        }) => (
           <Form {...others}>
             <Grid container spacing={matchDownSM ? 0 : 2}>
               <Grid size={{ xs: 12, sm: 6 }}>
                 <CustomField
                   type="auth"
                   textfield={{
-                    label: "Nombre",
-                    name: "name",
+                    label: 'Nombre',
+                    name: 'name',
                     value: values.name,
                     onChange: handleChange,
                     onBlur: handleBlur,
@@ -148,8 +177,8 @@ export const AuthRegister = ({ ...others }) => {
                 <CustomField
                   type="auth"
                   textfield={{
-                    label: "Apellido",
-                    name: "lastName",
+                    label: 'Apellido',
+                    name: 'lastName',
                     value: values.lastName,
                     onChange: handleChange,
                     onBlur: handleBlur,
@@ -161,9 +190,9 @@ export const AuthRegister = ({ ...others }) => {
             <CustomField
               type="auth"
               textfield={{
-                label: "Correo",
-                type: "email",
-                name: "email",
+                label: 'Correo',
+                type: 'email',
+                name: 'email',
                 value: values.email,
                 onChange: handleChange,
                 onBlur: handleBlur,
@@ -174,9 +203,9 @@ export const AuthRegister = ({ ...others }) => {
             <CustomField
               type="auth"
               textfield={{
-                type: "password",
-                label: "Contraseña",
-                name: "password",
+                type: 'password',
+                label: 'Contraseña',
+                name: 'password',
                 value: values.password,
                 onChange: (props) => {
                   handleChange(props);
@@ -192,8 +221,8 @@ export const AuthRegister = ({ ...others }) => {
                 fullWidth
                 sx={{
                   opacity: strength !== 0 ? 1 : 0,
-                  transition: "opacity 0.5s ease-in-out",
-                  visibility: strength !== 0 ? "visible" : "hidden",
+                  transition: 'opacity 0.5s ease-in-out',
+                  visibility: strength !== 0 ? 'visible' : 'hidden',
                 }}
               >
                 <Box sx={{ mb: 2 }}>
@@ -202,10 +231,10 @@ export const AuthRegister = ({ ...others }) => {
                       <Box
                         sx={{
                           backgroundColor: lavel?.color,
-                          transition: "background-color 0.5s ease-in-out",
+                          transition: 'background-color 0.5s ease-in-out',
                           width: 85,
                           height: 8,
-                          borderRadius: "7px",
+                          borderRadius: '7px',
                         }}
                       />
                     </Grid>

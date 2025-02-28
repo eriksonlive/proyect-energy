@@ -47,7 +47,8 @@ export const VerticalTabs = ({
         orientation="vertical"
         variant="scrollable"
         value={value}
-        indicatorColor='secondary'
+        indicatorColor="secondary"
+        textColor="secondary"
         onChange={handleChange}
         aria-label="Vertical tabs example"
         sx={{ borderRight: 1, borderColor: 'divider', width: '15vw' }}
@@ -57,7 +58,7 @@ export const VerticalTabs = ({
             key={tabs?.id}
             label={
               <Box>
-                <Typography variant="subtitle1">{tabs?.title}</Typography>
+                <Typography>{tabs?.title}</Typography>
                 <Typography variant="subtitle2">{tabs?.subTitle}</Typography>
               </Box>
             }

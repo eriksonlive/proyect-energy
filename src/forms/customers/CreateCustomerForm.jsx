@@ -12,8 +12,8 @@ const tabs = [
 export const CreateCustomerForm = () => {
   return (
     <VerticalTabs dataTabs={tabs} sx={{ border: 'solid red 1px' }}>
-      <Grid container spacing={2}>
-        <Grid size={12} sx={{ textAlign: 'center' }}>
+      <Grid container spacing={2} sx={{ textAlign: 'center' }}>
+        <Grid size={12}>
           <Typography variant="h2" sx={{ color: '#b39ddb' }}>
             Energía solar
           </Typography>
@@ -128,7 +128,7 @@ export const CreateCustomerForm = () => {
             Energía a partir de los residuos
           </Typography>
         </Grid>
-        <Grid size={4}>
+        <Grid size={4} sx={{ textAlign: 'center' }}>
           <img
             src="https://www.minenergia.gov.co/media/media/energia_residuos-01.svg"
             alt="hidrogeno-01"
@@ -141,9 +141,11 @@ export const CreateCustomerForm = () => {
           <Typography
             sx={{ color: '#050404', p: 2, borderRadius: 2, fontSize: 20 }}
           >
-            Energía obtenida a partir de aquella fuente no convencional de
-            energía renovable que consiste en la radiación electromagnética
-            proveniente del sol.
+            La Ley 1715 de 2014 establece como FNCER el contenido energético de
+            los residuos sólidos que no sean susceptibles de reutilización y
+            reciclaje. Es considerado como FNCER el contenido energético tanto
+            de la fracción biodegradable, como de la fracción de combustible de
+            los residuos de biomasa.
           </Typography>
         </Grid>
       </Grid>

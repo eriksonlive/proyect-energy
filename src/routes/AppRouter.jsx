@@ -12,20 +12,28 @@ import {
   PrediccionEnergiaSolarPage,
 } from 'pages';
 import { Layout } from 'layout';
+import { ProtectedRoute } from './ProtectedRoute';
 
 export const AppRouter = () => {
   return (
     <App>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<DashboardPage />} />
           <Route path="/energia-solar" element={<EnergiaSolarPage />} />
           <Route
             path="/prediccion-energia-solar"
             element={<PrediccionEnergiaSolarPage />}
           />
-          <Route path="/comunidad" element={<DatosRedElectricaPage />} />
-          <Route path="/red-electrica" element={<ComunidadPage />} />
+          <Route path="/red-electrica" element={<DatosRedElectricaPage />} />
+          <Route path="/comunidad" element={<ComunidadPage />} />
           <Route path="/simple-invoice" element={<CreateSimpleinvoicePage />} />
           <Route path="/invoice" element={<CreateInvoicePage />} />
           <Route path="/customers" element={<CustomersPage />} />
