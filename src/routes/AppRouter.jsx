@@ -32,8 +32,8 @@ export const AppRouter = () => {
             path="/prediccion-energia-solar"
             element={<PrediccionEnergiaSolarPage />}
           />
-          <Route path="/comunidad" element={<DatosRedElectricaPage />} />
-          <Route path="/red-electrica" element={<ComunidadPage />} />
+          <Route path="/red-electrica" element={<DatosRedElectricaPage />} />
+          <Route path="/comunidad" element={<ComunidadPage />} />
           <Route path="/simple-invoice" element={<CreateSimpleinvoicePage />} />
           <Route path="/invoice" element={<CreateInvoicePage />} />
           <Route path="/customers" element={<CustomersPage />} />

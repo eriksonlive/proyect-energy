@@ -15,24 +15,35 @@ import { Customization } from 'layout/custom';
 import { AnimateButton } from 'ui-component';
 import { Field, Form, Formik } from 'formik';
 import { useNavigate } from 'react-router';
-import { useAuth0 } from '@auth0/auth0-react';
-import { useState } from 'react';
+import { useLoginMutation } from 'apis';
+import { useDispatch } from 'react-redux';
+import {
+  loginFail,
+  loginStart,
+  loginSuccess,
+} from 'store/slices/auth/authSlice';
 
 export const AuthLogin = ({ ...others }) => {
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const { loginWithRedirect, user, isAuthenticated, getAccessTokenSilently } =
-    useAuth0();
+  const [login] = useLoginMutation();
 
-  const handleLogin = async () => {
+  const handleLogin = async ({ email, password }) => {
+    dispatch(loginStart());
     try {
-      await loginWithRedirect();
-      const token = await getAccessTokenSilently();
-      console.log('Token:', token);
-    } catch (error) {
-      console.error('Error al iniciar sesión', error);
+      const result = await login({ email, password }).unwrap();
+      // console.log('Login exitoso:', result);
+
+      dispatch(
+        loginSuccess({ token: result.accessToken, user: result.usuario })
+      );
+      navigate('/');
+      // Aquí puedes guardar el token, redirigir, etc.
+    } catch (err) {
+      dispatch(loginFail(err));
     }
   };
 
@@ -67,7 +78,7 @@ export const AuthLogin = ({ ...others }) => {
         </AnimateButton>
       </Grid>
 
-      {/* <Grid size={12}>
+      <Grid size={12}>
         <Box
           sx={{
             alignItems: 'center',
@@ -126,7 +137,8 @@ export const AuthLogin = ({ ...others }) => {
         }}
         onSubmit={(values, { resetForm }) => {
           resetForm();
-          handleLogin();
+          handleLogin(values);
+          console.log('lorem');
           // navigate('/');
         }}
       >
@@ -148,7 +160,7 @@ export const AuthLogin = ({ ...others }) => {
                 value: values.user,
                 onChange: handleChange,
                 onBlur: handleBlur,
-                error: touched.user && errors.user,
+                error: touched.email && errors.email,
               }}
             />
 
@@ -211,7 +223,7 @@ export const AuthLogin = ({ ...others }) => {
             </Box>
           </Form>
         )}
-      </Formik> */}
+      </Formik>
     </Grid>
   );
 };

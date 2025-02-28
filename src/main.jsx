@@ -2,17 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'index.css';
 import { Provider } from 'react-redux';
-import { store } from 'store';
+import { store, persistor } from 'store';
 import { BrowserRouter } from 'react-router-dom';
 import { AppRouter } from 'routes';
-import { Auth0Provider } from '@auth0/auth0-react';
+import { PersistGate } from 'redux-persist/es/integration/react';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <AppRouter />
-      </BrowserRouter>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

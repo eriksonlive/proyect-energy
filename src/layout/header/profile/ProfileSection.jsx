@@ -30,8 +30,9 @@ import { CgProfile } from 'react-icons/cg';
 import { LuSettings2 } from 'react-icons/lu';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useAuth0 } from '@auth0/auth0-react';
+import { logout, selectUser } from 'store/slices/auth/authSlice';
 
 export const ProfileSection = () => {
   const theme = useTheme();
@@ -47,7 +48,9 @@ export const ProfileSection = () => {
 
   const anchorRef = useRef(null);
 
-  const { logout } = useAuth0();
+  const { nombre, email } = useSelector(selectUser);
+
+  const dispatch = useDispatch();
 
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
@@ -144,16 +147,16 @@ export const ProfileSection = () => {
                   <Box sx={{ p: 2, pb: 0 }}>
                     <Stack>
                       <Stack direction="row" spacing={0.5} alignItems="center">
-                        <Typography variant="h4">Good Monrning</Typography>
+                        <Typography variant="h4">Bienvenido</Typography>
                         <Typography
                           component="span"
                           variant="h4"
                           sx={{ fontWeight: 400 }}
                         >
-                          Jhon Doe
+                          {nombre}
                         </Typography>
                       </Stack>
-                      <Typography variant="subtitle2">Project Admin</Typography>
+                      <Typography variant="subtitle2">{email}</Typography>
                     </Stack>
                     <OutlinedInput
                       sx={{ width: '100%', pr: 1, pl: 2, my: 2 }}
@@ -318,12 +321,7 @@ export const ProfileSection = () => {
                           }}
                           selected={selectedIndex === 0}
                           onClick={
-                            () =>
-                              logout({
-                                logoutParams: {
-                                  returnTo: window.location.origin,
-                                },
-                              })
+                            () => dispatch(logout())
                             // handleListItemClick(event, 0, '/login')
                           }
                         >
