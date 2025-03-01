@@ -162,7 +162,7 @@ export const ValoracionEnergias = () => {
             La pantalla muestra una tabla con información sobre las plantas de
             energía en Colombia, incluyendo su tipo de generación y rentabilidad
             diaria. Esto ayuda a evaluar el desempeño financiero y la diversidad
-            de fuentes de energía en el sector
+            de fuentes de energía en el sector.
           </Typography>
         </Grid>
 
