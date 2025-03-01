@@ -126,32 +126,46 @@ export const ValoracionEnergias = () => {
             Valoración de los diferentes mercados de energía en Colombia
           </Typography>
         </Grid>
+
         <Grid
-          size={8}
-          sx={{ alignItems: 'center', alignContent: 'center', px: 4 }}
+          item
+          xs={'100%'}
+          sx={{
+            backgroundImage: `url('https://twenergy.com/wp-content/uploads/2019/07/energias_renovables-OK.jpg')`,
+            color: '#fff',
+            overflow: 'hidden',
+            position: 'relative',
+            '&:before': {
+              content: '""',
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              background: 'rgb(28 41 85)',
+              borderRadius: '0',
+              opacity: 0.3,
+            },
+            backgroundSize: 'cover', // Ajusta el tamaño para cubri
+            backgroundRepeat: 'no-repeat',
+          }}
         >
-          <Typography variant="h4" fontSize={16} color="#646464">
-            La pantalla presenta una tabla consolidada que refleja las
-            valoraciones energéticas en Colombia. Cada fila corresponde a una
-            planta del sector y detalla su medio de generación, que puede
-            incluir fuentes como la hidroeléctrica, eólica, solar, térmica,
-            entre otras. Además, se muestran los valores diarios de
-            rentabilidad, lo que permite hacer un seguimiento del desempeño
-            financiero de cada compañía. Esta herramienta facilita la evaluación
-            de la diversificación y eficiencia de las fuentes de energía,
-            ofreciendo una visión rápida de las tendencias del mercado y
-            ayudando en la toma de decisiones sobre inversiones en el sector
-            energético.
+          <Typography
+            variant="h3"
+            color="white"
+            sx={{
+              px: 4,
+              py: 15.399,
+              zIndex: 2,
+              textAlign: 'center',
+              position: 'relative',
+            }}
+          >
+            La pantalla muestra una tabla con información sobre las plantas de
+            energía en Colombia, incluyendo su tipo de generación y rentabilidad
+            diaria. Esto ayuda a evaluar el desempeño financiero y la diversidad
+            de fuentes de energía en el sector
           </Typography>
         </Grid>
-        <Grid size={4} sx={{ px: 4 }}>
-          <img
-            src="https://tesy.es/blog/wp-content/uploads/2019/01/energia-renovable-post-769x570.jpg"
-            alt="energias"
-            width={'100%'}
-            loading="lazy"
-          />
-        </Grid>
+
         <Grid size={12} sx={{ mt: 4, px: 4 }}>
           <Stack direction="row" spacing={2}>
             <CustomDatatable
