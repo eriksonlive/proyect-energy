@@ -126,11 +126,13 @@ export const ValoracionEnergias = () => {
             Valoración de los diferentes mercados de energía en Colombia
           </Typography>
         </Grid>
-        
-        <Grid item xs={"100%"} sx={{
-          
-          backgroundImage: `url('https://twenergy.com/wp-content/uploads/2019/07/energias_renovables-OK.jpg')`,
-          color: '#fff',
+
+        <Grid
+          item
+          xs={'100%'}
+          sx={{
+            backgroundImage: `url('https://twenergy.com/wp-content/uploads/2019/07/energias_renovables-OK.jpg')`,
+            color: '#fff',
             overflow: 'hidden',
             position: 'relative',
             '&:before': {
@@ -138,27 +140,32 @@ export const ValoracionEnergias = () => {
               position: 'absolute',
               width: '100%',
               height: '100%',
-              background: "rgb(28 41 85)",
+              background: 'rgb(28 41 85)',
               borderRadius: '0',
               opacity: 0.3,
             },
-          backgroundSize: 'cover', // Ajusta el tamaño para cubri
-          backgroundRepeat: "no-repeat"
-  
-}}>
-     
-    <Typography
-      variant="h3"
-      color="white"
-      sx={{ px: 4, py: 15.399, zIndex: 2, textAlign: 'center', position: "relative"}}
-    >
-      La pantalla muestra una tabla con información sobre las plantas de energía en Colombia,
-      incluyendo su tipo de generación y rentabilidad diaria. Esto ayuda a evaluar el desempeño
-      financiero y la diversidad de fuentes de energía en el sector.
-    </Typography>
-</Grid>
+            backgroundSize: 'cover', // Ajusta el tamaño para cubri
+            backgroundRepeat: 'no-repeat',
+          }}
+        >
+          <Typography
+            variant="h3"
+            color="white"
+            sx={{
+              px: 4,
+              py: 15.399,
+              zIndex: 2,
+              textAlign: 'center',
+              position: 'relative',
+            }}
+          >
+            La pantalla muestra una tabla con información sobre las plantas de
+            energía en Colombia, incluyendo su tipo de generación y rentabilidad
+            diaria. Esto ayuda a evaluar el desempeño financiero y la diversidad
+            de fuentes de energía en el sector
+          </Typography>
+        </Grid>
 
-      
         <Grid size={12} sx={{ mt: 4, px: 4 }}>
           <Stack direction="row" spacing={2}>
             <CustomDatatable
