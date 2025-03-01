@@ -1,14 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   open: true,
 };
 
 export const customSlice = createSlice({
-  name: "customSlice",
+  name: 'customSlice',
   initialState,
   reducers: {
-    isOpenMenu: (state, payload) => {
+    isOpenMenu: (state) => {
       state.open = !state.open;
     },
   },
