@@ -16,6 +16,7 @@ import { RoofOrientation } from './direction';
 import ChartSolar from './charts/ChartSolar';
 import { useDrawingManager } from './use-drawing-manager';
 
+
 export const PrediccionEnergiaSolarPage = () => {
   const drawingManager = useDrawingManager();
   const [polygons, setPolygons] = useState([]);

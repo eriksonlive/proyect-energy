@@ -22,13 +22,7 @@ export const DashboardPage = () => {
       <Grid size={12}>
         <Grid container spacing={gridSpacing} columns={12}>
           <Grid size={{ sx: 12, sm: 6, md: 6, lg: 4 }}>
-            {/* <EarningCard isLoading={isLoading} /> */}
-            <iframe
-              src="https://energytalento.tech/grafana/public-dashboards/01c3138b0cd045238eac86215fcf4663"
-              width={'100%'}
-              height={'100%'}
-              frameborder="0"
-            ></iframe>
+            <EarningCard isLoading={isLoading} />
           </Grid>
           <Grid size={{ sx: 12, sm: 6, md: 6, lg: 4 }}>
             <TotalOrderLineChartCard isLoading={isLoading} />

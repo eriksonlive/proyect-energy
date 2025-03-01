@@ -7,14 +7,11 @@ export const EnergiaSolarPage = () => {
   const theme = useTheme();
 
   return (
-    <MainCard>
-      <Grid container spacing={2}>
-        <Grid size={12}>
-          <Stack direction="row" spacing={2}>
-            {/* <CustomDatatable /> */}
-          </Stack>
-        </Grid>
-      </Grid>
-    </MainCard>
+    <iframe
+      src="https://energytalento.tech/grafana/public-dashboards/01c3138b0cd045238eac86215fcf4663"
+      width={'100%'}
+      height={'100%'}
+      frameborder="0"
+    ></iframe>
   );
 };
