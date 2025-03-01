@@ -97,6 +97,7 @@ const EarningCard = ({ isLoading }) => {
                     </Avatar>
                   </Grid>
                   <Grid>
+                    <Box></Box>
                     <Avatar
                       variant="rounded"
                       sx={{

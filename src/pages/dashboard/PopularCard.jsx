@@ -149,7 +149,7 @@ const PopularCard = ({ isLoading }) => {
                     </Typography>
                   </Grid>
                 </Grid>
-                <Divider sx={{ my: 1.5 }} />
+                {/* <Divider sx={{ my: 1.5 }} />
                 <Grid container direction="column" columns={12}>
                   <Grid>
                     <Grid
@@ -372,7 +372,7 @@ const PopularCard = ({ isLoading }) => {
                       10% loss
                     </Typography>
                   </Grid>
-                </Grid>
+                </Grid> */}
               </Grid>
             </Grid>
           </CardContent>
