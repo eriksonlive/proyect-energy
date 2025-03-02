@@ -24,7 +24,7 @@ export const monitoreo = {
       type: 'item',
       url: '/energia-solar',
       icon: icons.PiSunHorizonThin,
-      breadcrumbs: true,
+      breadcrumbs: false,
     },
     // {
     //   id: 'simple-invoice',
