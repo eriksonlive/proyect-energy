@@ -9,9 +9,15 @@ import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalIncomeDarkCard from './TotalIncomeDarkCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
 import PopularCard from './PopularCard';
+import { useSelector } from 'react-redux';
+import { selectUser } from 'store/slices/auth/authSlice';
 
 export const DashboardPage = () => {
   const [isLoading, setIsLoading] = useState(true);
+
+  const user = useSelector(selectUser);
+
+  console.log(user);
 
   useEffect(() => {
     setIsLoading(false);

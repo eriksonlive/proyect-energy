@@ -104,7 +104,7 @@ export const CreateInvoicePage = () => {
         'http://localhost:3001/invoice',
         newInvoice
       );
-      console.log('Datos enviados:', response.data);
+      // console.log('Datos enviados:', response.data);
     } catch (error) {
       console.error('Error al sobrescribir datos:', error);
     }
