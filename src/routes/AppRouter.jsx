@@ -45,7 +45,7 @@ export const AppRouter = () => {
           path="/login"
           element={
             <PublicRoute>
-              <LoginPage />
+               <LoginPage />
             </PublicRoute>
           }
         />
@@ -53,7 +53,7 @@ export const AppRouter = () => {
           path="/register"
           element={
             <PublicRoute>
-              <RegisterPage />
+              <RegisterPage/>
             </PublicRoute>
           }
         />

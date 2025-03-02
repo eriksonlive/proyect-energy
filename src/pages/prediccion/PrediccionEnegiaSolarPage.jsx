@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Box,
-  Grid2 as Grid,
-  Stack,
-  Typography,
-  CircularProgress,
-  useTheme,
-  Menu,
-  MenuItem,
-} from '@mui/material';
+import { Box, Grid2 as Grid, Stack, Typography, useTheme } from '@mui/material';
 import { Avatar, MainCard } from 'ui-component';
 import { Map, ControlPosition, MapControl } from '@vis.gl/react-google-maps';
 import { usePostByAreaQuery } from 'apis';
 import { RoofOrientation } from './direction';
 import ChartSolar from './charts/ChartSolar';
 import { useDrawingManager } from './use-drawing-manager';
-
+import sunicon from './images/sunicon.png';
 
 export const PrediccionEnergiaSolarPage = () => {
   const drawingManager = useDrawingManager();
@@ -54,7 +45,7 @@ export const PrediccionEnergiaSolarPage = () => {
 
       const newPolygon = {
         id: Date.now(),
-        area: area.toFixed(2),
+        area: area,
         coordinates: path,
         overlay: polygon,
         apiData: null,
@@ -77,6 +68,14 @@ export const PrediccionEnergiaSolarPage = () => {
   // Efecto: Cuando llega la data de la API, actualizar el primer polígono sin data
   useEffect(() => {
     if (data) {
+      const totalProd = data.outputs.ac_annual;
+
+      setPolygons((prev) =>
+        prev.map((p) =>
+          p.id === polygonToUpdate.id ? { ...p, totalProduction: totalProd } : p
+        )
+      );
+
       // Buscar el primer polígono sin datos API
       const polygonToUpdate = polygons.find((p) => p.apiData === null);
       if (polygonToUpdate) {
@@ -104,6 +103,7 @@ export const PrediccionEnergiaSolarPage = () => {
             p.id === polygonToUpdate.id ? { ...p, apiData: extractedData } : p
           )
         );
+
         // Opcional: si no hay selección previa, auto-seleccionar este polígono
         if (!selectedPolygonId) {
           setSelectedPolygonId(polygonToUpdate.id);
@@ -140,6 +140,8 @@ export const PrediccionEnergiaSolarPage = () => {
     }
   };
 
+  console.log(polygons);
+
   return (
     <MainCard>
       <Grid container spacing={2} sx={{ px: 2 }}>
@@ -154,18 +156,86 @@ export const PrediccionEnergiaSolarPage = () => {
               Sistema de Cálculo de Energía Solar
             </Typography>
           </Stack>
-          <Typography>
-            Dibuja un polígono en el mapa para evaluar el potencial de energía
-            solar. Luego, selecciona una tarjeta para ver sus datos reflejados
-            en la gráfica.
+          <Typography sx={{ fontSize: '16px' }}>
+            Nuestra plataforma te permite calcular la energía generada por
+            paneles solares en un área específica de interés. Sigue estos pasos
+            para obtener información detallada y visualizar los resultados de
+            manera dinámica.
           </Typography>
+
+          <Grid container spacing={2}>
+            <Grid size={6}>
+              <Typography variant="h5" sx={{ my: 2 }}>
+                1. Selección del Área en el Mapa
+              </Typography>
+
+              <Typography sx={{ fontSize: '16px', my: 2 }}>
+                Tras obtener el área, el sistema genera una tarjeta informativa,
+                la cual muestra: La energía estimada que puede generar el área
+                seleccionada, basada en datos meteorológicos y eficiencia de
+                paneles solares. Factores clave como radiación solar y
+                orientación, obtenidos de servicios como OpenWeatherMap,
+                Simem.co y PVWatts.
+              </Typography>
+            </Grid>
+
+            <Grid size={6}>
+              <Typography variant="h5" sx={{ my: 2 }}>
+                2. Cálculo de Energía Generada
+              </Typography>
+
+              <Typography sx={{ fontSize: '16px', my: 2 }}>
+                Tras obtener el área, el sistema genera una tarjeta informativa,
+                la cual muestra: La energía estimada que puede generar el área
+                seleccionada, basada en datos meteorológicos y eficiencia de
+                paneles solares. Factores clave como radiación solar y
+                orientación, obtenidos de servicios como OpenWeatherMap,
+                Simem.co y PVWatts.
+              </Typography>
+            </Grid>
+
+            <Grid size={6}>
+              <Typography variant="h5" sx={{ my: 2 }}>
+                3. Visualización de Tarjetas de Generación
+              </Typography>
+
+              <Typography sx={{ fontSize: '16px', my: 2 }}>
+                Se generarán tarjetas informativas con diferentes
+                configuraciones de paneles solares. Cada tarjeta mostrará la
+                cantidad estimada de energía producida y una comparación con el
+                consumo energético promedio.
+              </Typography>
+            </Grid>
+
+            <Grid size={6}>
+              <Typography variant="h5" sx={{ my: 2 }}>
+                4. Gráficos Dinámicos
+              </Typography>
+
+              <Typography sx={{ fontSize: '16px', my: 2 }}>
+                Selecciona una tarjeta para visualizar gráficos detallados sobre
+                la generación de energía a lo largo del tiempo. Explora la
+                evolución de la producción en distintos períodos y compara
+                diferentes escenarios para optimizar la planificación de tu
+                sistema solar.
+              </Typography>
+            </Grid>
+          </Grid>
         </Grid>
 
         {/* Mapa */}
-        <Grid size={6}>
-          <Stack direction="row" spacing={3}>
+        <Grid size={12}>
+          <Stack
+            direction="row"
+            spacing={3}
+            sx={{
+              alignContent: 'center',
+              alignItems: 'center',
+              textAlign: 'center',
+            }}
+          >
             <Map
-              style={{ width: '100%', height: '60vh' }}
+              style={{ width: '100%', height: '60vh', px: '20' }}
               defaultCenter={{ lat: 6.254933, lng: -75.605875 }}
               defaultZoom={16}
               onLoad={(map) => {
@@ -182,221 +252,184 @@ export const PrediccionEnergiaSolarPage = () => {
             <MapControl position={ControlPosition.TOP_CENTER} />
           </Stack>
         </Grid>
-
-        {/* Gráfica */}
-        <Grid size={6}>
-          {chartData && chartData.length > 0 ? (
-            <ChartSolar solarData={chartData} />
-          ) : (
-            <Box
-              sx={{
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                p: 2,
-              }}
-            >
-              <Typography>Sin datos por mostrar</Typography>
-            </Box>
-          )}
-        </Grid>
-
-        {/* Tarjetas de polígonos */}
-        <Grid size={12}>
-          <Grid container spacing={2}>
-            {polygons.map((polygon) => (
-              <Grid size={4} key={polygon.id}>
-                <Box
-                  onClick={() => handleCardClick(polygon.id)}
-                  sx={{
-                    border:
-                      polygon.id === selectedPolygonId
-                        ? '2px solid blue'
-                        : '1px solid #ccc',
-                    borderRadius: 1,
-                    p: 2,
-                    mb: 2,
-                    cursor: 'pointer',
-                  }}
-                >
-                  <Typography variant="h6">
-                    Polígono ID: {polygon.id}
-                  </Typography>
-                  <Typography>Área: {polygon.area} m²</Typography>
-                  <Typography>
-                    Coordenadas:{' '}
-                    {polygon.coordinates
-                      .map(
-                        (coord) =>
-                          `(${coord.lat.toFixed(4)}, ${coord.lng.toFixed(4)})`
-                      )
-                      .join(' | ')}
-                  </Typography>
-                  <Box sx={{ mt: 1 }}>
-                    {polygon.apiData ? (
-                      <Typography variant="body2">
-                        Datos API: {JSON.stringify(polygon.apiData)}
-                      </Typography>
-                    ) : (
-                      <Typography variant="body2">Cargando datos...</Typography>
-                    )}
-                  </Box>
-                  <Box sx={{ mt: 1 }}>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        removePolygon(polygon.id);
-                      }}
-                    >
-                      Eliminar
-                    </button>
-                  </Box>
-                </Box>
-              </Grid>
-            ))}
-            <Grid size={4}>
-              <MainCard
-                border={false}
-                content={false}
+        <Grid container size={12}>
+          {/* Gráfica */}
+          <Grid size={6}>
+            {chartData && chartData.length > 0 ? (
+              <ChartSolar solarData={chartData} />
+            ) : (
+              <Box
                 sx={{
-                  bgcolor: 'primary.light',
-                  color: '#fff',
-                  overflow: 'hidden',
-                  position: 'relative',
-                  '&:after': {
-                    content: '""',
-                    position: 'absolute',
-                    width: 210,
-                    height: 210,
-                    background: theme.palette.secondary[800],
-                    borderRadius: '50%',
-                    top: { xs: -105, sm: -85 },
-                    right: { xs: -140, sm: -95 },
-                  },
-                  '&:before': {
-                    content: '""',
-                    position: 'absolute',
-                    width: 210,
-                    height: 210,
-                    background: theme.palette.secondary[800],
-                    borderRadius: '50%',
-                    top: { xs: -155, sm: -125 },
-                    right: { xs: -70, sm: -15 },
-                    opacity: 0.5,
-                  },
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  p: 2,
                 }}
               >
-                <Box sx={{ p: 2.25 }}>
-                  <Grid container direction="column">
-                    <Grid>
-                      <Grid container justifyContent="space-between">
+                <Typography>Sin datos por mostrar</Typography>
+              </Box>
+            )}
+          </Grid>
+
+          {/* Tarjetas de polígonos */}
+          <Grid size={6}>
+            <Grid container spacing={2}>
+              {polygons.map((polygon, index) => (
+                <Grid key={index} size={6}>
+                  <MainCard
+                    onClick={() => handleCardClick(polygon.id)}
+                    border={false}
+                    content={false}
+                    sx={{
+                      bgcolor: 'primary.light',
+                      color: '#fff',
+                      overflow: 'hidden',
+                      position: 'relative',
+                      '&:after': {
+                        content: '""',
+                        position: 'absolute',
+                        width: 210,
+                        height: 210,
+                        opacity: 0,
+                        background: theme.palette.secondary[800],
+                        borderRadius: '50%',
+                        top: { xs: -105, sm: -85 },
+                        right: { xs: -140, sm: -95 },
+                      },
+                      '&:before': {
+                        content: '""',
+                        position: 'absolute',
+                        width: 210,
+                        height: 210,
+                        background: theme.palette.secondary[800],
+                        borderRadius: '50%',
+                        top: { xs: -155, sm: -125 },
+                        right: { xs: -70, sm: -15 },
+                        opacity: 0.3,
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        border:
+                          polygon.id === selectedPolygonId
+                            ? '2px solid blue'
+                            : '1px solid #ccc',
+                        borderRadius: 1,
+                        p: 2.25,
+                      }}
+                    >
+                      <Grid container direction="column">
                         <Grid>
-                          <Avatar
-                            variant="rounded"
-                            sx={{
-                              ...theme.typography.commonAvatar,
-                              ...theme.typography.largeAvatar,
-                              bgcolor: 'secondary.500',
-                              mt: 1,
-                            }}
-                          >
-                            {/* <img src={null} alt="Notification" /> */}
-                          </Avatar>
+                          <Grid container justifyContent="space-between">
+                            <Grid>
+                              <Avatar
+                                alt="D"
+                                variant="rounded"
+                                sx={{
+                                  ...theme.typography.commonAvatar,
+                                  ...theme.typography.largeAvatar,
+                                  bgcolor: 'secondary.500',
+                                  mt: 1,
+                                }}
+                              >
+                                <img
+                                  src={sunicon}
+                                  alt="Notification"
+                                  height="40"
+                                  widh="40"
+                                />
+                              </Avatar>
+                            </Grid>
+                            <Grid>
+                              <Avatar
+                                variant="rounded"
+                                alt="X"
+                                src="Image"
+                                sx={{
+                                  ...theme.typography.commonAvatar,
+                                  ...theme.typography.mediumAvatar,
+                                  bgcolor: 'secondary.light',
+                                  color: 'secondary',
+                                  zIndex: 1,
+                                }}
+                                aria-controls="menu-earning-card"
+                                aria-haspopup="true"
+                                //onClick={() => {}}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  removePolygon(polygon.id);
+                                }}
+                              >
+                                {/* <MoreHorizIcon fontSize="inherit" /> */}
+                              </Avatar>
+                            </Grid>
+                          </Grid>
                         </Grid>
                         <Grid>
-                          <Avatar
-                            variant="rounded"
-                            sx={{
-                              ...theme.typography.commonAvatar,
-                              ...theme.typography.mediumAvatar,
-                              bgcolor: 'secondary.light',
-                              color: 'secondary.200',
-                              zIndex: 1,
-                            }}
-                            aria-controls="menu-earning-card"
-                            aria-haspopup="true"
-                            onClick={() => {}}
-                          >
-                            {/* <MoreHorizIcon fontSize="inherit" /> */}
-                          </Avatar>
-                          {/* <Menu
-                        id="menu-earning-card"
-                        // anchorEl={anchorEl}
-                        keepMounted
-                        // open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                        variant="selectedMenu"
-                        anchorOrigin={{
-                          vertical: 'bottom',
-                          horizontal: 'right',
-                        }}
-                        transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right',
-                        }}
-                      >
-                        <MenuItem onClick={handleClose}>
-                          <GetAppTwoToneIcon sx={{ mr: 1.75 }} /> Import Card
-                        </MenuItem>
-                        <MenuItem onClick={handleClose}>
-                          <FileCopyTwoToneIcon sx={{ mr: 1.75 }} /> Copy Data
-                        </MenuItem>
-                        <MenuItem onClick={handleClose}>
-                          <PictureAsPdfTwoToneIcon sx={{ mr: 1.75 }} /> Export
-                        </MenuItem>
-                        <MenuItem onClick={handleClose}>
-                          <ArchiveTwoToneIcon sx={{ mr: 1.75 }} /> Archive File
-                        </MenuItem>
-                      </Menu> */}
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid>
-                      <Grid container alignItems="center">
-                        <Grid>
-                          <Typography
-                            sx={{
-                              fontSize: '2.125rem',
-                              fontWeight: 500,
-                              mr: 1,
-                              mt: 1.75,
-                              mb: 0.75,
-                            }}
-                          >
-                            $100.00
-                          </Typography>
-                        </Grid>
-                        <Grid>
-                          <Avatar
+                          <Grid container alignItems="center">
+                            <Grid>
+                              <Typography
+                                sx={{
+                                  fontSize: '1.5rem',
+                                  fontWeight: 500,
+                                  mr: 1,
+                                  mt: 1.75,
+                                  mb: 0.75,
+                                  color: 'blue',
+                                }}
+                              >
+                                {(polygon.totalProduction / 1000).toFixed(2)}{' '}
+                                MWh -Año
+                              </Typography>
+                              <Typography
+                                sx={{
+                                  fontSize: '1.5rem',
+                                  fontWeight: 500,
+                                  mr: 1,
+                                  mt: 1.75,
+                                  mb: 0.75,
+                                  color: 'blue',
+                                }}
+                              >
+                                {polygon?.area.toFixed(2)} M2
+                              </Typography>
+                            </Grid>
+                            <Grid>
+                              {/*<Avatar
+                            alt = "S"
+                            src= "images/sun1.png"
                             sx={{
                               cursor: 'pointer',
                               ...theme.typography.smallAvatar,
                               bgcolor: 'secondary.200',
                               color: 'secondary.dark',
                             }}
-                          >
-                            {/* <ArrowUpwardIcon
+                          >*/}
+                              {/* <ArrowUpwardIcon
                           fontSize="inherit"
                           sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }}
                         /> */}
-                          </Avatar>
+                              {/* </Avatar>*/}
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                        <Grid sx={{ mb: 1.25 }}>
+                          <Typography
+                            sx={{
+                              fontSize: '1rem',
+                              fontWeight: 1000,
+                              color: 'secondary.dark',
+                            }}
+                          >
+                            Total Energía Solar Generada
+                          </Typography>
                         </Grid>
                       </Grid>
-                    </Grid>
-                    <Grid sx={{ mb: 1.25 }}>
-                      <Typography
-                        sx={{
-                          fontSize: '1rem',
-                          fontWeight: 500,
-                          color: 'secondary.200',
-                        }}
-                      >
-                        Total Earning
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Box>
-              </MainCard>
+                    </Box>
+                  </MainCard>
+                </Grid>
+              ))}
             </Grid>
           </Grid>
         </Grid>
