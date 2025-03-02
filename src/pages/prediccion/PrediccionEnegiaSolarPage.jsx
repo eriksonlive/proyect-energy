@@ -15,6 +15,8 @@ import { usePostByAreaQuery } from 'apis';
 import { RoofOrientation } from './direction';
 import ChartSolar from './charts/ChartSolar';
 import { useDrawingManager } from './use-drawing-manager';
+import sunicon from './images/sunicon.png';
+
 
 
 export const PrediccionEnergiaSolarPage = () => {
@@ -77,6 +79,15 @@ export const PrediccionEnergiaSolarPage = () => {
   // Efecto: Cuando llega la data de la API, actualizar el primer polígono sin data
   useEffect(() => {
     if (data) {
+
+      const totalProd = data.outputs.ac_annual;
+
+      setPolygons((prev) =>
+        prev.map((p) =>
+          p.id === polygonToUpdate.id ? { ...p, totalProduction: totalProd} : p
+        )
+      );
+
       // Buscar el primer polígono sin datos API
       const polygonToUpdate = polygons.find((p) => p.apiData === null);
       if (polygonToUpdate) {
@@ -99,11 +110,18 @@ export const PrediccionEnergiaSolarPage = () => {
           production: value,
         }));
 
+        
+
+        
+
         setPolygons((prev) =>
           prev.map((p) =>
-            p.id === polygonToUpdate.id ? { ...p, apiData: extractedData } : p
+            p.id === polygonToUpdate.id ? { ...p, apiData: extractedData} : p
           )
         );
+
+        console.log(polygons);
+
         // Opcional: si no hay selección previa, auto-seleccionar este polígono
         if (!selectedPolygonId) {
           setSelectedPolygonId(polygonToUpdate.id);
@@ -204,7 +222,7 @@ export const PrediccionEnergiaSolarPage = () => {
         {/* Tarjetas de polígonos */}
         <Grid size={12}>
           <Grid container spacing={2}>
-            {polygons.map((polygon) => (
+            {/*polygons.map((polygon) => (
               <Grid size={4} key={polygon.id}>
                 <Box
                   onClick={() => handleCardClick(polygon.id)}
@@ -253,8 +271,10 @@ export const PrediccionEnergiaSolarPage = () => {
                   </Box>
                 </Box>
               </Grid>
-            ))}
+                    ))*/}
+            {polygons.map((polygon) => (
             <Grid size={4}>
+            
               <MainCard
                 border={false}
                 content={false}
@@ -268,6 +288,7 @@ export const PrediccionEnergiaSolarPage = () => {
                     position: 'absolute',
                     width: 210,
                     height: 210,
+                    opacity: 0,
                     background: theme.palette.secondary[800],
                     borderRadius: '50%',
                     top: { xs: -105, sm: -85 },
@@ -282,16 +303,28 @@ export const PrediccionEnergiaSolarPage = () => {
                     borderRadius: '50%',
                     top: { xs: -155, sm: -125 },
                     right: { xs: -70, sm: -15 },
-                    opacity: 0.5,
+                    opacity: 0.3,
                   },
                 }}
               >
-                <Box sx={{ p: 2.25 }}>
+                
+                <Box 
+
+                  onClick={() => handleCardClick(polygon.id)}
+                  sx={{
+                    border:
+                      polygon.id === selectedPolygonId
+                        ? '2px solid blue'
+                        : '1px solid #ccc',
+                    borderRadius: 1,                    
+                    p: 2.25 }}>
                   <Grid container direction="column">
                     <Grid>
                       <Grid container justifyContent="space-between">
                         <Grid>
                           <Avatar
+                            alt = "D"
+                            
                             variant="rounded"
                             sx={{
                               ...theme.typography.commonAvatar,
@@ -300,22 +333,30 @@ export const PrediccionEnergiaSolarPage = () => {
                               mt: 1,
                             }}
                           >
-                            {/* <img src={null} alt="Notification" /> */}
+                            
+                            <img src={sunicon} alt="Notification" height="40" widh="40"/>
                           </Avatar>
                         </Grid>
                         <Grid>
                           <Avatar
                             variant="rounded"
+                            alt = "X"
+                            src="Image"
                             sx={{
                               ...theme.typography.commonAvatar,
                               ...theme.typography.mediumAvatar,
                               bgcolor: 'secondary.light',
-                              color: 'secondary.200',
+                              color: 'secondary',
                               zIndex: 1,
                             }}
+                            
                             aria-controls="menu-earning-card"
                             aria-haspopup="true"
-                            onClick={() => {}}
+                            //onClick={() => {}}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              removePolygon(polygon.id);
+                            }}
                           >
                             {/* <MoreHorizIcon fontSize="inherit" /> */}
                           </Avatar>
@@ -356,30 +397,33 @@ export const PrediccionEnergiaSolarPage = () => {
                         <Grid>
                           <Typography
                             sx={{
-                              fontSize: '2.125rem',
+                              fontSize: '1.5rem',
                               fontWeight: 500,
                               mr: 1,
                               mt: 1.75,
                               mb: 0.75,
+                              color: 'blue',
                             }}
                           >
-                            $100.00
+                            {(polygon.totalProduction/1000).toFixed(2)} MWh -Año
                           </Typography>
                         </Grid>
                         <Grid>
-                          <Avatar
+                          {/*<Avatar
+                            alt = "S"
+                            src= "images/sun1.png"
                             sx={{
                               cursor: 'pointer',
                               ...theme.typography.smallAvatar,
                               bgcolor: 'secondary.200',
                               color: 'secondary.dark',
                             }}
-                          >
+                          >*/}
                             {/* <ArrowUpwardIcon
                           fontSize="inherit"
                           sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }}
                         /> */}
-                          </Avatar>
+                         {/* </Avatar>*/}
                         </Grid>
                       </Grid>
                     </Grid>
@@ -387,17 +431,20 @@ export const PrediccionEnergiaSolarPage = () => {
                       <Typography
                         sx={{
                           fontSize: '1rem',
-                          fontWeight: 500,
-                          color: 'secondary.200',
+                          fontWeight: 1000,
+                          color: 'secondary.dark',
                         }}
                       >
-                        Total Earning
+                        Total Energía Solar Generada
                       </Typography>
                     </Grid>
                   </Grid>
                 </Box>
+                
               </MainCard>
+              
             </Grid>
+            ))}
           </Grid>
         </Grid>
       </Grid>

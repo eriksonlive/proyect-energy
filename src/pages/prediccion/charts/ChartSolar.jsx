@@ -111,7 +111,7 @@ const ChartSolar = ({ solarData }) => {
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid>
             <Typography variant="subtitle2">Producción Mensual</Typography>
-            <Typography variant="h3">$Mr.Taxes</Typography>
+            <Typography variant="h3">Energía Solar</Typography>
           </Grid>
         </Grid>
       </Grid>
