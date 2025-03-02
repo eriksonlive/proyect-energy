@@ -156,17 +156,71 @@ export const PrediccionEnergiaSolarPage = () => {
               Sistema de Cálculo de Energía Solar
             </Typography>
           </Stack>
-          <Typography>
-            El sistema cuenta con un mapa interactivo donde los usuarios pueden
-            dibujar formas sobre la superficie, representando un área específica
-            de interés. Una vez trazada la figura, la plataforma calcula
-            automáticamente el área en metros cuadrados utilizando herramientas
-            geoespaciales.
+          <Typography sx={{ fontSize: '16px' }}>
+            Nuestra plataforma te permite calcular la energía generada por
+            paneles solares en un área específica de interés. Sigue estos pasos
+            para obtener información detallada y visualizar los resultados de
+            manera dinámica.
           </Typography>
 
-          <Typography>
-            
-          </Typography>
+          <Grid container spacing={2}>
+            <Grid size={6}>
+              <Typography variant="h5" sx={{ my: 2 }}>
+                1. Selección del Área en el Mapa
+              </Typography>
+
+              <Typography sx={{ fontSize: '16px', my: 2 }}>
+                Tras obtener el área, el sistema genera una tarjeta informativa,
+                la cual muestra: La energía estimada que puede generar el área
+                seleccionada, basada en datos meteorológicos y eficiencia de
+                paneles solares. Factores clave como radiación solar y
+                orientación, obtenidos de servicios como OpenWeatherMap,
+                Simem.co y PVWatts.
+              </Typography>
+            </Grid>
+
+            <Grid size={6}>
+              <Typography variant="h5" sx={{ my: 2 }}>
+                2. Cálculo de Energía Generada
+              </Typography>
+
+              <Typography sx={{ fontSize: '16px', my: 2 }}>
+                Tras obtener el área, el sistema genera una tarjeta informativa,
+                la cual muestra: La energía estimada que puede generar el área
+                seleccionada, basada en datos meteorológicos y eficiencia de
+                paneles solares. Factores clave como radiación solar y
+                orientación, obtenidos de servicios como OpenWeatherMap,
+                Simem.co y PVWatts.
+              </Typography>
+            </Grid>
+
+            <Grid size={6}>
+              <Typography variant="h5" sx={{ my: 2 }}>
+                3. Visualización de Tarjetas de Generación
+              </Typography>
+
+              <Typography sx={{ fontSize: '16px', my: 2 }}>
+                Se generarán tarjetas informativas con diferentes
+                configuraciones de paneles solares. Cada tarjeta mostrará la
+                cantidad estimada de energía producida y una comparación con el
+                consumo energético promedio.
+              </Typography>
+            </Grid>
+
+            <Grid size={6}>
+              <Typography variant="h5" sx={{ my: 2 }}>
+                4. Gráficos Dinámicos
+              </Typography>
+
+              <Typography sx={{ fontSize: '16px', my: 2 }}>
+                Selecciona una tarjeta para visualizar gráficos detallados sobre
+                la generación de energía a lo largo del tiempo. Explora la
+                evolución de la producción en distintos períodos y compara
+                diferentes escenarios para optimizar la planificación de tu
+                sistema solar.
+              </Typography>
+            </Grid>
+          </Grid>
         </Grid>
 
         {/* Mapa */}
