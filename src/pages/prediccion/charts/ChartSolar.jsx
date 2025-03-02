@@ -20,7 +20,7 @@ const ChartSolar = ({ solarData }) => {
 
   // Estado inicial del gráfico
   const [chartData, setChartData] = useState({
-    height: 480,
+    height: 300,
     type: 'bar',
     options: {
       chart: {
@@ -54,6 +54,15 @@ const ChartSolar = ({ solarData }) => {
       xaxis: {
         type: 'category',
         categories: [],
+      },
+      yaxis: {
+        labels: {
+          formatter: function (value) {
+            return new Intl.NumberFormat('en-US', {
+              notation: 'compact',
+            }).format(value);
+          },
+        },
       },
       legend: {
         show: true,
