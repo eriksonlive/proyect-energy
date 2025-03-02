@@ -16,18 +16,25 @@ import { AnimateButton } from 'ui-component';
 import { Field, Form, Formik } from 'formik';
 import { useNavigate } from 'react-router';
 import { useLoginMutation } from 'apis';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   loginFail,
   loginStart,
   loginSuccess,
+  selectUser,
 } from 'store/slices/auth/authSlice';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, provider } from 'auth/firebase/firebaseConfig';
 
 export const AuthLogin = ({ ...others }) => {
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const user = useSelector(selectUser);
+
+  // console.log(user);
 
   const [login] = useLoginMutation();
 
@@ -43,7 +50,43 @@ export const AuthLogin = ({ ...others }) => {
       navigate('/');
       // Aquí puedes guardar el token, redirigir, etc.
     } catch (err) {
+      // console.log(err);
       dispatch(loginFail(err));
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+
+      if (!result.user) {
+        throw new Error('No se recibió un usuario válido desde Google.');
+      }
+
+      // console.log('Usuario logueado:', result.user);
+
+      const token = await result.user.getIdToken();
+      const nombre = result.user.displayName || 'Usuario sin nombre';
+      const email = result.user.email || 'Correo no disponible';
+      const photo = result.user.photoURL || '';
+
+      // Asegurarse de que el objeto `user` no tenga valores undefined
+      const userData = {
+        nombre,
+        email,
+        photo,
+      };
+
+      dispatch(loginSuccess({ token, user: userData }));
+
+      navigate('/');
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 200);
+    } catch (err) {
+      console.error('Error al iniciar sesión con Google:', err);
+      dispatch(loginFail(err.message));
     }
   };
 
@@ -54,7 +97,7 @@ export const AuthLogin = ({ ...others }) => {
           <Button
             disableElevation
             fullWidth
-            onClick={handleLogin}
+            onClick={handleGoogleLogin}
             // onClick={() => {}}
             size="large"
             variant="outlined"
@@ -116,9 +159,9 @@ export const AuthLogin = ({ ...others }) => {
 
       <Formik
         initialValues={{
-          email: '',
-          password: '',
-          checked: false,
+          email: 'motrox@hotmail.it',
+          password: 'Herd307jar$',
+          checked: true,
         }}
         validate={(values) => {
           let errors = {};
@@ -138,7 +181,6 @@ export const AuthLogin = ({ ...others }) => {
         onSubmit={(values, { resetForm }) => {
           resetForm();
           handleLogin(values);
-          console.log('lorem');
           // navigate('/');
         }}
       >
@@ -157,7 +199,7 @@ export const AuthLogin = ({ ...others }) => {
                 type: 'email',
                 label: 'Correo',
                 name: 'email',
-                value: values.user,
+                value: values.email,
                 onChange: handleChange,
                 onBlur: handleBlur,
                 error: touched.email && errors.email,

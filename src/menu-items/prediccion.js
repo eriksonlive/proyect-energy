@@ -28,7 +28,7 @@ export const prediccion = {
       type: 'item',
       url: '/prediccion-energia-solar',
       icon: icons.PiProjectorScreenChartDuotone,
-      breadcrumbs: true,
+      breadcrumbs: false,
     },
     // {
     //   id: 'simple-invoice',

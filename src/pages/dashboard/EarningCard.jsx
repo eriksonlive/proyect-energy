@@ -35,10 +35,6 @@ const EarningCard = ({ isLoading }) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const { data } = useGetByDateQuery();
-
-  console.log(data?.result.metadata?.category);
-
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -97,6 +93,7 @@ const EarningCard = ({ isLoading }) => {
                     </Avatar>
                   </Grid>
                   <Grid>
+                    <Box></Box>
                     <Avatar
                       variant="rounded"
                       sx={{

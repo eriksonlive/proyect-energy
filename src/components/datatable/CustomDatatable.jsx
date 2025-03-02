@@ -57,7 +57,7 @@ const theme = createTheme({
   },
 });
 
-export const CustomDatatable = ({ rows, columns, onDelete }, props = {}) => {
+export const CustomDatatable = ({ rows, columns, onDelete, onSelectionModelChange, selectionModel }, props = {}) => {
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 10, // Establece el número de filas visibles
     page: 0, // Página inicial
@@ -99,6 +99,8 @@ export const CustomDatatable = ({ rows, columns, onDelete }, props = {}) => {
             },
           }}
           checkboxSelection
+          onRowSelectionModelChange={onSelectionModelChange}
+          rowSelectionModel={selectionModel}
           sx={{ border: 0 }}
           {...props}
         />

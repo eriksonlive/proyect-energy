@@ -29,7 +29,7 @@ export const comunidad = {
       type: 'item',
       url: '/comunidad',
       icon: icons.FaUsers,
-      breadcrumbs: true,
+      breadcrumbs: false,
     },
     // {
     //   id: 'simple-invoice',

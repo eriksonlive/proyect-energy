@@ -7,12 +7,14 @@ import {
   CreateSimpleinvoicePage,
   CustomersPage,
   DashboardPage,
-  DatosRedElectricaPage,
   EnergiaSolarPage,
   PrediccionEnergiaSolarPage,
+  EnergiasRenovables,
+  ValoracionEnergias,
 } from 'pages';
 import { Layout } from 'layout';
 import { ProtectedRoute } from './ProtectedRoute';
+import { PublicRoute } from './PublicRoute';
 
 export const AppRouter = () => {
   return (
@@ -32,14 +34,29 @@ export const AppRouter = () => {
             path="/prediccion-energia-solar"
             element={<PrediccionEnergiaSolarPage />}
           />
-          <Route path="/red-electrica" element={<DatosRedElectricaPage />} />
+          <Route path="/energias-renovables" element={<EnergiasRenovables />} />
+          <Route path="/valoracion-energia" element={<ValoracionEnergias />} />
           <Route path="/comunidad" element={<ComunidadPage />} />
           <Route path="/simple-invoice" element={<CreateSimpleinvoicePage />} />
           <Route path="/invoice" element={<CreateInvoicePage />} />
           <Route path="/customers" element={<CustomersPage />} />
         </Route>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <LoginPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <RegisterPage />
+            </PublicRoute>
+          }
+        />
       </Routes>
     </App>
   );

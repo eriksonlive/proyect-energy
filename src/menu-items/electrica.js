@@ -22,22 +22,22 @@ const icons = {
 
 export const energia = {
   id: 'wiki-energia',
-  title: 'Wiki Energía',
+  title: 'Wiki Energy',
   type: 'group',
   children: [
     {
       id: 'energias-renovables',
       title: 'Energías renovables',
       type: 'item',
-      url: '/red-electrica',
+      url: '/energias-renovables',
       icon: icons.MdAutorenew,
       breadcrumbs: false,
     },
     {
-      id: 'simple-invoice',
-      title: 'Facturacion simple',
+      id: 'valoracion-energia',
+      title: 'Valoración de energía',
       type: 'item',
-      url: '/simple-invoice',
+      url: '/valoracion-energia',
       icon: icons.FaRegMoneyBillAlt,
       breadcrumbs: false,
     },
