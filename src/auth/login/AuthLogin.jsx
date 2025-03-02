@@ -116,9 +116,9 @@ export const AuthLogin = ({ ...others }) => {
 
       <Formik
         initialValues={{
-          email: '',
-          password: '',
-          checked: false,
+          email: 'motrox@hotmail.it',
+          password: 'Herd307jar$',
+          checked: true,
         }}
         validate={(values) => {
           let errors = {};
@@ -157,7 +157,7 @@ export const AuthLogin = ({ ...others }) => {
                 type: 'email',
                 label: 'Correo',
                 name: 'email',
-                value: values.user,
+                value: values.email,
                 onChange: handleChange,
                 onBlur: handleBlur,
                 error: touched.email && errors.email,

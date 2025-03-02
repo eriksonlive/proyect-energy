@@ -22,7 +22,7 @@ const icons = {
 
 export const energia = {
   id: 'wiki-energia',
-  title: 'Wiki Energía',
+  title: 'Wiki Energy',
   type: 'group',
   children: [
     {
