@@ -42,7 +42,7 @@ export const AuthRegister = ({ ...others }) => {
         navigate('/login');
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

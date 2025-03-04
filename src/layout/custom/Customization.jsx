@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+  Drawer,
+  Fab,
+  FormControl,
+  FormControlLabel,
+  Grid2 as Grid,
+  IconButton,
+  Radio,
+  RadioGroup,
+  Slider,
+  Tooltip,
+  Typography,
+  useTheme,
+} from '@mui/material';
 
-import { useTheme } from '@mui/material/styles';
-import Drawer from '@mui/material/Drawer';
-import Fab from '@mui/material/Fab';
-import Grid from '@mui/material/Grid2';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
-import RadioGroup from '@mui/material/RadioGroup';
-import Radio from '@mui/material/Radio';
-import Slider from '@mui/material/Slider';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import { BsGear } from 'react-icons/bs';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -21,17 +23,18 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 
 import { AnimateButton, SubCard } from 'ui-component';
 import { gridSpacing } from 'store/constan';
+import { borderState, fontState } from 'store/slices/custom/customReducer';
 
-function valueText(value) {
+const valueText = (value) => {
   return `${value}px`;
-}
+};
 
 // ==============================|| LIVE CUSTOMIZATION ||============================== //
 
 export const Customization = () => {
   const theme = useTheme();
-  //   const dispatch = useDispatch();
-  //   const customization = useSelector((state) => state.customization);
+  const dispatch = useDispatch();
+  const customization = useSelector((state) => state.custom);
 
   // drawer on/off
   const [open, setOpen] = useState(false);
@@ -40,47 +43,47 @@ export const Customization = () => {
   };
 
   // state - border radius
-  //   const [borderRadius, setBorderRadius] = useState(customization.borderRadius);
-  //   const handleBorderRadius = (event, newValue) => {
-  //     setBorderRadius(newValue);
-  //   };
+  const [borderRadius, setBorderRadius] = useState(customization.borderRadius);
+  const handleBorderRadius = (event, newValue) => {
+    setBorderRadius(newValue);
+  };
 
-  //   useEffect(() => {
-  //     dispatch({ type: SET_BORDER_RADIUS, borderRadius });
-  //   }, [dispatch, borderRadius]);
+  useEffect(() => {
+    dispatch(borderState(borderRadius));
+  }, [dispatch, borderRadius]);
 
-  //   let initialFont;
-  //   switch (customization.fontFamily) {
-  //     case `'Inter', sans-serif`:
-  //       initialFont = 'Inter';
-  //       break;
-  //     case `'Poppins', sans-serif`:
-  //       initialFont = 'Poppins';
-  //       break;
-  //     case `'Roboto', sans-serif`:
-  //     default:
-  //       initialFont = 'Roboto';
-  //       break;
-  //   }
+  let initialFont;
+  switch (customization.fontFamily) {
+    case `'Inter', sans-serif`:
+      initialFont = 'Inter';
+      break;
+    case `'Poppins', sans-serif`:
+      initialFont = 'Poppins';
+      break;
+    case `'Roboto', sans-serif`:
+    default:
+      initialFont = 'Roboto';
+      break;
+  }
 
   // state - font family
-  //   const [fontFamily, setFontFamily] = useState(initialFont);
-  //   useEffect(() => {
-  //     let newFont;
-  //     switch (fontFamily) {
-  //       case 'Inter':
-  //         newFont = `'Inter', sans-serif`;
-  //         break;
-  //       case 'Poppins':
-  //         newFont = `'Poppins', sans-serif`;
-  //         break;
-  //       case 'Roboto':
-  //       default:
-  //         newFont = `'Roboto', sans-serif`;
-  //         break;
-  //     }
-  //     dispatch({ type: SET_FONT_FAMILY, fontFamily: newFont });
-  //   }, [dispatch, fontFamily]);
+  const [fontFamily, setFontFamily] = useState(initialFont);
+  useEffect(() => {
+    let newFont;
+    switch (fontFamily) {
+      case 'Inter':
+        newFont = `'Inter', sans-serif`;
+        break;
+      case 'Poppins':
+        newFont = `'Poppins', sans-serif`;
+        break;
+      case 'Roboto':
+      default:
+        newFont = `'Roboto', sans-serif`;
+        break;
+    }
+    dispatch(fontState());
+  }, [dispatch, fontFamily]);
 
   return (
     <>
@@ -116,11 +119,7 @@ export const Customization = () => {
         anchor="right"
         onClose={handleToggle}
         open={open}
-        PaperProps={{
-          sx: {
-            width: 280,
-          },
-        }}
+        sx={{ width: 280 }}
       >
         <PerfectScrollbar component="div">
           <Grid container spacing={gridSpacing} sx={{ p: 3 }}>
@@ -130,8 +129,8 @@ export const Customization = () => {
                 <FormControl>
                   <RadioGroup
                     aria-label="font-family"
-                    // value={fontFamily}
-                    // onChange={(e) => setFontFamily(e.target.value)}
+                    value={fontFamily}
+                    onChange={(e) => setFontFamily(e.target.value)}
                     name="row-radio-buttons-group"
                   >
                     <FormControlLabel
@@ -181,16 +180,16 @@ export const Customization = () => {
                   alignItems="center"
                   sx={{ mt: 2.5 }}
                 >
-                  <Grid>
+                  <Grid size={1}>
                     <Typography variant="h6" color="secondary">
                       4px
                     </Typography>
                   </Grid>
-                  <Grid>
+                  <Grid size={9}>
                     <Slider
                       size="small"
-                      //   value={borderRadius}
-                      //   onChange={handleBorderRadius}
+                      value={borderRadius}
+                      onChange={handleBorderRadius}
                       getAriaValueText={valueText}
                       valueLabelDisplay="on"
                       aria-labelledby="discrete-slider-small-steps"
@@ -206,7 +205,7 @@ export const Customization = () => {
                       }}
                     />
                   </Grid>
-                  <Grid>
+                  <Grid size={1}>
                     <Typography variant="h6" color="secondary">
                       24px
                     </Typography>

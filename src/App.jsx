@@ -14,7 +14,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 const apimaps = 'AIzaSyAui1rfWcrUzcOdriaVvdwFfJuokvsvtIo';
 
 export const App = ({ children }) => {
-  const customization = useSelector((state) => state.customization);
+  const customization = useSelector((state) => state.custom);
 
   return (
     <StyledEngineProvider injectFirst>

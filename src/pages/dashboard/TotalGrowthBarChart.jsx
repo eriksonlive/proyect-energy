@@ -115,7 +115,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
   // 🔹 Transformar datos de la API y actualizar el gráfico
   useEffect(() => {
     if (data && data.success) {
-      console.log('Datos recibidos:', data); // Para verificar si data tiene contenido
+      // console.log('Datos recibidos:', data); // Para verificar si data tiene contenido
 
       // Definir el límite de datos a mostrar
       const LIMIT = 20;

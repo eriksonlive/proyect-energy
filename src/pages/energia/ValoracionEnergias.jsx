@@ -128,8 +128,7 @@ export const ValoracionEnergias = () => {
         </Grid>
 
         <Grid
-          item
-          xs={'100%'}
+          size={'12'}
           sx={{
             backgroundImage: `url('https://twenergy.com/wp-content/uploads/2019/07/energias_renovables-OK.jpg')`,
             color: '#fff',

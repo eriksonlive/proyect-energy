@@ -159,8 +159,8 @@ export const AuthLogin = ({ ...others }) => {
 
       <Formik
         initialValues={{
-          email: 'motrox@hotmail.it',
-          password: 'Herd307jar$',
+          email: '',
+          password: '',
           checked: true,
         }}
         validate={(values) => {

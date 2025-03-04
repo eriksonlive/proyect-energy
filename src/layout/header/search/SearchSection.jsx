@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { HeaderAvatar } from './HeaderAvatar';
 
 import { IoSearchOutline } from 'react-icons/io5';
+import { HiOutlineAdjustmentsHorizontal } from 'react-icons/hi2';
 
 import { Transitions } from 'ui-component';
 import { MobileSearch } from './MobileSearch';
@@ -26,7 +27,7 @@ export const SearchSection = () => {
             <>
               <Box sx={{ ml: 2 }}>
                 <HeaderAvatar {...bindToggle(popupState)}>
-                  <IoSearchOutline size="1.3rem" />
+                  <IoSearchOutline size="19.2px" />
                 </HeaderAvatar>
               </Box>
               <Popper
@@ -91,7 +92,7 @@ export const SearchSection = () => {
           endAdornment={
             <InputAdornment position="end">
               <HeaderAvatar>
-                {/* <IconAdjustmentsHorizontal stroke={1.5} size="20px" /> */}
+                <HiOutlineAdjustmentsHorizontal size="20px" />
               </HeaderAvatar>
             </InputAdornment>
           }

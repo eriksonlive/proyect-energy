@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import {
   Avatar,
   Box,
@@ -8,6 +7,10 @@ import {
 } from '@mui/material';
 
 import { bindToggle } from 'material-ui-popup-state';
+import { IoSearchOutline } from 'react-icons/io5';
+import { HiOutlineAdjustmentsHorizontal } from 'react-icons/hi2';
+import { HeaderAvatar } from '.';
+import { IoCloseOutline } from 'react-icons/io5';
 
 export const MobileSearch = ({ value, setValue, popupState }) => {
   const theme = useTheme();
@@ -19,13 +22,15 @@ export const MobileSearch = ({ value, setValue, popupState }) => {
       onChange={({ target }) => setValue(target.value)}
       placeholder="Search"
       startAdornment={
-        <InputAdornment position="start">{/* lorem icon */}</InputAdornment>
+        <InputAdornment position="start">
+          <IoSearchOutline size="1.3rem" />
+        </InputAdornment>
       }
       endAdornment={
         <InputAdornment position="end">
-          {/* <HeaderAvatar>
-                    <IconAdjustmentsHorizontal stroke={1.5} size="20px" />
-                </HeaderAvatar> */}
+          <HeaderAvatar>
+            <HiOutlineAdjustmentsHorizontal size="20px" />
+          </HeaderAvatar>
           <Box sx={{ ml: 2 }}>
             <Avatar
               variant="rounded"
@@ -41,7 +46,7 @@ export const MobileSearch = ({ value, setValue, popupState }) => {
               }}
               {...bindToggle(popupState)}
             >
-              {/* lorem icon */}
+              <IoCloseOutline size="1.3rem" />
             </Avatar>
           </Box>
         </InputAdornment>
@@ -54,9 +59,4 @@ export const MobileSearch = ({ value, setValue, popupState }) => {
       sx={{ width: '100%', ml: 0.5, px: 2, bgcolor: 'background.paper' }}
     />
   );
-};
-
-MobileSearch.propTypes = {
-  value: PropTypes.string,
-  setValue: PropTypes.func,
 };

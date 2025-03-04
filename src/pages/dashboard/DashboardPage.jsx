@@ -17,8 +17,6 @@ export const DashboardPage = () => {
 
   const user = useSelector(selectUser);
 
-  console.log(user);
-
   useEffect(() => {
     setIsLoading(false);
   }, []);

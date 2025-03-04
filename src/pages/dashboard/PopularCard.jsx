@@ -55,7 +55,7 @@ const PopularCard = ({ isLoading }) => {
                   <Grid size={'auto'}>
                     <Typography variant="h4">Popular Stocks</Typography>
                   </Grid>
-                  <Grid sisze="auto">
+                  <Grid size="auto">
                     <MoreHorizOutlinedIcon
                       fontSize="small"
                       sx={{

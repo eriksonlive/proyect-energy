@@ -140,8 +140,6 @@ export const PrediccionEnergiaSolarPage = () => {
     }
   };
 
-  console.log(polygons);
-
   return (
     <MainCard>
       <Grid container spacing={2} sx={{ px: 2 }}>

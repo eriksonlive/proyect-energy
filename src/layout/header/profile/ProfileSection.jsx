@@ -31,14 +31,12 @@ import { LuSettings2 } from 'react-icons/lu';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { useAuth0 } from '@auth0/auth0-react';
 import { logout, selectUser } from 'store/slices/auth/authSlice';
 
 export const ProfileSection = () => {
   const theme = useTheme();
+  const customization = useSelector((state) => state.custom);
   const navigate = useNavigate();
-  //   const customization = useSelector((state) => state.customization);
-  const customization = { borderRadius: 5 };
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
@@ -163,10 +161,13 @@ export const ProfileSection = () => {
                       id="input-search-profile"
                       value={value}
                       onChange={({ target }) => setValue(target.value)}
-                      placeholder="Search profile options"
+                      placeholder="Buscar opciones de perfil"
                       startAdornment={
                         <InputAdornment position="start">
-                          <IoSearchOutline size="1.3rem" />
+                          <IoSearchOutline
+                            size="1.3rem"
+                            color={theme.palette.grey[500]}
+                          />
                         </InputAdornment>
                       }
                       aria-describedby="search-helper-text"
@@ -185,7 +186,7 @@ export const ProfileSection = () => {
                   >
                     <Box sx={{ p: 2, pt: 0 }}>
                       <Card
-                        sx={{ bgcolor: theme.palette.primary.default, my: 2 }}
+                        sx={{ bgcolor: theme.palette.primary.light, my: 2 }}
                       >
                         <CardContent>
                           <Grid container spacing={3} direction="column">
@@ -221,12 +222,11 @@ export const ProfileSection = () => {
                               >
                                 <Grid>
                                   <Typography variant="subtitle1">
-                                    Allow Notifications
+                                    Permitir notificaciones
                                   </Typography>
                                 </Grid>
                                 <Grid>
                                   <Switch
-                                    color="primary"
                                     checked={notification}
                                     onChange={({ target }) =>
                                       setNotification(target.checked)
@@ -272,7 +272,7 @@ export const ProfileSection = () => {
                           <ListItemText
                             primary={
                               <Typography variant="body2">
-                                Account Settings
+                                Configuración de cuenta
                               </Typography>
                             }
                           />
@@ -281,7 +281,7 @@ export const ProfileSection = () => {
                           sx={{
                             borderRadius: `${customization.borderRadius}px`,
                           }}
-                          selected={selectedIndex === 0}
+                          selected={selectedIndex === 1}
                           onClick={(event) =>
                             handleListItemClick(event, 1, '#')
                           }
@@ -298,7 +298,7 @@ export const ProfileSection = () => {
                               >
                                 <Grid>
                                   <Typography variant="body2">
-                                    Social Profile
+                                    Perfil social
                                   </Typography>
                                 </Grid>
                                 <Grid>
@@ -319,7 +319,7 @@ export const ProfileSection = () => {
                           sx={{
                             borderRadius: `${customization.borderRadius}px`,
                           }}
-                          selected={selectedIndex === 0}
+                          selected={selectedIndex === 4}
                           onClick={
                             () => dispatch(logout())
                             // handleListItemClick(event, 0, '/login')
@@ -330,7 +330,9 @@ export const ProfileSection = () => {
                           </ListItemIcon>
                           <ListItemText
                             primary={
-                              <Typography variant="body2">Logout</Typography>
+                              <Typography variant="body2">
+                                Cerrar sesión
+                              </Typography>
                             }
                           />
                         </ListItemButton>

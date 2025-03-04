@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Avatar, useTheme } from '@mui/material';
 import { forwardRef } from 'react';
 
@@ -12,11 +11,11 @@ export const HeaderAvatar = forwardRef(({ children, ...others }, ref) => {
       sx={{
         ...theme.typography.commonAvatar,
         ...theme.typography.mediumAvatar,
-        bgColor: "secondary.ligth",
-        color: "secondary.dark",
-        "&:hover": {
-          bgColor: "secondary.dark",
-          color: "secondary.ligth",
+        bgColor: 'secondary.ligth',
+        color: 'secondary.dark',
+        '&:hover': {
+          bgColor: 'secondary.dark',
+          color: 'secondary.ligth',
         },
       }}
       {...others}
@@ -25,7 +24,3 @@ export const HeaderAvatar = forwardRef(({ children, ...others }, ref) => {
     </Avatar>
   );
 });
-
-HeaderAvatar.propTypes = {
-  children: PropTypes.node,
-};
