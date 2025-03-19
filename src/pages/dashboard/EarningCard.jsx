@@ -55,23 +55,24 @@ const EarningCard = ({ isLoading }) => {
             '&:after': {
               content: '""',
               position: 'absolute',
-              width: 210,
+              width: 100,
               height: 210,
-              background: theme.palette.secondary[800],
+              background: theme.palette.secondary.light,
               borderRadius: '50%',
               top: { xs: -105, sm: -85 },
               right: { xs: -140, sm: -95 },
+              opacity: 1
             },
             '&:before': {
               content: '""',
               position: 'absolute',
               width: 210,
               height: 210,
-              background: theme.palette.secondary[800],
+              background: theme.palette.secondary.main,
               borderRadius: '50%',
               top: { xs: -155, sm: -125 },
               right: { xs: -70, sm: -15 },
-              opacity: 0.5,
+              opacity: 1,
             },
           }}
         >

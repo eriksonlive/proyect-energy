@@ -37,11 +37,11 @@ export const MobileSearch = ({ value, setValue, popupState }) => {
               sx={{
                 ...theme.typography.commonAvatar,
                 ...theme.typography.mediumAvatar,
-                bgColor: 'orange.ligth',
-                color: 'orange.dark',
+                bgColor: 'warning.ligth',
+                color: 'warning.dark',
                 '&:hover': {
-                  bgColor: 'orange.dark',
-                  color: 'orange.ligth',
+                  bgColor: 'warning.dark',
+                  color: 'warning.ligth',
                 },
               }}
               {...bindToggle(popupState)}

@@ -149,7 +149,7 @@ const PopularCard = ({ isLoading }) => {
                     </Typography>
                   </Grid>
                 </Grid>
-                {/* <Divider sx={{ my: 1.5 }} />
+                <Divider sx={{ my: 1.5 }} />
                 <Grid container direction="column" columns={12}>
                   <Grid>
                     <Grid
@@ -182,8 +182,8 @@ const PopularCard = ({ isLoading }) => {
                                 width: 16,
                                 height: 16,
                                 borderRadius: '5px',
-                                bgcolor: 'orange.light',
-                                color: 'orange.dark',
+                                bgcolor: 'warning.light',
+                                color: 'warning.dark',
                                 marginLeft: 1.875,
                               }}
                             >
@@ -200,7 +200,7 @@ const PopularCard = ({ isLoading }) => {
                   <Grid>
                     <Typography
                       variant="subtitle2"
-                      sx={{ color: 'orange.dark' }}
+                      sx={{ color: 'warning.dark' }}
                     >
                       10% loss
                     </Typography>
@@ -294,8 +294,8 @@ const PopularCard = ({ isLoading }) => {
                                 width: 16,
                                 height: 16,
                                 borderRadius: '5px',
-                                bgcolor: 'orange.light',
-                                color: 'orange.dark',
+                                bgcolor: 'warning.light',
+                                color: 'warning.dark',
                                 ml: 2,
                               }}
                             >
@@ -312,7 +312,7 @@ const PopularCard = ({ isLoading }) => {
                   <Grid>
                     <Typography
                       variant="subtitle2"
-                      sx={{ color: 'orange.dark' }}
+                      sx={{ color: 'warning.dark' }}
                     >
                       10% loss
                     </Typography>
@@ -349,8 +349,8 @@ const PopularCard = ({ isLoading }) => {
                                 width: 16,
                                 height: 16,
                                 borderRadius: '5px',
-                                bgcolor: 'orange.light',
-                                color: 'orange.dark',
+                                bgcolor: 'warning.light',
+                                color: 'warning.dark',
                                 ml: 2,
                               }}
                             >
@@ -367,12 +367,12 @@ const PopularCard = ({ isLoading }) => {
                   <Grid>
                     <Typography
                       variant="subtitle2"
-                      sx={{ color: 'orange.dark' }}
+                      sx={{ color: 'warning.dark' }}
                     >
                       10% loss
                     </Typography>
                   </Grid>
-                </Grid> */}
+                </Grid>
               </Grid>
             </Grid>
           </CardContent>

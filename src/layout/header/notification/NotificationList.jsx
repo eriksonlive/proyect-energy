@@ -49,8 +49,8 @@ export const NotificationList = () => {
 
   const chipErrorSX = {
     ...chipSX,
-    color: theme.palette.orange.dark,
-    backgroundColor: theme.palette.orange.light,
+    color: theme.palette.common.white,
+    backgroundColor: theme.palette.warning.light,
     marginRigth: '5px',
   };
 

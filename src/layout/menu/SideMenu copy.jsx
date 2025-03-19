@@ -23,7 +23,7 @@ const openedMixin = (theme) => ({
   color: theme.palette.text.primary,
   borderRight: 'none',
   [theme.breakpoints.up('md')]: {
-    top: '88px',
+    top: '83px',
   },
 });
 
@@ -36,7 +36,7 @@ const closedMixin = (theme) => ({
   width: drawerWidth,
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
-    top: '87px',
+    top: '83.3px',
   },
 });
 
@@ -139,7 +139,7 @@ export const SideMenu = ({ drawerOpen, drawerToggle, window }) => {
             sx={{
               '& .MuiDrawer-paper': {
                 width: drawerWidth,
-                background: theme.palette.background.default,
+                background: theme.palette.background.paper,
                 color: theme.palette.text.primary,
                 borderRight: 'none',
                 [theme.breakpoints.up('md')]: {

@@ -25,18 +25,18 @@ export const DashboardPage = () => {
     <Grid container spacing={gridSpacing} columns={12}>
       <Grid size={12}>
         <Grid container spacing={gridSpacing} columns={12}>
-          <Grid size={{ sx: 12, sm: 6, md: 6, lg: 4 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 6, lg: 4 }}>
             <EarningCard isLoading={isLoading} />
           </Grid>
-          <Grid size={{ sx: 12, sm: 6, md: 6, lg: 4 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 6, lg: 4 }}>
             <TotalOrderLineChartCard isLoading={isLoading} />
           </Grid>
-          <Grid size={{ sx: 12, sm: 12, md: 12, lg: 4 }}>
+          <Grid size={{ xs: 12, sm: 12, md: 12, lg: 4 }}>
             <Grid container spacing={gridSpacing} columns={12}>
-              <Grid size={{ sx: 12, sm: 6, md: 6, lg: 12 }}>
+              <Grid size={{ xs: 12, sm: 6, md: 6, lg: 12 }}>
                 <TotalIncomeDarkCard isLoading={isLoading} />
               </Grid>
-              <Grid size={{ sx: 12, sm: 6, md: 6, lg: 12 }}>
+              <Grid size={{ xs: 12, sm: 6, md: 6, lg: 12 }}>
                 <TotalIncomeLightCard
                   {...{
                     isLoading: isLoading,
@@ -52,10 +52,10 @@ export const DashboardPage = () => {
       </Grid>
       <Grid size={12}>
         <Grid container spacing={gridSpacing} columns={12}>
-          <Grid size={{ sx: 12, md: 8 }}>
+          <Grid size={{ xs: 12, md: 8 }}>
             <TotalGrowthBarChart isLoading={isLoading} />
           </Grid>
-          <Grid size={{ sx: 12, md: 4 }}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <PopularCard isLoading={isLoading} />
           </Grid>
         </Grid>

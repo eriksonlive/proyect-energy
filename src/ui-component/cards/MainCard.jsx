@@ -13,7 +13,7 @@ import { useTheme } from '@mui/material';
 
 // constant
 const headerSX = {
-  '& .MuiCardHeader-action': { mr: 0 }
+  '& .MuiCardHeader-action': { mr: 0 },
 };
 
 // ==============================|| CUSTOM MAIN CARD ||============================== //
@@ -45,15 +45,28 @@ const MainCard = React.forwardRef(
           border: border ? '1px solid' : 'none',
           borderColor: 'divider',
           ':hover': {
-            boxShadow: boxShadow ? shadow || '0 2px 14px 0 rgb(32 40 45 / 8%)' : 'inherit'
+            boxShadow: boxShadow
+              ? shadow || '0 2px 14px 0 rgb(32 40 45 / 8%)'
+              : 'inherit',
           },
-          bgcolor: theme.palette.mode == 'dark' ? theme.palette.dark.dark : theme.palette.background.paper,
-          ...sx
+          bgcolor:
+            theme.palette.mode == 'dark'
+              ? theme.palette.background.paper
+              : theme.palette.background.paper,
+          ...sx,
         }}
       >
         {/* card header and action */}
-        {!darkTitle && title && <CardHeader sx={headerSX} title={title} action={secondary} />}
-        {darkTitle && title && <CardHeader sx={headerSX} title={<Typography variant="h3">{title}</Typography>} action={secondary} />}
+        {!darkTitle && title && (
+          <CardHeader sx={headerSX} title={title} action={secondary} />
+        )}
+        {darkTitle && title && (
+          <CardHeader
+            sx={headerSX}
+            title={<Typography variant="h3">{title}</Typography>}
+            action={secondary}
+          />
+        )}
 
         {/* content & header divider */}
         {title && <Divider />}
@@ -78,10 +91,18 @@ MainCard.propTypes = {
   contentClass: PropTypes.string,
   contentSX: PropTypes.object,
   darkTitle: PropTypes.bool,
-  secondary: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object]),
+  secondary: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.string,
+    PropTypes.object,
+  ]),
   shadow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   sx: PropTypes.object,
-  title: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object])
+  title: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.string,
+    PropTypes.object,
+  ]),
 };
 
 export default MainCard;

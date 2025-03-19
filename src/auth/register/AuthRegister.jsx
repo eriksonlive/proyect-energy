@@ -146,7 +146,6 @@ export const AuthRegister = ({ ...others }) => {
           handleRegister(values, resetForm);
 
           // resetForm();
-          // console.log(values);
           // navigate('/login');
         }}
       >

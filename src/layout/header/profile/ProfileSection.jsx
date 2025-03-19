@@ -247,7 +247,7 @@ export const ProfileSection = () => {
                           width: '100%',
                           maxWidth: 350,
                           minWidth: 300,
-                          backgroundColor: theme.palette.background.paper,
+                          backgroundColor: theme.background,
                           borderRadius: '10px',
                           [theme.breakpoints.down('md')]: {
                             minWidth: '100%',

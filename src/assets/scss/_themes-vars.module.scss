@@ -1,157 +1,288 @@
-// paper & background
-$paper: #ffffff;
+// _theme.scss
 
-// primary
-$primaryLight: #eef2f6; // Fondo Light - Dark hover
-$primaryMain: #2196f3;  //
-$primaryDark: #1a223f;  // Fondo Light
-$primary200: #90caf9;   // Avatars
-$primary800: #1565c0;   //
+// ------------------------
+// Valores comunes
+// ------------------------
+$common-black: #000;
+$common-white: #fff;
 
-// secondary
-$secondaryLight: #ede7f6;
-$secondaryMain: #4527a0;
-$secondaryDark: #522ea8;
-$secondary200: #b39ddb;
-$secondary800: #5e35b1;
+// ========================
+// THEME LIGHT
+// ========================
 
-// success Colors
-$successLight: #b9f6ca;
-$success200: #69f0ae;
-$successMain: #00e676;
-$successDark: #00c853;
+// Primary (inspirado en energías renovables)
+$light-primary-main:  #276d97;   // Azul brillante
+$light-primary-light: #5B9EC4;   // Azul muy claro
+$light-primary-dark:  #005d89;   // Azul oscuro
+$light-primary-contrastText: $common-white;
 
-// error
-$errorLight: #ef9a9a;
-$errorMain: #f44336;
-$errorDark: #c62828;
+// Secondary: paleta de amarillo
+$light-secondary-main:  #53a680;  // Amarillo brillante
+$light-secondary-light: #7CC0A5;  // Amarillo claro
+$light-secondary-dark:  #3D8A6B;   // (Sin variante adicional, se usa el mismo)
+$light-secondary-contrastText: $common-black;
 
-// orange
-$orangeLight: #fbe9e7;
-$orangeMain: #ffab91;
-$orangeDark: #d84315;
+// Error
+$light-error-main: #d32f2f;
+$light-error-light: #ef5350;
+$light-error-dark:  #c62828;
+$light-error-contrastText: $common-white;
 
-// warning
-$warningLight: #fff8e1;
-$warningMain: #ffe57f;
-$warningDark: #ffc107;
+// Warning
+$light-warning-main: #ed6c02;
+$light-warning-light: #ff9800;
+$light-warning-dark:  #e65100;
+$light-warning-contrastText: $common-white;
 
-// grey
-$grey50: #f8fafc;
-$grey100: #eef2f6;
-$grey200: #e3e8ef;
-$grey300: #cdd5df;
-$grey500: #697586;
-$grey600: #4b5565;
-$grey700: #364152;
-$grey900: #121926;
+// Info
+$light-info-main: #0288d1;
+$light-info-light: #03a9f4;
+$light-info-dark:  #01579b;
+$light-info-contrastText: $common-white;
 
-// ==============================|| DARK THEME VARIANTS ||============================== //
+// Success
+$light-success-main: #2e7d32;
+$light-success-light: #4caf50;
+$light-success-dark:  #1b5e20;
+$light-success-contrastText: $common-white;
 
-// paper & background
-$darkBackground: #1a223f; // level 3
-$darkPaper: #111936; // level 4
+// Grey (escala de grises)
+$light-grey-50:   #fafafa;
+$light-grey-100:  #f5f5f5;
+$light-grey-200:  #eeeeee;
+$light-grey-300:  #e0e0e0;
+$light-grey-400:  #bdbdbd;
+$light-grey-500:  #9e9e9e;
+$light-grey-600:  #757575;
+$light-grey-700:  #616161;
+$light-grey-800:  #424242;
+$light-grey-900:  #212121;
+$light-grey-A100: #f5f5f5;
+$light-grey-A200: #eeeeee;
+$light-grey-A400: #bdbdbd;
+$light-grey-A700: #616161;
 
-// dark 800 & 900
-$darkLevel1: #29314f; // level 1
-$darkLevel2: #212946; // level 2
+// Text
+$light-text-primary:   rgba(0, 0, 0, 0.87);
+$light-text-secondary: rgba(0, 0, 0, 0.6);
+$light-text-disabled:  rgba(0, 0, 0, 0.38);
+$light-text-divider:   rgba(0, 0, 0, 0.12);
 
-// primary dark
-$darkPrimaryLight: #eef2f6;
-$darkPrimaryMain: #2196f3;
-$darkPrimaryDark: #1e88e5;
-$darkPrimary200: #90caf9;
-$darkPrimary800: #1565c0;
+// Background
+$light-background-paper:   $common-white;
+$light-background-default: #eef2f6;
 
-// secondary dark
-$darkSecondaryLight: #d1c4e9;
-$darkSecondaryMain: #7c4dff;
-$darkSecondaryDark: #651fff;
-$darkSecondary200: #b39ddb;
-$darkSecondary800: #6200ea;
+// Action
+$light-action-active:            rgba(0, 0, 0, 0.54);
+$light-action-hover:             rgba(0, 0, 0, 0.04);
+$light-action-selected:          rgba(0, 0, 0, 0.08);
+$light-action-disabled:          rgba(0, 0, 0, 0.26);
+$light-action-disabledBackground: rgba(0, 0, 0, 0.12);
+$light-action-focus:             rgba(0, 0, 0, 0.12);
 
-// text variants
-$darkTextTitle: #0d2986;
-$darkTextPrimary: #bdc8f0;
-$darkTextSecondary: #8492c4;
 
-// ==============================|| JAVASCRIPT ||============================== //
+// ========================
+// THEME DARK
+// ========================
 
+// Primary (modo oscuro con tonalidades de verde)
+$dark-primary-main:  #01a0e1;
+$dark-primary-light: #e0f3f9;
+$dark-primary-dark:  #005d89;
+$dark-primary-contrastText: $common-white;
+
+// Secondary: paleta de amarillo para dark mode
+$dark-secondary-main:  #fec400;
+$dark-secondary-light: #ffe783;
+$dark-secondary-dark:  #fec400;
+$dark-secondary-contrastText: $common-black;
+
+// Error
+$dark-error-main: #ef5350;
+$dark-error-light: #ff867c;
+$dark-error-dark:  #c62828;
+$dark-error-contrastText: $common-white;
+
+// Warning
+$dark-warning-main: #ffa726;
+$dark-warning-light: #ffb74d;
+$dark-warning-dark:  #f57c00;
+$dark-warning-contrastText: $common-white;
+
+// Info
+$dark-info-main: #29b6f6;
+$dark-info-light: #4fc3f7;
+$dark-info-dark:  #0288d1;
+$dark-info-contrastText: $common-white;
+
+// Success
+$dark-success-main: #66bb6a;
+$dark-success-light: #81c784;
+$dark-success-dark:  #388e3c;
+$dark-success-contrastText: $common-white;
+
+// Grey (escala de grises para modo oscuro)
+$dark-grey-50:   #212121;
+$dark-grey-100:  #424242;
+$dark-grey-200:  #616161;
+$dark-grey-300:  #757575;
+$dark-grey-400:  #9e9e9e;
+$dark-grey-500:  #bdbdbd;
+$dark-grey-600:  #e0e0e0;
+$dark-grey-700:  #eeeeee;
+$dark-grey-800:  #f5f5f5;
+$dark-grey-900:  #fafafa;
+$dark-grey-A100: #424242;
+$dark-grey-A200: #616161;
+$dark-grey-A400: #bdbdbd;
+$dark-grey-A700: #757575;
+
+// Text
+$dark-text-primary:   rgba(255, 255, 255, 0.87);
+$dark-text-secondary: rgba(255, 255, 255, 0.6);
+$dark-text-disabled:  rgba(255, 255, 255, 0.38);
+$dark-text-divider:   rgba(255, 255, 255, 0.12);
+
+// Background
+$dark-background-paper:   #424242;
+$dark-background-default: #303030;
+
+// Action
+$dark-action-active:            rgba(255, 255, 255, 0.54);
+$dark-action-hover:             rgba(255, 255, 255, 0.04);
+$dark-action-selected:          rgba(255, 255, 255, 0.08);
+$dark-action-disabled:          rgba(255, 255, 255, 0.26);
+$dark-action-disabledBackground: rgba(255, 255, 255, 0.12);
+$dark-action-focus:             rgba(255, 255, 255, 0.12);
+
+
+// ========================
+// Exportación de variables para CSS Modules
+// ========================
 :export {
-  // paper & background
-  paper: $paper;
+  // Common
+  commonBlack: $common-black;
+  commonWhite: $common-white;
 
-  // primary
-  primaryLight: $primaryLight;
-  primary200: $primary200;
-  primaryMain: $primaryMain;
-  primaryDark: $primaryDark;
-  primary800: $primary800;
+  // Light theme
+  lightPrimaryMain: $light-primary-main;
+  lightPrimaryLight: $light-primary-light;
+  lightPrimaryDark: $light-primary-dark;
+  lightPrimaryContrastText: $light-primary-contrastText;
+  
+  lightSecondaryMain: $light-secondary-main;
+  lightSecondaryLight: $light-secondary-light;
+  lightSecondaryDark: $light-secondary-dark;
+  lightSecondaryContrastText: $light-secondary-contrastText;
+  
+  lightErrorMain: $light-error-main;
+  lightErrorLight: $light-error-light;
+  lightErrorDark: $light-error-dark;
+  lightErrorContrastText: $light-error-contrastText;
+  
+  lightWarningMain: $light-warning-main;
+  lightWarningLight: $light-warning-light;
+  lightWarningDark: $light-warning-dark;
+  lightWarningContrastText: $light-warning-contrastText;
+  
+  lightInfoMain: $light-info-main;
+  lightInfoLight: $light-info-light;
+  lightInfoDark: $light-info-dark;
+  lightInfoContrastText: $light-info-contrastText;
+  
+  lightSuccessMain: $light-success-main;
+  lightSuccessLight: $light-success-light;
+  lightSuccessDark: $light-success-dark;
+  lightSuccessContrastText: $light-success-contrastText;
+  
+  lightGrey50: $light-grey-50;
+  lightGrey100: $light-grey-100;
+  lightGrey200: $light-grey-200;
+  lightGrey300: $light-grey-300;
+  lightGrey400: $light-grey-400;
+  lightGrey500: $light-grey-500;
+  lightGrey600: $light-grey-600;
+  lightGrey700: $light-grey-700;
+  lightGrey800: $light-grey-800;
+  lightGrey900: $light-grey-900;
+  lightGreyA100: $light-grey-A100;
+  lightGreyA200: $light-grey-A200;
+  lightGreyA400: $light-grey-A400;
+  lightGreyA700: $light-grey-A700;
+  
+  lightTextPrimary: $light-text-primary;
+  lightTextSecondary: $light-text-secondary;
+  lightTextDisabled: $light-text-disabled;
+  lightTextDivider: $light-text-divider;
+  
+  lightBackgroundPaper: $light-background-paper;
+  lightBackgroundDefault: $light-background-default;
+  
+  lightActionActive: $light-action-active;
+  lightActionHover: $light-action-hover;
+  lightActionSelected: $light-action-selected;
+  lightActionDisabled: $light-action-disabled;
+  lightActionDisabledBackground: $light-action-disabledBackground;
+  lightActionFocus: $light-action-focus;
 
-  // secondary
-  secondaryLight: $secondaryLight;
-  secondary200: $secondary200;
-  secondaryMain: $secondaryMain;
-  secondaryDark: $secondaryDark;
-  secondary800: $secondary800;
-
-  // success
-  successLight: $successLight;
-  success200: $success200;
-  successMain: $successMain;
-  successDark: $successDark;
-
-  // error
-  errorLight: $errorLight;
-  errorMain: $errorMain;
-  errorDark: $errorDark;
-
-  // orange
-  orangeLight: $orangeLight;
-  orangeMain: $orangeMain;
-  orangeDark: $orangeDark;
-
-  // warning
-  warningLight: $warningLight;
-  warningMain: $warningMain;
-  warningDark: $warningDark;
-
-  // grey
-  grey50: $grey50;
-  grey100: $grey100;
-  grey200: $grey200;
-  grey300: $grey300;
-  grey500: $grey500;
-  grey600: $grey600;
-  grey700: $grey700;
-  grey900: $grey900;
-
-  // ==============================|| DARK THEME VARIANTS ||============================== //
-
-  // paper & background
-  darkPaper: $darkPaper;
-  darkBackground: $darkBackground;
-
-  // dark 800 & 900
-  darkLevel1: $darkLevel1;
-  darkLevel2: $darkLevel2;
-
-  // text variants
-  darkTextTitle: $darkTextTitle;
-  darkTextPrimary: $darkTextPrimary;
-  darkTextSecondary: $darkTextSecondary;
-
-  // primary dark
-  darkPrimaryLight: $darkPrimaryLight;
-  darkPrimaryMain: $darkPrimaryMain;
-  darkPrimaryDark: $darkPrimaryDark;
-  darkPrimary200: $darkPrimary200;
-  darkPrimary800: $darkPrimary800;
-
-  // secondary dark
-  darkSecondaryLight: $darkSecondaryLight;
-  darkSecondaryMain: $darkSecondaryMain;
-  darkSecondaryDark: $darkSecondaryDark;
-  darkSecondary200: $darkSecondary200;
-  darkSecondary800: $darkSecondary800;
+  // Dark theme
+  darkPrimaryMain: $dark-primary-main;
+  darkPrimaryLight: $dark-primary-light;
+  darkPrimaryDark: $dark-primary-dark;
+  darkPrimaryContrastText: $dark-primary-contrastText;
+  
+  darkSecondaryMain: $dark-secondary-main;
+  darkSecondaryLight: $dark-secondary-light;
+  darkSecondaryDark: $dark-secondary-dark;
+  darkSecondaryContrastText: $dark-secondary-contrastText;
+  
+  darkErrorMain: $dark-error-main;
+  darkErrorLight: $dark-error-light;
+  darkErrorDark: $dark-error-dark;
+  darkErrorContrastText: $dark-error-contrastText;
+  
+  darkWarningMain: $dark-warning-main;
+  darkWarningLight: $dark-warning-light;
+  darkWarningDark: $dark-warning-dark;
+  darkWarningContrastText: $dark-warning-contrastText;
+  
+  darkInfoMain: $dark-info-main;
+  darkInfoLight: $dark-info-light;
+  darkInfoDark: $dark-info-dark;
+  darkInfoContrastText: $dark-info-contrastText;
+  
+  darkSuccessMain: $dark-success-main;
+  darkSuccessLight: $dark-success-light;
+  darkSuccessDark: $dark-success-dark;
+  darkSuccessContrastText: $dark-success-contrastText;
+  
+  darkGrey50: $dark-grey-50;
+  darkGrey100: $dark-grey-100;
+  darkGrey200: $dark-grey-200;
+  darkGrey300: $dark-grey-300;
+  darkGrey400: $dark-grey-400;
+  darkGrey500: $dark-grey-500;
+  darkGrey600: $dark-grey-600;
+  darkGrey700: $dark-grey-700;
+  darkGrey800: $dark-grey-800;
+  darkGrey900: $dark-grey-900;
+  darkGreyA100: $dark-grey-A100;
+  darkGreyA200: $dark-grey-A200;
+  darkGreyA400: $dark-grey-A400;
+  darkGreyA700: $dark-grey-A700;
+  
+  darkTextPrimary: $dark-text-primary;
+  darkTextSecondary: $dark-text-secondary;
+  darkTextDisabled: $dark-text-disabled;
+  darkTextDivider: $dark-text-divider;
+  
+  darkBackgroundPaper: $dark-background-paper;
+  darkBackgroundDefault: $dark-background-default;
+  
+  darkActionActive: $dark-action-active;
+  darkActionHover: $dark-action-hover;
+  darkActionSelected: $dark-action-selected;
+  darkActionDisabled: $dark-action-disabled;
+  darkActionDisabledBackground: $dark-action-disabledBackground;
+  darkActionFocus: $dark-action-focus;
 }

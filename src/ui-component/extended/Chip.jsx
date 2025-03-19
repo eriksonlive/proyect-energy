@@ -96,21 +96,21 @@ const Chip = ({ chipcolor, disabled, sx = {}, variant, ...others }) => {
     case 'orange':
       variant === 'outlined'
         ? (outlineSX = {
-            color: 'orange.dark',
+            color: 'warning.dark',
             bgcolor: 'transparent',
             border: '1px solid',
-            borderColor: 'orange.main',
+            borderColor: 'warning.main',
             ':hover': {
-              color: 'orange.dark',
-              bgcolor: 'orange.light'
+              color: 'warning.dark',
+              bgcolor: 'warning.light'
             }
           })
         : (defaultSX = {
-            color: 'orange.dark',
-            bgcolor: 'orange.light',
+            color: 'warning.dark',
+            bgcolor: 'warning.light',
             ':hover': {
-              color: 'orange.light',
-              bgcolor: 'orange.dark'
+              color: 'warning.light',
+              bgcolor: 'warning.dark'
             }
           });
       break;

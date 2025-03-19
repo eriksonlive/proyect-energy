@@ -19,12 +19,12 @@ const icons = {
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
 
 export const comunidad = {
-  id: 'comunidad',
+  id: 'comunity',
   title: 'Comunidad',
   type: 'group',
   children: [
     {
-      id: 'comunity',
+      id: 'comunidad',
       title: 'Comunidad',
       type: 'item',
       url: '/comunidad',

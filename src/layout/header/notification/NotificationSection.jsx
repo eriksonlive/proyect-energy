@@ -111,7 +111,7 @@ export const NotificationSection = () => {
                               size="small"
                               label="01"
                               sx={{
-                                color: theme.palette.background.default,
+                                color: theme.background,
                                 bgcolor: theme.palette.warning.dark,
                               }}
                             />

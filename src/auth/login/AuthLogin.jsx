@@ -34,15 +34,12 @@ export const AuthLogin = ({ ...others }) => {
 
   const user = useSelector(selectUser);
 
-  // console.log(user);
-
   const [login] = useLoginMutation();
 
   const handleLogin = async ({ email, password }) => {
     dispatch(loginStart());
     try {
       const result = await login({ email, password }).unwrap();
-      // console.log('Login exitoso:', result);
 
       dispatch(
         loginSuccess({ token: result.accessToken, user: result.usuario })
@@ -50,7 +47,6 @@ export const AuthLogin = ({ ...others }) => {
       navigate('/');
       // Aquí puedes guardar el token, redirigir, etc.
     } catch (err) {
-      // console.log(err);
       dispatch(loginFail(err));
     }
   };
@@ -62,8 +58,6 @@ export const AuthLogin = ({ ...others }) => {
       if (!result.user) {
         throw new Error('No se recibió un usuario válido desde Google.');
       }
-
-      // console.log('Usuario logueado:', result.user);
 
       const token = await result.user.getIdToken();
       const nombre = result.user.displayName || 'Usuario sin nombre';

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import {
+  Box,
   Collapse,
   List,
   ListItemButton,
@@ -14,6 +15,7 @@ import { useLocation, useNavigate } from 'react-router';
 
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { NavItem } from '../item';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa6';
 
 export const NavCollapse = ({ menu, level }) => {
   const theme = useTheme();
@@ -75,7 +77,6 @@ export const NavCollapse = ({ menu, level }) => {
   });
 
   const Icon = menu.icon;
-
   const menuIcon = menu.icon ? (
     <Icon
       strokeWidth={1.5}
@@ -106,7 +107,13 @@ export const NavCollapse = ({ menu, level }) => {
         selected={selected === menu.id}
         onClick={handleClick}
       >
-        <ListItemIcon sx={{ my: 'auto', minWidth: !menu.icon ? 18 : 36 }}>
+        <ListItemIcon
+          sx={{
+            my: 'auto',
+            minWidth: !menu.icon ? 18 : 36,
+            color: selected ? 'primary.main' : '',
+          }}
+        >
           {menuIcon}
         </ListItemIcon>
 
@@ -116,7 +123,7 @@ export const NavCollapse = ({ menu, level }) => {
               primary={
                 <Typography
                   variant={selected === menu.id ? 'h5' : 'body1'}
-                  color="inherit"
+                  color={selected ? 'primary.main' : 'grey500'}
                   sx={{ my: 'auto' }}
                 >
                   {menu.title}
@@ -136,11 +143,13 @@ export const NavCollapse = ({ menu, level }) => {
               }
             />
             {open ? (
-              // lorem icon
-              <></>
+              <Box sx={{ mt: 0.7 }}>
+                <FaChevronUp />
+              </Box>
             ) : (
-              // lorem icon
-              <></>
+              <Box sx={{ mt: 0.7 }}>
+                <FaChevronDown />
+              </Box>
             )}
           </>
         )}

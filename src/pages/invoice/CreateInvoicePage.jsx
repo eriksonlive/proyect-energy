@@ -68,7 +68,6 @@ export const CreateInvoicePage = () => {
   };
 
   const onSubmit = async (values) => {
-    // console.log('Valores enviados:', values);
 
     try {
       const { data } = await axios.get('http://localhost:3001/invoice');
@@ -104,7 +103,6 @@ export const CreateInvoicePage = () => {
         'http://localhost:3001/invoice',
         newInvoice
       );
-      // console.log('Datos enviados:', response.data);
     } catch (error) {
       console.error('Error al sobrescribir datos:', error);
     }

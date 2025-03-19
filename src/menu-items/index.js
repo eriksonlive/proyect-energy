@@ -7,5 +7,5 @@ import { energia } from './electrica';
 import { comunidad } from './comunidad';
 
 export const menuItems = {
-  items: [dashboard, monitoreo, prediccion, energia],
+  items: [dashboard, monitoreo, prediccion, energia, comunidad, pages],
 };

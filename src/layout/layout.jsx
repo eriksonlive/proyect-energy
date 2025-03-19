@@ -29,7 +29,7 @@ export const MainLayout = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', bgcolor: theme.palette.background.paper }}>
       <CssBaseline />
       <AppBar
         enableColorOnDark
@@ -37,7 +37,7 @@ export const MainLayout = () => {
         color="inherit"
         elevation={0}
         sx={{
-          bgcolor: theme.palette.background.default,
+          bgcolor: theme.background,
           transition: leftDrawerOpenend
             ? theme.transitions.create('width')
             : 'none',

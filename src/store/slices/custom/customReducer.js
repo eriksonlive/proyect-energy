@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import config from 'config/config';
 
 const initialState = {
+  isOpen: [],
   open: true,
   fontFamily: config.fontFamily,
   borderRadius: config.borderRadius,
@@ -14,6 +15,9 @@ export const customSlice = createSlice({
     isOpenMenu: (state) => {
       state.open = !state.open;
     },
+    selectedMenu: (state, action) => {
+      state.isOpen = [action.payload];
+    },
     fontState: (state, action) => {
       state.fontFamily = action.payload;
     },
@@ -23,4 +27,5 @@ export const customSlice = createSlice({
   },
 });
 
-export const { isOpenMenu, fontState, borderState } = customSlice.actions;
+export const { isOpenMenu, fontState, borderState, selectedMenu } =
+  customSlice.actions;

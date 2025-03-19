@@ -13,7 +13,7 @@ import { AuthRegister } from './AuthRegister';
 
 export const RegisterPage = () => {
   const theme = useTheme();
-  const downMD = useMediaQuery(theme.breakpoints.down("md"));
+  const downMD = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <AuthWrapper>
@@ -22,10 +22,10 @@ export const RegisterPage = () => {
         spacing={0}
         derection="column"
         justifyContent="flex-end"
-        sx={{ 
-          minHeight: "100vh",
-          width: "40%",
-          margin: 'auto'
+        sx={{
+          minHeight: '100vh',
+          width: '40%',
+          margin: 'auto',
         }}
       >
         <Grid size={12}>
@@ -34,7 +34,7 @@ export const RegisterPage = () => {
             spacing={0}
             justifyContent="center"
             alignItems="center"
-            sx={{ minHeight: "calc(100vh -68px)" }}
+            sx={{ minHeight: 'calc(100vh -68px)' }}
           >
             <Grid sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
               <AuthCardWrapper>
@@ -53,7 +53,7 @@ export const RegisterPage = () => {
                   <Grid size={12}>
                     <Grid
                       container
-                      direction={{ xs: "column-reverse", md: "row" }}
+                      direction={{ xs: 'column-reverse', md: 'row' }}
                       alignItems="center"
                       justifyContent="center"
                     >
@@ -66,14 +66,14 @@ export const RegisterPage = () => {
                           <Typography
                             color="secondary.main"
                             gutterBottom
-                            variant={downMD ? "h3" : "h2"}
+                            variant={downMD ? 'h3' : 'h2'}
                           >
                             Registrese
                           </Typography>
                           <Typography
                             variant="caption"
                             fontSize="16px"
-                            textAlign={{ xs: "center", md: "inherit" }}
+                            textAlign={{ xs: 'center', md: 'inherit' }}
                           >
                             Ingrese sus datos para continuar
                           </Typography>
@@ -100,7 +100,7 @@ export const RegisterPage = () => {
                       component={Link}
                       to="/login"
                       variant="subtitle1"
-                      sx={{ textDecoration: "none" }}
+                      sx={{ textDecoration: 'none' }}
                     >
                       ¿Ya tienes una cuenta?
                     </Typography>

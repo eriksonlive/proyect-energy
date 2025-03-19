@@ -11,20 +11,13 @@ export const theme = (customization) => {
   const isDark = false;
 
   const themeOption = {
-    mode: isDark ? 'dark': 'light',
+    mode: isDark ? 'dark' : 'light',
     colors: color,
-    primary: isDark? color.primaryDark : color.primaryLight,
-    heading: isDark ? color.grey100 : color.grey900,
-    paper: isDark ? color.darkPaper : color.paper,
-    backgroundDefault: isDark ? color.darkPaper : color.background,
-    background: isDark ? color.darkBackground : color.primaryLight,
-    darkTextPrimary: isDark ? color.grey300 : color.grey700,
-    darkTextSecondary: isDark ? color.grey500 : color.grey500,
-    textDark: isDark ? color.grey100 : color.grey900,
-    menuSelected: isDark ? color.secondaryLight : color.secondaryDark,
-    menuSelectedBack: isDark ? color.secondaryDark : color.secondaryLight,
-    divider: isDark ? color.grey700 : color.grey200,
-    customization
+    background: isDark
+      ? color.darkBackgroundDefault
+      : color.lightBackgroundDefault,
+    paper: isDark ? color.darkBackgroundPaper : color.lightBackgroundPaper,
+    customization,
   };
 
   const themeOptions = {
@@ -35,16 +28,15 @@ export const theme = (customization) => {
         minHeight: '48px',
         padding: '16px',
         '@media (min-width: 600px)': {
-          minHeight: '48px'
-        }
-      }
+          minHeight: '48px',
+        },
+      },
     },
-    typography: themeTypography(themeOption)
+    typography: themeTypography(themeOption),
   };
 
   const themes = createTheme(themeOptions);
-  themes.components = componentStyleOverrides(themeOption);
+  themes.components = { ...componentStyleOverrides(themeOption) };
 
   return themes;
-
-}
+};
