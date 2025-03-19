@@ -15,6 +15,7 @@ import {
 import { Layout } from 'layout';
 import { ProtectedRoute } from './ProtectedRoute';
 import { PublicRoute } from './PublicRoute';
+import { Navigate } from 'react-router-dom';
 
 export const AppRouter = () => {
   return (
@@ -28,7 +29,8 @@ export const AppRouter = () => {
             </ProtectedRoute>
           }
         >
-          <Route index element={<DashboardPage />} />
+          <Route index element={<Navigate to="/dashboard" replace />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/energia-solar" element={<EnergiaSolarPage />} />
           <Route
             path="/prediccion-energia-solar"

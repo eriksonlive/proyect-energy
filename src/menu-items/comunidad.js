@@ -18,7 +18,7 @@ const icons = {
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
 
-export const comunidad = {
+export const comunidad = (t) => ({
   id: 'comunity',
   title: 'Comunidad',
   type: 'group',
@@ -48,4 +48,4 @@ export const comunidad = {
     //   breadcrumbs: false,
     // },
   ],
-};
+});

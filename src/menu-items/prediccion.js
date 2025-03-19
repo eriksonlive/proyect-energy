@@ -17,7 +17,7 @@ const icons = {
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
 
-export const prediccion = {
+export const prediccion = (t) => ({
   id: 'prediccion',
   title: 'Prediccion',
   type: 'group',
@@ -47,4 +47,4 @@ export const prediccion = {
     //   breadcrumbs: false,
     // },
   ],
-};
+});

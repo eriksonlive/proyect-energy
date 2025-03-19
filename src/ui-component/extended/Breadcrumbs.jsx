@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 // material-ui
@@ -12,12 +12,14 @@ import Typography from '@mui/material/Typography';
 import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 
 // project import
-import { menuItems } from '../../menu-items';
+import { menuItems } from 'menu-items';
 
 // assets
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
 import HomeIcon from '@mui/icons-material/Home';
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
+import { useTranslation } from 'react-i18next';
+import { IoIosArrowForward } from 'react-icons/io';
 
 // ==============================|| BREADCRUMBS TITLE ||============================== //
 
@@ -58,6 +60,8 @@ const Breadcrumbs = ({
   const [main, setMain] = useState();
   const [item, setItem] = useState();
 
+  const { t } = useTranslation();
+
   const iconSX = {
     marginRight: 6,
     marginTop: -2,
@@ -76,8 +80,10 @@ const Breadcrumbs = ({
 
   let customLocation = location.pathname;
 
+  const menuData = useMemo(() => menuItems(t), [t]);
+
   useEffect(() => {
-    menuItems?.items?.map((menu) => {
+    menuData.items?.map((menu) => {
       if (menu.type && menu.type === 'group') {
         if (menu?.url && menu.url === customLocation) {
           setMain(menu);
@@ -88,7 +94,7 @@ const Breadcrumbs = ({
       }
       return false;
     });
-  });
+  }, [t, location.pathname]);
 
   // set active item state
   const getCollapse = (menu) => {
@@ -113,12 +119,7 @@ const Breadcrumbs = ({
 
   // item separator
   const SeparatorIcon = separator;
-  const separatorIcon = separator ? (
-    <></>
-  ) : (
-    // lorem icon
-    <></>
-  );
+  const separatorIcon = separator ? <IoIosArrowForward /> : <LuSlash />;
 
   let mainContent;
   let itemContent;
@@ -158,7 +159,7 @@ const Breadcrumbs = ({
         sx={
           card === false
             ? { mb: 3, bgcolor: 'transparent', ...sx }
-            : { mb: 3, bgcolor: 'background.default', ...sx }
+            : { mb: 3, bgcolor: 'paper', ...sx }
         }
         {...others}
       >
@@ -289,7 +290,7 @@ const Breadcrumbs = ({
           sx={
             card === false
               ? { mb: 3, bgcolor: 'transparent', ...sx }
-              : { mb: 3, bgcolor: 'background.default', ...sx }
+              : { mb: 3, bgcolor: 'paper', ...sx }
           }
           {...others}
         >

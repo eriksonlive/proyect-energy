@@ -1,0 +1,10 @@
+{
+  "welcome": "Bienvenido",
+  "button": "Haz clic aquí",
+  "menuItemsError": "Error de elementos del menú",
+
+
+  "dashboard": {
+    "title": "Panel"
+  }
+}

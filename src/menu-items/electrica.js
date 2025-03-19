@@ -20,7 +20,7 @@ const icons = {
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
 
-export const energia = {
+export const energia = (t) => ({
   id: 'wiki-energia',
   title: 'Wiki Energy',
   type: 'group',
@@ -50,4 +50,4 @@ export const energia = {
     //   breadcrumbs: false,
     // },
   ],
-};
+});

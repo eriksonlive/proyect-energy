@@ -32,6 +32,7 @@ import { LuSettings2 } from 'react-icons/lu';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, selectUser } from 'store/slices/auth/authSlice';
+import { useTranslation } from 'react-i18next';
 
 export const ProfileSection = () => {
   const theme = useTheme();
@@ -47,6 +48,8 @@ export const ProfileSection = () => {
   const anchorRef = useRef(null);
 
   const { nombre, email } = useSelector(selectUser);
+
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
 
@@ -145,7 +148,7 @@ export const ProfileSection = () => {
                   <Box sx={{ p: 2, pb: 0 }}>
                     <Stack>
                       <Stack direction="row" spacing={0.5} alignItems="center">
-                        <Typography variant="h4">Bienvenido</Typography>
+                        <Typography variant="h4">{t('welcome')}</Typography>
                         <Typography
                           component="span"
                           variant="h4"

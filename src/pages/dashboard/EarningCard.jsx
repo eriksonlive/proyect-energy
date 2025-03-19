@@ -55,7 +55,7 @@ const EarningCard = ({ isLoading }) => {
             '&:after': {
               content: '""',
               position: 'absolute',
-              width: 100,
+              width: 210,
               height: 210,
               background: theme.palette.secondary.light,
               borderRadius: '50%',

@@ -13,7 +13,7 @@ const icons = {
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
 
-export const monitoreo = {
+export const monitoreo = (t) => ({
   id: 'monitoreo',
   title: 'Monitoreo',
   type: 'group',
@@ -43,4 +43,4 @@ export const monitoreo = {
     //   breadcrumbs: false,
     // },
   ],
-};
+});

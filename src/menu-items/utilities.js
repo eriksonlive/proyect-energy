@@ -11,7 +11,7 @@ const icons = {
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
 
-export const utilities = {
+export const utilities = (t) => ({
   id: 'utilities',
   title: 'Utilities',
   type: 'group',
@@ -41,4 +41,4 @@ export const utilities = {
       breadcrumbs: false,
     },
   ],
-};
+});

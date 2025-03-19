@@ -6,6 +6,13 @@ import { prediccion } from './prediccion';
 import { energia } from './electrica';
 import { comunidad } from './comunidad';
 
-export const menuItems = {
-  items: [dashboard, monitoreo, prediccion, energia, comunidad, pages],
-};
+export const menuItems = (t) => ({
+  items: [
+    dashboard(t),
+    monitoreo(t),
+    prediccion(t),
+    energia(t),
+    comunidad(t),
+    pages(t),
+  ],
+});

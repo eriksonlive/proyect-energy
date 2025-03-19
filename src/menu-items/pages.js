@@ -11,7 +11,7 @@ const icons = {
 
 // ==============================|| EXTRA PAGES MENU ITEMS ||============================== //
 
-export const pages = {
+export const pages = (t) => ({
   id: 'pages',
   title: 'Pages',
   caption: 'Pages Caption',
@@ -43,4 +43,4 @@ export const pages = {
       ],
     },
   ],
-};
+});
