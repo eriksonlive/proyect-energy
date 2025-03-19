@@ -72,14 +72,16 @@ export const NavItem = ({ item, level }) => {
         py: customization.open ? (level > 1 ? 1 : 1.25) : null,
         pl: customization.open ? `${level * 24}px` : null,
       }}
-      selected={customization.isOpen.findIndex((id) => id === item.id) > -1}
+      selected={
+        (customization.isOpen || []).findIndex((id) => id === item.id) > -1
+      }
     >
       <ListItemIcon
         sx={{
           my: 'auto',
           minWidth: !item?.icon ? 18 : 36,
           color:
-            customization.isOpen.findIndex((id) => id === item.id) > -1
+            (customization.isOpen || []).findIndex((id) => id === item.id) > -1
               ? 'primary.main'
               : 'inherit',
         }}
@@ -91,12 +93,14 @@ export const NavItem = ({ item, level }) => {
           primary={
             <Typography
               variant={
-                customization.isOpen.findIndex((id) => id == item.id) > -1
+                (customization.isOpen || []).findIndex((id) => id == item.id) >
+                -1
                   ? 'h5'
                   : 'body1'
               }
               color={
-                customization.isOpen.findIndex((id) => id === item.id) > -1
+                (customization.isOpen || []).findIndex((id) => id === item.id) >
+                -1
                   ? 'primary.main'
                   : 'inherit'
               }
