@@ -1,4 +1,4 @@
-import { Box, List, Typography, useTheme } from '@mui/material';
+import { Box, List, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { NavItem } from '../item';
 import { NavCollapse } from '../collapse';
 import Divider from '@mui/material/Divider';
@@ -7,6 +7,10 @@ import { useSelector } from 'react-redux';
 export const NavGroup = ({ item }) => {
   const theme = useTheme();
   const open = useSelector(({ custom }) => custom.open);
+  const isMobile = useMediaQuery(theme.breakpoints.down('md')); // Detecta si es móvil
+
+  // En móvil el menú siempre debe estar en modo "abierto" para evitar el problema de diseño
+  const shouldOpen = isMobile ? true : open;
 
   const items = item.children?.map((menu) => {
     switch (menu.type) {
@@ -25,7 +29,7 @@ export const NavGroup = ({ item }) => {
 
   return (
     <>
-      {open ? (
+      {shouldOpen ? (
         <>
           <List
             subheader={
@@ -56,9 +60,9 @@ export const NavGroup = ({ item }) => {
           <Divider sx={{ mt: 0.25, mb: 1.25 }} />
         </>
       ) : (
-        <Box sx={{ alingItems: 'center', ml: '5px' }}>
+        <Box sx={{ alignItems: 'center', mx: '8px' }}>
           {items}
-          <Divider sx={{ mt: 0.25, mb: 1.25, width: '50px' }} />
+          <Divider sx={{ mt: 0.25, mb: 1.25, width: '100%' }} />
         </Box>
       )}
     </>

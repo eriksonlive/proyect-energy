@@ -4,7 +4,7 @@ const icons = { VscDashboard };
 
 export const dashboard = (t) => ({
   id: 'dash',
-  title: 'Dashboard',
+  title: t('dashboard.home'),
   type: 'group',
   children: [
     {

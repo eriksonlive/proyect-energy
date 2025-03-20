@@ -11,6 +11,7 @@ import TotalGrowthBarChart from './TotalGrowthBarChart';
 import PopularCard from './PopularCard';
 import { useSelector } from 'react-redux';
 import { selectUser } from 'store/slices/auth/authSlice';
+import { FaStore } from 'react-icons/fa';
 
 export const DashboardPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,7 +43,7 @@ export const DashboardPage = () => {
                     isLoading: isLoading,
                     total: 203,
                     label: 'Total Income',
-                    // icon: <StorefrontTwoToneIcon fontSize="inherit" />
+                    icon: <FaStore />,
                   }}
                 />
               </Grid>

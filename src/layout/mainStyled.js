@@ -20,7 +20,7 @@ export const Main = styled('main', {
         }
   ),
   [theme.breakpoints.up('md')]: {
-    marginLeft: open ? 0 : -(drawerWidth - 65), // controla el tamaño del sidebar frente al contenido
+    marginLeft: open ? 0 : -(drawerWidth - 73), // controla el tamaño del sidebar frente al contenido
     width: `calc(100% - ${drawerWidth}px)`,
   },
   [theme.breakpoints.down('md')]: {

@@ -2,9 +2,24 @@
   "welcome": "Bienvenido",
   "button": "Haz clic aquí",
   "menuItemsError": "Error de elementos del menú",
-
+  "k": "mil",
 
   "dashboard": {
-    "title": "Panel"
+    "title": "Panel",
+    "home": "Inicio"
+  },
+
+  "totalEarning": {
+    "title": "Ganancia total"
+  },
+
+  "totalOrder": {
+    "title": "Pedido total",
+    "month": "Mes",
+    "year": "Año"
+  },
+
+  "totalIncome": {
+    "title": "Ingresos totales"
   }
 }

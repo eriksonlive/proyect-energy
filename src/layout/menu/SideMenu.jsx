@@ -11,6 +11,7 @@ import {
 import { MenuList } from './MenuList';
 import { drawerWidth } from 'store/constan';
 import MuiDrawer from '@mui/material/Drawer';
+import { LogoSection } from 'layout/logo';
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -18,7 +19,7 @@ const openedMixin = (theme) => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
-  overflowX: 'hidden',
+  overflow: 'hidden',
   background: theme.palette.background.paper,
   color: theme.palette.text.primary,
   borderRight: 'none',
@@ -32,11 +33,12 @@ const closedMixin = (theme) => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  overflowX: 'hidden',
+  overflow: 'hidden',
   width: drawerWidth,
+  border: 'none',
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-    top: '87px',
+    width: `calc(${theme.spacing(9)} + 1px)`,
+    top: '88px',
   },
 });
 
@@ -65,21 +67,27 @@ export const SideMenu = ({ drawerOpen, drawerToggle, window }) => {
   const drawer = (
     <>
       <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-        <Box sx={{ display: 'flex', p: 2, mx: 'auto' }}>
-          {/* <LogoSection /> */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            mx: 'auto',
+            my: 2,
+          }}
+        >
+          <LogoSection />
         </Box>
       </Box>
       <BrowserView>
         <PerfectScrollbar
           component="div"
           style={{
-            height: !matchUpMd ? 'calc(100vh - 56px)' : 'calc(100vh - 88px)',
+            height: !matchUpMd ? 'calc(100vh - 90px)' : 'calc(100vh - 88px)',
             paddingLeft: drawerOpen ? '16px' : '2px',
             paddingRight: drawerOpen ? '16px' : '2px',
           }}
         >
           <MenuList />
-          {/* <MenuCard /> */}
           <Stack direction="row" justifyContent="center" sx={{ mb: 2 }}>
             <Chip
               label={'lorem'}
@@ -139,7 +147,7 @@ export const SideMenu = ({ drawerOpen, drawerToggle, window }) => {
             sx={{
               '& .MuiDrawer-paper': {
                 width: drawerWidth,
-                background: theme.palette.background.default,
+                background: theme.palette.background,
                 color: theme.palette.text.primary,
                 borderRight: 'none',
                 [theme.breakpoints.up('md')]: {

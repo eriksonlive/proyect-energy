@@ -22,11 +22,13 @@ import ChartDataYear from './chart-data/total-order-year-line-chart';
 // assets
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { useTranslation } from 'react-i18next';
 
 // ==============================|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||============================== //
 
 const TotalOrderLineChartCard = ({ isLoading }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const [timeValue, setTimeValue] = React.useState(false);
   const handleChangeTime = (event, newValue) => {
@@ -42,31 +44,31 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
           border={false}
           content={false}
           sx={{
-            bgcolor: "primary.dark",
-            color: "#fff",
-            overflow: "hidden",
-            position: "relative",
-            "&>div": {
-              position: "relative",
+            bgcolor: 'primary.dark',
+            color: '#fff',
+            overflow: 'hidden',
+            position: 'relative',
+            '&>div': {
+              position: 'relative',
               zIndex: 5,
             },
-            "&:after": {
+            '&:after': {
               content: '""',
-              position: "absolute",
-              width: 210,
-              height: 210,
-              background: theme.palette.primary.main,
-              borderRadius: "50%",
-              top: { xs: -105, sm: -85 },
-              right: { xs: -140, sm: -95 },
-            },
-            "&:before": {
-              content: '""',
-              position: "absolute",
+              position: 'absolute',
               width: 210,
               height: 210,
               background: theme.palette.primary.light,
-              borderRadius: "50%",
+              borderRadius: '50%',
+              top: { xs: -105, sm: -85 },
+              right: { xs: -140, sm: -95 },
+            },
+            '&:before': {
+              content: '""',
+              position: 'absolute',
+              width: 210,
+              height: 210,
+              background: theme.palette.primary.light,
+              borderRadius: '50%',
               top: { xs: -155, sm: -125 },
               right: { xs: -70, sm: -15 },
               opacity: 0.5,
@@ -83,8 +85,8 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                       sx={{
                         ...theme.typography.commonAvatar,
                         ...theme.typography.largeAvatar,
-                        bgcolor: "primary.800",
-                        color: "#fff",
+                        bgcolor: 'primary.light',
+                        color: '#fff',
                         mt: 1,
                       }}
                     >
@@ -94,21 +96,21 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                   <Grid>
                     <Button
                       disableElevation
-                      variant={timeValue ? "contained" : "text"}
+                      variant={timeValue ? 'contained' : 'text'}
                       size="small"
-                      sx={{ color: "inherit" }}
+                      sx={{ color: 'inherit' }}
                       onClick={(e) => handleChangeTime(e, true)}
                     >
-                      Month
+                      {t('totalOrder.month')}
                     </Button>
                     <Button
                       disableElevation
-                      variant={!timeValue ? "contained" : "text"}
+                      variant={!timeValue ? 'contained' : 'text'}
                       size="small"
-                      sx={{ color: "inherit" }}
+                      sx={{ color: 'inherit' }}
                       onClick={(e) => handleChangeTime(e, false)}
                     >
-                      Year
+                      {t('totalOrder.year')}
                     </Button>
                   </Grid>
                 </Grid>
@@ -122,7 +124,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                         {timeValue ? (
                           <Typography
                             sx={{
-                              fontSize: "2.125rem",
+                              fontSize: '2.125rem',
                               fontWeight: 500,
                               mr: 1,
                               mt: 1.75,
@@ -134,7 +136,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                         ) : (
                           <Typography
                             sx={{
-                              fontSize: "2.125rem",
+                              fontSize: '2.125rem',
                               fontWeight: 500,
                               mr: 1,
                               mt: 1.75,
@@ -149,26 +151,26 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                         <Avatar
                           sx={{
                             ...theme.typography.smallAvatar,
-                            cursor: "pointer",
-                            bgcolor: "primary.200",
-                            color: "primary.dark",
+                            cursor: 'pointer',
+                            bgcolor: 'primary.light',
+                            color: 'primary.dark',
                           }}
                         >
                           <ArrowDownwardIcon
                             fontSize="inherit"
-                            sx={{ transform: "rotate3d(1, 1, 1, 45deg)" }}
+                            sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }}
                           />
                         </Avatar>
                       </Grid>
                       <Grid size={12}>
                         <Typography
                           sx={{
-                            fontSize: "1rem",
+                            fontSize: '1rem',
                             fontWeight: 500,
-                            color: "primary.200",
+                            color: 'primary.200',
                           }}
                         >
-                          Total Order
+                          {t('totalOrder.title')}
                         </Typography>
                       </Grid>
                     </Grid>

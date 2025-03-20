@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 // material-ui
-import { useTheme, styled } from '@mui/material/styles';
+import { useTheme, styled, alpha } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
+import { useTranslation } from 'react-i18next';
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
@@ -26,7 +27,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
     background: `linear-gradient(210.04deg, ${theme.palette.warning.dark} -50.94%, rgba(144, 202, 249, 0) 83.49%)`,
     borderRadius: '50%',
     top: -30,
-    right: -180
+    right: -180,
   },
   '&:before': {
     content: '""',
@@ -36,14 +37,15 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
     background: `linear-gradient(140.9deg, ${theme.palette.warning.dark} -14.02%, rgba(144, 202, 249, 0) 70.50%)`,
     borderRadius: '50%',
     top: -160,
-    right: -130
-  }
+    right: -130,
+  },
 }));
 
 // ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
 const TotalIncomeLightCard = ({ isLoading, total, icon, label }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -60,8 +62,11 @@ const TotalIncomeLightCard = ({ isLoading, total, icon, label }) => {
                     sx={{
                       ...theme.typography.commonAvatar,
                       ...theme.typography.largeAvatar,
-                      bgcolor: 'warning.light',
-                      color: label === 'Meeting attends' ? 'error.dark' : 'warning.dark'
+                      bgcolor: alpha(theme.palette.warning.light, 0.3),
+                      color:
+                        label === 'Meeting attends'
+                          ? 'error.dark'
+                          : 'warning.dark',
                     }}
                   >
                     {icon}
@@ -69,9 +74,17 @@ const TotalIncomeLightCard = ({ isLoading, total, icon, label }) => {
                 </ListItemAvatar>
                 <ListItemText
                   sx={{ py: 0, mt: 0.45, mb: 0.45 }}
-                  primary={<Typography variant="h4">${total}k</Typography>}
+                  primary={
+                    <Typography variant="h4">
+                      ${total}
+                      {t('k')}
+                    </Typography>
+                  }
                   secondary={
-                    <Typography variant="subtitle2" sx={{ color: 'grey.500', mt: 0.5 }}>
+                    <Typography
+                      variant="subtitle2"
+                      sx={{ color: 'grey.500', mt: 0.5 }}
+                    >
                       {label}
                     </Typography>
                   }
@@ -89,7 +102,7 @@ TotalIncomeLightCard.propTypes = {
   icon: PropTypes.object,
   label: PropTypes.string,
   total: PropTypes.number,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
 };
 
 export default TotalIncomeLightCard;

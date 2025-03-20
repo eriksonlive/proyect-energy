@@ -8,6 +8,7 @@ import {
   ListItemText,
   Typography,
   useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -21,11 +22,13 @@ export const NavCollapse = ({ menu, level }) => {
   const theme = useTheme();
   const customization = useSelector((state) => state.custom);
   const navigate = useNavigate();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md')); // Detecta si es móvil
+
+  // Asegurar que `openMenu` sea `true` en móvil para evitar errores
+  const openMenu = isMobile ? true : customization.open;
 
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
-
-  const openMenu = useSelector(({ custom }) => custom.open);
 
   const handleClick = () => {
     setOpen(!open);
@@ -69,7 +72,7 @@ export const NavCollapse = ({ menu, level }) => {
         return <NavItem key={item.id} item={item} level={level + 1} />;
       default:
         return (
-          <Typography key={item.id} variant="h6" color="error" aling="center">
+          <Typography key={item.id} variant="h6" color="error" align="center">
             Menu Items Error
           </Typography>
         );

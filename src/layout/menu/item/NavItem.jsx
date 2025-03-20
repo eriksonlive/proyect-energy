@@ -6,6 +6,7 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import { forwardRef, useEffect } from 'react';
 import { useLocation } from 'react-router';
@@ -19,6 +20,10 @@ export const NavItem = ({ item, level }) => {
   const customization = useSelector(({ custom }) => custom);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md')); // Detecta si es móvil
+
+  // Ajustar el estado de apertura según el tamaño de la pantalla
+  const shouldOpen = isMobile ? true : customization.open;
 
   const Icon = item.icon;
   const itemIcon = item?.icon ? (
@@ -69,8 +74,8 @@ export const NavItem = ({ item, level }) => {
         mb: 0.5,
         alignItems: 'flex-start',
         backgroundColor: level > 1 ? 'transparent !important' : 'inherit',
-        py: customization.open ? (level > 1 ? 1 : 1.25) : null,
-        pl: customization.open ? `${level * 24}px` : null,
+        py: shouldOpen ? (level > 1 ? 1 : 1.25) : null,
+        pl: shouldOpen ? `${level * 24}px` : null,
       }}
       selected={
         (customization.isOpen || []).findIndex((id) => id === item.id) > -1
@@ -88,7 +93,7 @@ export const NavItem = ({ item, level }) => {
       >
         {itemIcon}
       </ListItemIcon>
-      {customization.open && (
+      {shouldOpen && (
         <ListItemText
           primary={
             <Typography

@@ -22,12 +22,14 @@ import GetAppTwoToneIcon from '@mui/icons-material/GetAppOutlined';
 import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
 import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
-import { useGetByDateQuery } from 'apis';
+import { FaIdCard } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
 const EarningCard = ({ isLoading }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -61,7 +63,7 @@ const EarningCard = ({ isLoading }) => {
               borderRadius: '50%',
               top: { xs: -105, sm: -85 },
               right: { xs: -140, sm: -95 },
-              opacity: 1
+              opacity: 1,
             },
             '&:before': {
               content: '""',
@@ -86,11 +88,11 @@ const EarningCard = ({ isLoading }) => {
                       sx={{
                         ...theme.typography.commonAvatar,
                         ...theme.typography.largeAvatar,
-                        bgcolor: 'secondary.800',
+                        bgcolor: 'secondary.light',
                         mt: 1,
                       }}
                     >
-                      {/* <img src={null} alt="Notification" /> */}
+                      <FaIdCard />
                     </Avatar>
                   </Grid>
                   <Grid>
@@ -101,7 +103,7 @@ const EarningCard = ({ isLoading }) => {
                         ...theme.typography.commonAvatar,
                         ...theme.typography.mediumAvatar,
                         bgcolor: 'secondary.dark',
-                        color: 'secondary.200',
+                        color: 'secondary.light',
                         zIndex: 1,
                       }}
                       aria-controls="menu-earning-card"
@@ -162,7 +164,7 @@ const EarningCard = ({ isLoading }) => {
                       sx={{
                         cursor: 'pointer',
                         ...theme.typography.smallAvatar,
-                        bgcolor: 'secondary.200',
+                        bgcolor: 'secondary.light',
                         color: 'secondary.dark',
                       }}
                     >
@@ -182,7 +184,7 @@ const EarningCard = ({ isLoading }) => {
                     color: 'secondary.200',
                   }}
                 >
-                  Total Earning
+                  {t('totalEarning.title')}
                 </Typography>
               </Grid>
             </Grid>

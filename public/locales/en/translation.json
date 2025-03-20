@@ -1,4 +1,27 @@
 {
   "welcome": "Welcome",
-  "button": "Click me"
+  "button": "Click me",
+  "menuItemsError": "Menu items error",
+  "k": "K",
+
+  "dashboard": {
+    "title": "Dashboard",
+    "home": "Home"
+  },
+
+  "totalEarning": {
+    "title": "Total Earning"
+  },
+
+  "totalOrder": {
+    "title": "Total Order",
+    "month": "Month",
+    "year": "Year"
+  },
+
+  "totalIncome": {
+    "title": "Total Income",
+    "month": "Month",
+    "year": "Year"
+  }
 }
