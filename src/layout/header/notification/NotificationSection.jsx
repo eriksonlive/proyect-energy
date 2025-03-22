@@ -23,6 +23,7 @@ import { Link } from 'react-router-dom';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { NotificationList } from './NotificationList';
+import { FaRegBell } from 'react-icons/fa';
 
 export const NotificationSection = () => {
   const theme = useTheme();
@@ -33,7 +34,15 @@ export const NotificationSection = () => {
   const anchorRef = useRef(null);
 
   const handleToggle = () => {
-    setOpen(!open);
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  // Función para cerrar cuando se haga clic fuera
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+    setOpen(false);
   };
 
   return (
@@ -59,7 +68,7 @@ export const NotificationSection = () => {
             onClick={handleToggle}
             color="inherit"
           >
-            {/* lorem icon */}
+            <FaRegBell />
           </Avatar>
         </ButtonBase>
       </Box>
@@ -80,13 +89,13 @@ export const NotificationSection = () => {
         ]}
       >
         {({ TransitionProps }) => (
-          <Transitions
-            position={matchesXs ? 'top' : 'top-right'}
-            in={open}
-            {...TransitionProps}
-          >
-            <Paper>
-              <ClickAwayListener onClickAway={() => {}}>
+          <ClickAwayListener onClickAway={handleClose}>
+            <Transitions
+              position={matchesXs ? 'top' : 'top-right'}
+              in={open}
+              {...TransitionProps}
+            >
+              <Paper>
                 <MainCard
                   border={false}
                   elevation={16}
@@ -175,9 +184,9 @@ export const NotificationSection = () => {
                     </Button>
                   </CardActions>
                 </MainCard>
-              </ClickAwayListener>
-            </Paper>
-          </Transitions>
+              </Paper>
+            </Transitions>
+          </ClickAwayListener>
         )}
       </Popper>
     </>

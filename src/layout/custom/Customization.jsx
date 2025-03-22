@@ -109,7 +109,7 @@ export const Customization = () => {
         >
           <AnimateButton type="rotate">
             <IconButton color="inherit" size="large" disableRipple>
-              <BsGear />
+              <BsGear color="white" size={20} />
             </IconButton>
           </AnimateButton>
         </Fab>

@@ -12,9 +12,11 @@ import PopularCard from './PopularCard';
 import { useSelector } from 'react-redux';
 import { selectUser } from 'store/slices/auth/authSlice';
 import { FaStore } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 
 export const DashboardPage = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const { t } = useTranslation();
 
   const user = useSelector(selectUser);
 
@@ -42,7 +44,7 @@ export const DashboardPage = () => {
                   {...{
                     isLoading: isLoading,
                     total: 203,
-                    label: 'Total Income',
+                    label: t('totalIncome.title'),
                     icon: <FaStore />,
                   }}
                 />
