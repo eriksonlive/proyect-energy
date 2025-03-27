@@ -13,10 +13,10 @@
     "@auth0/auth0-react": "^2.3.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@eslint/config-array": "^0.19.1",
+    "@eslint/config-array": "^0.20.0",
     "@eslint/object-schema": "^2.1.5",
-    "@mui/icons-material": "^6.3.0",
-    "@mui/material": "^6.3.0",
+    "@mui/icons-material": "^6.4.9",
+    "@mui/material": "^6.4.9",
     "@mui/x-data-grid": "^7.27.0",
     "@mui/x-date-pickers": "^7.23.3",
     "@react-oauth/google": "^0.12.1",
@@ -50,6 +50,7 @@
     "redux-persist": "^6.0.0",
     "styled-components": "^6.1.13",
     "vite-jsconfig-paths": "^2.0.1",
+    "vite-plugin-svgr": "^4.3.0",
     "yup": "^1.6.1"
   },
   "devDependencies": {

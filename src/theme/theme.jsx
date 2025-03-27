@@ -8,7 +8,7 @@ import { componentStyleOverrides } from './compStyleOverride';
 export const theme = (customization) => {
   const color = colors;
 
-  const isDark = false;
+  const isDark = customization.mode;
 
   const themeOption = {
     mode: isDark ? 'dark' : 'light',

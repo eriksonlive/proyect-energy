@@ -36,6 +36,10 @@ import { useTranslation } from 'react-i18next';
 
 export const ProfileSection = () => {
   const theme = useTheme();
+  const anchorRef = useRef(null);
+  const dispatch = useDispatch();
+
+  const { t } = useTranslation();
   const customization = useSelector((state) => state.custom);
   const navigate = useNavigate();
 
@@ -45,13 +49,7 @@ export const ProfileSection = () => {
   const [notification, setNotification] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
-  const anchorRef = useRef(null);
-
-  const { nombre, email } = useSelector(selectUser);
-
-  const { t } = useTranslation();
-
-  const dispatch = useDispatch();
+  const { nombre, email, photo } = useSelector(selectUser);
 
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
@@ -97,7 +95,7 @@ export const ProfileSection = () => {
         }}
         icon={
           <Avatar
-            // src={null}
+            src={photo ?? null}
             sx={{
               ...theme.typography.mediumAvatar,
               margin: '8px 0 8px 8px !important',
@@ -164,7 +162,7 @@ export const ProfileSection = () => {
                       id="input-search-profile"
                       value={value}
                       onChange={({ target }) => setValue(target.value)}
-                      placeholder="Buscar opciones de perfil"
+                      placeholder={t('profile.search')}
                       startAdornment={
                         <InputAdornment position="start">
                           <IoSearchOutline
@@ -201,7 +199,7 @@ export const ProfileSection = () => {
                               >
                                 <Grid>
                                   <Typography variant="subtitle1">
-                                    Start DND Mode
+                                    {t('profile.startModeDnd')}
                                   </Typography>
                                 </Grid>
                                 <Grid>
@@ -225,7 +223,7 @@ export const ProfileSection = () => {
                               >
                                 <Grid>
                                   <Typography variant="subtitle1">
-                                    Permitir notificaciones
+                                    {t('profile.allowNotifications')}
                                   </Typography>
                                 </Grid>
                                 <Grid>
@@ -275,7 +273,7 @@ export const ProfileSection = () => {
                           <ListItemText
                             primary={
                               <Typography variant="body2">
-                                Configuración de cuenta
+                                {t('profile.accountSetup')}
                               </Typography>
                             }
                           />
@@ -301,7 +299,7 @@ export const ProfileSection = () => {
                               >
                                 <Grid>
                                   <Typography variant="body2">
-                                    Perfil social
+                                    {t('profile.socialProfile')}
                                   </Typography>
                                 </Grid>
                                 <Grid>
@@ -334,7 +332,7 @@ export const ProfileSection = () => {
                           <ListItemText
                             primary={
                               <Typography variant="body2">
-                                Cerrar sesión
+                                {t('profile.logout')}
                               </Typography>
                             }
                           />

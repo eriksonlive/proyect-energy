@@ -15,9 +15,11 @@ import { HiOutlineAdjustmentsHorizontal } from 'react-icons/hi2';
 
 import { Transitions } from 'ui-component';
 import { MobileSearch } from './MobileSearch';
+import { useTranslation } from 'react-i18next';
 
 export const SearchSection = () => {
   const [value, setValue] = useState('');
+  const { t } = useTranslation();
 
   return (
     <>
@@ -83,7 +85,7 @@ export const SearchSection = () => {
           id="input-search-header"
           value={value}
           onChange={({ target }) => setValue(target.value)}
-          placeholder="Buscar"
+          placeholder={t('search')}
           startAdornment={
             <InputAdornment position="start">
               <IoSearchOutline size="1.3rem" />

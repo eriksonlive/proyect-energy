@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  Checkbox,
   Drawer,
   Fab,
   FormControl,
@@ -23,7 +24,13 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 
 import { AnimateButton, SubCard } from 'ui-component';
 import { gridSpacing } from 'store/constan';
-import { borderState, fontState } from 'store/slices/custom/customReducer';
+import {
+  borderState,
+  fontState,
+  modeState,
+} from 'store/slices/custom/customReducer';
+import { useTranslation } from 'react-i18next';
+import { ButtonMode } from 'components/buttons/ButtonMode';
 
 const valueText = (value) => {
   return `${value}px`;
@@ -35,6 +42,7 @@ export const Customization = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const customization = useSelector((state) => state.custom);
+  const { t } = useTranslation();
 
   // drawer on/off
   const [open, setOpen] = useState(false);
@@ -46,6 +54,10 @@ export const Customization = () => {
   const [borderRadius, setBorderRadius] = useState(customization.borderRadius);
   const handleBorderRadius = (event, newValue) => {
     setBorderRadius(newValue);
+  };
+
+  const handleThemeMode = () => {
+    dispatch(modeState(!customization.mode));
   };
 
   useEffect(() => {
@@ -119,13 +131,25 @@ export const Customization = () => {
         anchor="right"
         onClose={handleToggle}
         open={open}
-        sx={{ width: 280 }}
+        sx={{
+          '& .MuiDrawer-paper': {
+            width: 280, // ✅ Se aplica correctamente al Paper interno
+            maxWidth: 280,
+          },
+        }}
       >
         <PerfectScrollbar component="div">
           <Grid container spacing={gridSpacing} sx={{ p: 3 }}>
             <Grid size={12}>
+              <ButtonMode
+                handleThemeMode={handleThemeMode}
+                stateMode={customization.mode}
+              />
+            </Grid>
+
+            <Grid size={12}>
               {/* font family */}
-              <SubCard title="Font Family">
+              <SubCard title={t('additional.fontFamily')}>
                 <FormControl>
                   <RadioGroup
                     aria-label="font-family"
@@ -172,7 +196,7 @@ export const Customization = () => {
             </Grid>
             <Grid size={12}>
               {/* border radius */}
-              <SubCard title="Border Radius">
+              <SubCard title={t('additional.borderRadius')}>
                 <Grid
                   size={12}
                   container

@@ -17,16 +17,18 @@ import MainCard from 'ui-component/cards/MainCard';
 
 // API Hook
 import { useGetByDateQuery, useGetEnergyPriceHourQuery } from 'apis';
-
-const status = [
-  { value: 'today', label: 'Today' },
-  { value: 'month', label: 'This Month' },
-  { value: 'year', label: 'This Year' },
-];
+import { useTranslation } from 'react-i18next';
 
 const TotalGrowthBarChart = ({ isLoading }) => {
   const [value, setValue] = useState('today');
   const theme = useTheme();
+  const { t } = useTranslation();
+
+  const status = [
+    { value: 'today', label: t('today') },
+    { value: 'month', label: t('thisMonth') },
+    { value: 'year', label: t('thisYear') },
+  ];
 
   // Estado inicial del gráfico
   const [chartData, setChartData] = useState({
@@ -159,7 +161,9 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                 justifyContent="space-between"
               >
                 <Grid>
-                  <Typography variant="subtitle2">Total Growth</Typography>
+                  <Typography variant="subtitle2">
+                    {t('totalGrowth.title')}
+                  </Typography>
                   <Typography variant="h3">$2,324.00</Typography>
                 </Grid>
                 <Grid>

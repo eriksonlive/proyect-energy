@@ -23,11 +23,13 @@ import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
+import { useTranslation } from 'react-i18next';
 
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
 const PopularCard = ({ isLoading }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { t } = useTranslation();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -53,7 +55,9 @@ const PopularCard = ({ isLoading }) => {
                   columns={12}
                 >
                   <Grid size={'auto'}>
-                    <Typography variant="h4">Popular Stocks</Typography>
+                    <Typography variant="h4">
+                      {t('popularStocks.title')}
+                    </Typography>
                   </Grid>
                   <Grid size="auto">
                     <MoreHorizOutlinedIcon
@@ -82,9 +86,15 @@ const PopularCard = ({ isLoading }) => {
                         horizontal: 'right',
                       }}
                     >
-                      <MenuItem onClick={handleClose}> Today</MenuItem>
-                      <MenuItem onClick={handleClose}> This Month</MenuItem>
-                      <MenuItem onClick={handleClose}> This Year </MenuItem>
+                      <MenuItem onClick={handleClose}> {t('today')} </MenuItem>
+                      <MenuItem onClick={handleClose}>
+                        {' '}
+                        {t('thisMonth')}
+                      </MenuItem>
+                      <MenuItem onClick={handleClose}>
+                        {' '}
+                        {t('thisYear')}{' '}
+                      </MenuItem>
                     </Menu>
                   </Grid>
                 </Grid>
@@ -145,7 +155,7 @@ const PopularCard = ({ isLoading }) => {
                       variant="subtitle2"
                       sx={{ color: 'success.dark' }}
                     >
-                      10% Profit
+                      10% {t('profit')}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -202,7 +212,7 @@ const PopularCard = ({ isLoading }) => {
                       variant="subtitle2"
                       sx={{ color: 'warning.dark' }}
                     >
-                      10% loss
+                      10% {t('loss')}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -259,7 +269,7 @@ const PopularCard = ({ isLoading }) => {
                       variant="subtitle2"
                       sx={{ color: 'success.dark' }}
                     >
-                      10% Profit
+                      10% {t('profit')}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -314,7 +324,7 @@ const PopularCard = ({ isLoading }) => {
                       variant="subtitle2"
                       sx={{ color: 'warning.dark' }}
                     >
-                      10% loss
+                      10% {t('loss')}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -369,7 +379,7 @@ const PopularCard = ({ isLoading }) => {
                       variant="subtitle2"
                       sx={{ color: 'warning.dark' }}
                     >
-                      10% loss
+                      10% {t('loss')}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -378,7 +388,7 @@ const PopularCard = ({ isLoading }) => {
           </CardContent>
           <CardActions sx={{ p: 1.25, pt: 0, justifyContent: 'center' }}>
             <Button size="small" disableElevation>
-              View All
+              {t('viewAll')}
               <ChevronRightOutlinedIcon />
             </Button>
           </CardActions>

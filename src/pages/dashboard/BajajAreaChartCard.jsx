@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
@@ -13,12 +13,14 @@ import Chart from 'react-apexcharts';
 
 // project imports
 import chartData from './chart-data/bajaj-area-chart';
+import { useTranslation } from 'react-i18next';
 
 // ===========================|| DASHBOARD DEFAULT - BAJAJ AREA CHART CARD ||=========================== //
 
 const BajajAreaChartCard = () => {
   const theme = useTheme();
   const orangeDark = theme.palette.secondary.dark;
+  const { t } = useTranslation();
 
   const customization = useSelector((state) => state.custom);
   // const { navType } = customization;
@@ -33,7 +35,12 @@ const BajajAreaChartCard = () => {
   }, [orangeDark]);
 
   return (
-    <Card sx={{ bgcolor: 'secondary.light' }}>
+    <Card
+      sx={{
+        bgcolor: alpha(theme.palette.secondary.light, 0.3),
+        color: theme.palette.secondary.dark,
+      }}
+    >
       <Grid container sx={{ p: 2, pb: 0, color: '#fff' }}>
         <Grid size={12}>
           <Grid container alignItems="center" justifyContent="space-between">
@@ -51,7 +58,7 @@ const BajajAreaChartCard = () => {
         </Grid>
         <Grid size={12}>
           <Typography variant="subtitle2" sx={{ color: 'grey.800' }}>
-            10% Profit
+            10% {t('profit')}
           </Typography>
         </Grid>
       </Grid>

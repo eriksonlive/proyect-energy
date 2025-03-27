@@ -129,16 +129,20 @@ const EarningCard = ({ isLoading }) => {
                       }}
                     >
                       <MenuItem onClick={handleClose}>
-                        <GetAppTwoToneIcon sx={{ mr: 1.75 }} /> Import Card
+                        <GetAppTwoToneIcon sx={{ mr: 1.75 }} />{' '}
+                        {t('additional.importCard')}
                       </MenuItem>
                       <MenuItem onClick={handleClose}>
-                        <FileCopyTwoToneIcon sx={{ mr: 1.75 }} /> Copy Data
+                        <FileCopyTwoToneIcon sx={{ mr: 1.75 }} />
+                        {t('additional.copyData')}
                       </MenuItem>
                       <MenuItem onClick={handleClose}>
-                        <PictureAsPdfTwoToneIcon sx={{ mr: 1.75 }} /> Export
+                        <PictureAsPdfTwoToneIcon sx={{ mr: 1.75 }} />{' '}
+                        {t('additional.export')}
                       </MenuItem>
                       <MenuItem onClick={handleClose}>
-                        <ArchiveTwoToneIcon sx={{ mr: 1.75 }} /> Archive File
+                        <ArchiveTwoToneIcon sx={{ mr: 1.75 }} />
+                        {t('additional.archiveFile')}
                       </MenuItem>
                     </Menu>
                   </Grid>

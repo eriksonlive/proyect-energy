@@ -1,8 +1,21 @@
 {
   "welcome": "Bienvenido",
-  "button": "Haz clic aquí",
+  "button": "Botón",
   "menuItemsError": "Error de elementos del menú",
-  "k": "mil",
+  "k": "Mil",
+  "today": "Hoy",
+  "yesterday": "Ayer",
+  "thisMonth": "Este mes",
+  "thisWeek": "Esta semana",
+  "thisYear": "Este año",
+  "profit": "Beneficio",
+  "income": "Ingresos",
+  "loss": "Pérdida",
+  "revenue": "Ingresos",
+  "viewAll": "Ver todo",
+  "create": "Crear",
+  "search": "Buscar",
+  "edit": "Editar",
 
   "dashboard": {
     "title": "Panel",
@@ -21,5 +34,43 @@
 
   "totalIncome": {
     "title": "Ingresos totales"
+  },
+
+  "totalGrowth" : {
+    "title": "Crecimiento total"
+  },
+
+  "popularStocks": {
+    "title": "Acciones populares"
+  },
+
+  "profile": {
+    "title": "Perfil",
+    "search": "Buscar opciones de perfil",
+    "edit": "Editar perfil",
+    "logout": "Cerrar sesión",
+    "settings": "Configuraciones",
+    "theme": "Tema",
+    "accountSetup": "Configuración de la cuenta",
+    "privacy": "Privacidad",
+    "terms": "Términos y condiciones",
+    "feedback": "Realimentación",
+    "socialProfile": "Perfil social",
+    "notifications": "Notificaciones",
+    "language": "Idioma",
+    "allowNotifications": "Permitir notificaciones",
+    "startModeDnd": "Iniciar modo DND"
+  },
+
+  "additional": {
+    "title": "Adicional",
+    "importCard": "Importar tarjeta",
+    "copyData": "Copiar datos",
+    "export": "Exportar",
+    "print": "Imprimir",
+    "archiveFile": "Archivo de almacenamiento",
+    "fontFamily": "Familia de fuentes",
+    "borderRadius": "Radio de borde",
+    "mode": "Modo"
   }
 }

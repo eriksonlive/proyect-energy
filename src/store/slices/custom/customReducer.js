@@ -6,6 +6,7 @@ const initialState = {
   open: true,
   fontFamily: config.fontFamily,
   borderRadius: config.borderRadius,
+  mode: false,
 };
 
 export const customSlice = createSlice({
@@ -24,8 +25,11 @@ export const customSlice = createSlice({
     borderState: (state, action) => {
       state.borderRadius = action.payload;
     },
+    modeState: (state, action) => {
+      state.mode = action.payload;
+    },
   },
 });
 
-export const { isOpenMenu, fontState, borderState, selectedMenu } =
+export const { isOpenMenu, fontState, borderState, selectedMenu, modeState } =
   customSlice.actions;

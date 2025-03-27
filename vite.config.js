@@ -2,10 +2,11 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import jsconfigPaths from 'vite-jsconfig-paths';
 import Inspect from 'vite-plugin-inspect';
+import svgr from 'vite-plugin-svgr';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), jsconfigPaths(), Inspect()],
+  plugins: [svgr(), react(), jsconfigPaths(), Inspect()],
   server: {
     port: 4000, // Asegúrate de que este puerto esté libre y sea el correcto
     open: true, // Esto abrirá automáticamente el navegador

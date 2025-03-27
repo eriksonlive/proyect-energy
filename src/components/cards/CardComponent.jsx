@@ -16,9 +16,11 @@ import GetAppTwoToneIcon from '@mui/icons-material/GetAppOutlined';
 import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
 import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
+import { useTranslation } from 'react-i18next';
 
 export const CardComponent = ({ isLoading }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const [anchoEl, setAnchoEl] = useState(null);
 
@@ -37,27 +39,27 @@ export const CardComponent = ({ isLoading }) => {
       ) : (
         <CardBaseComponent
           sx={{
-            bgcolor: "secondary.800",
-            color: "#fff",
-            overflow: "hidden",
-            position: "relative",
-            "&:after": {
+            bgcolor: 'secondary.800',
+            color: '#fff',
+            overflow: 'hidden',
+            position: 'relative',
+            '&:after': {
               content: '""',
-              position: "absolute",
+              position: 'absolute',
               width: 210,
               height: 210,
               background: theme.palette.secondary.main,
-              borderRadius: "50%",
+              borderRadius: '50%',
               top: { xs: -105, sm: -85 },
               right: { xs: -140, sm: -95 },
             },
-            "&:before": {
+            '&:before': {
               content: '""',
-              position: "absolute",
+              position: 'absolute',
               width: 210,
               height: 210,
               background: theme.palette.secondary.main,
-              borderRadius: "50%",
+              borderRadius: '50%',
               top: { xs: -155, sm: -125 },
               right: { xs: -70, sm: -15 },
               opacity: 0.5,
@@ -74,9 +76,9 @@ export const CardComponent = ({ isLoading }) => {
                       sx={{
                         ...theme.typography.commonAvatar,
                         ...theme.typography.largeAvatar,
-                        bgcolor: "secondary.main",
+                        bgcolor: 'secondary.main',
                         mt: 1,
-                        color: "white",
+                        color: 'white',
                       }}
                     ></Avatar>
                   </Grid>
@@ -86,8 +88,8 @@ export const CardComponent = ({ isLoading }) => {
                       sx={{
                         ...theme.typography.commonAvatar,
                         ...theme.typography.mediumAvatar,
-                        bgcolor: "secondary.dark",
-                        color: "secondary.200",
+                        bgcolor: 'secondary.dark',
+                        color: 'secondary.200',
                         zIndex: 1,
                       }}
                       aria-controls="menu-earning-card"
@@ -104,16 +106,17 @@ export const CardComponent = ({ isLoading }) => {
                       onClose={handleClose}
                       variant="selectedMenu"
                       anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
+                        vertical: 'top',
+                        horizontal: 'right',
                       }}
                       transformOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
+                        vertical: 'top',
+                        horizontal: 'right',
                       }}
                     >
                       <MenuItem onClick={handleClose}>
-                        <GetAppTwoToneIcon sx={{ mr: 1.75 }} /> Import Card
+                        <GetAppTwoToneIcon sx={{ mr: 1.75 }} />{' '}
+                        {t('additional.importCard')}
                       </MenuItem>
                       <MenuItem onClick={handleClose}>
                         <FileCopyTwoToneIcon sx={{ mr: 1.75 }} /> Copy Data
@@ -133,7 +136,7 @@ export const CardComponent = ({ isLoading }) => {
                   <Grid>
                     <Typography
                       sx={{
-                        fontSize: "2.125rem",
+                        fontSize: '2.125rem',
                         fontWeight: 500,
                         mr: 1,
                         mt: 1.75,
@@ -146,15 +149,15 @@ export const CardComponent = ({ isLoading }) => {
                   <Grid>
                     <Avatar
                       sx={{
-                        cursor: "pointer",
+                        cursor: 'pointer',
                         ...theme.typography.smallAvatar,
-                        bgcolor: "secondary.200",
-                        color: "secondary.dark",
+                        bgcolor: 'secondary.200',
+                        color: 'secondary.dark',
                       }}
                     >
                       <ArrowUpwardIcon
                         fontSize="inherit"
-                        sx={{ transform: "rotate3d(1, 1, 1, 45deg)" }}
+                        sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }}
                       />
                     </Avatar>
                   </Grid>
@@ -163,9 +166,9 @@ export const CardComponent = ({ isLoading }) => {
               <Grid>
                 <Typography
                   sx={{
-                    fontSize: "1rem",
+                    fontSize: '1rem',
                     fontWeight: 500,
-                    color: "secondary.200",
+                    color: 'secondary.200',
                   }}
                 >
                   Total Earning
