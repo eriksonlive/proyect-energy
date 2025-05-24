@@ -5,5 +5,5 @@ import { MainCard } from 'ui-component';
 export const ComunidadPage = () => {
   const theme = useTheme();
 
-  return <MainCard>Esto es comunidad</MainCard>;
+  return <MainCard>Esto es comunidad lorem</MainCard>;
 };
